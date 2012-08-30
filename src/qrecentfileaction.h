@@ -1,3 +1,6 @@
+/*
+Copyright (C) 2012 Klarälvdalens Datakonsult AB, a KDAB Group company, info@kdab.com
+*/
 
 #ifndef QRECENTFILEACTION_H
 #define QRECENTFILEACTION_H
