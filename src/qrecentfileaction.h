@@ -26,6 +26,11 @@ public:
     void setMaximumNumberOfRecentFile(int) const;
 
     void fileSelected(QAction*);
+public Q_SLOTS:
+    void clear();
+Q_SIGNALS:
+    void recentFileSelected(const QString&);
+    void recentFileCleared();
 private:
     void initMenu();
     void loadRecentFile();

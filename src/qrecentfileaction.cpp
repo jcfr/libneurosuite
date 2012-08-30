@@ -52,6 +52,11 @@ void QRecentFileAction::initMenu()
     connect(this, SIGNAL(triggered(QAction*)), SLOT(fileSelected(QAction*)));
 }
 
+void QRecentFileAction::clear()
+{
+    //TODO
+}
+
 void QRecentFileAction::fileSelected(QAction*)
 {
     //TODO
@@ -64,7 +69,7 @@ void QRecentFileAction::clearRecentFile()
     setMenu(0);
     setEnabled(false);
     d->recentFiles.clear();
-
+    Q_EMIT recentFileCleared();
 }
 
 void QRecentFileAction::fillRecentMenu()
