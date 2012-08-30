@@ -12,5 +12,5 @@ install( TARGETS klustersshared EXPORT LibKlustersSharedLibraryTargets
     ARCHIVE DESTINATION ${LIB_INSTALL_DIR} 
 )
 
-install( FILES ${libklustersshared_HEADERS} DESTINATION include/klustersshared COMPONENT Devel )
+install( FILES ${libklustersshared_HEADERS} DESTINATION ${INCLUDE_INSTALL_DIR} COMPONENT Devel )
 
