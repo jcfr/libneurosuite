@@ -10,7 +10,7 @@ Copyright (C) 2012 Klarälvdalens Datakonsult AB, a KDAB Group company, info@kda
 
 class QRecentFileActionPrivate;
 
-class KLUSTERSSHARED_EXPORT QRecentFileAction : QAction
+class KLUSTERSSHARED_EXPORT QRecentFileAction : public QAction
 {
     Q_OBJECT
 public:
