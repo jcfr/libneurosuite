@@ -16,6 +16,7 @@ public:
     {
         maximumNumberOfRecentFile = 10;
     }
+    QList<QAction*> listRecentAction;
     QStringList recentFiles;
     int maximumNumberOfRecentFile;
     QAction *noEntriesAction;
@@ -30,6 +31,7 @@ QRecentFileAction::QRecentFileAction(QObject *parent)
     :QAction(parent), d(new QRecentFileActionPrivate(this))
 {
     setText(tr("Recent Files..."));
+    initMenu();
     loadRecentFile();
 }
 
@@ -54,16 +56,6 @@ void QRecentFileAction::initMenu()
 
 void QRecentFileAction::clear()
 {
-    //TODO
-}
-
-void QRecentFileAction::fileSelected(QAction*)
-{
-    //TODO
-}
-
-void QRecentFileAction::clearRecentFile()
-{
     QMenu *recentFileMenu = menu();
     delete recentFileMenu;
     setMenu(0);
@@ -71,6 +63,14 @@ void QRecentFileAction::clearRecentFile()
     d->recentFiles.clear();
     Q_EMIT recentFileCleared();
 }
+
+void QRecentFileAction::fileSelected(QAction*action)
+{
+    if(action) {
+        Q_EMIT recentFileSelected(action->text());
+    }
+}
+
 
 void QRecentFileAction::fillRecentMenu()
 {
@@ -82,10 +82,34 @@ void QRecentFileAction::fillRecentMenu()
 
 void QRecentFileAction::addRecentFile(const QString&file)
 {
-    if(!d->recentFiles.contains(file)) {
-        d->recentFiles.append(file);
+
+    // remove file if already in list
+    foreach (QAction* action, d->listRecentAction)
+    {
+      if ( action->text() == file )
+      {
+        menu()->removeAction(action);
+        d->recentFiles.removeAll(file);
+        d->listRecentAction.removeAll(action);
+        break;
+      }
     }
-    //update Menu
+    if( d->maximumNumberOfRecentFile && d->listRecentAction.count() == d->maximumNumberOfRecentFile )
+    {
+        QAction *act = d->listRecentAction.first();
+        menu()->removeAction(act);
+        d->recentFiles.removeAll(act->text());
+        d->listRecentAction.removeAll(act);
+    }
+
+    d->noEntriesAction->setVisible(false);
+    d->clearSeparator->setVisible(true);
+    d->clearAction->setVisible(true);
+    setEnabled(true);
+    d->recentFiles.append(file);
+
+    QAction* action = new QAction(file,this);
+    menu()->addAction(action);
 }
 
 void QRecentFileAction::removeRecentFile(const QString&file)
@@ -93,8 +117,23 @@ void QRecentFileAction::removeRecentFile(const QString&file)
     if(!d->recentFiles.contains(file)) {
         d->recentFiles.removeAll(file);
     }
-    //update Menu
 
+    foreach (QAction* action, d->listRecentAction)
+    {
+      if ( action->text() == file )
+      {
+        menu()->removeAction(action);
+        d->recentFiles.removeAll(file);
+        d->listRecentAction.removeAll(action);
+        break;
+      }
+    }
+    if(d->listRecentAction.isEmpty()) {
+        d->noEntriesAction->setVisible(true);
+        d->clearSeparator->setVisible(false);
+        d->clearAction->setVisible(false);
+        setEnabled(false);
+    }
 }
 
 void QRecentFileAction::saveRecentFile()
@@ -128,6 +167,12 @@ void QRecentFileAction::setMaximumNumberOfRecentFile(int maximumRecentFile ) con
 {
     if(d->maximumNumberOfRecentFile != maximumRecentFile) {
         d->maximumNumberOfRecentFile = maximumRecentFile;
-        //update menu
+        // remove all excess items
+        while( d->listRecentAction.count() > d->maximumNumberOfRecentFile ) {
+            QAction *act = d->listRecentAction.last();
+            menu()->removeAction(act);
+            d->recentFiles.removeAll(act->text());
+            d->listRecentAction.removeAll(act);
+        }
     }
 }

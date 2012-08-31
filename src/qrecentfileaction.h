@@ -20,7 +20,6 @@ public:
     void addRecentFile(const QString&);
     void removeRecentFile(const QString&);
     void saveRecentFile();
-    void clearRecentFile();
 
     int maximumNumberOfRecentFile() const;
     void setMaximumNumberOfRecentFile(int) const;
