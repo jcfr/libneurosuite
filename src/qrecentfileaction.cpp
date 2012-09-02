@@ -37,6 +37,7 @@ QRecentFileAction::QRecentFileAction(QObject *parent)
 
 QRecentFileAction::~QRecentFileAction()
 {
+    saveRecentFile();
     delete d;
 }
 
@@ -50,16 +51,25 @@ void QRecentFileAction::initMenu()
     d->clearSeparator->setVisible(false);
     d->clearAction = menu()->addAction(tr("Clear List"), this, SLOT(clear()));
     d->clearAction->setVisible(false);
-    setEnabled(false);
+    menu()->setEnabled(false);
     connect(menu(), SIGNAL(triggered(QAction*)), SLOT(fileSelected(QAction*)));
 }
 
 void QRecentFileAction::clear()
 {
-    QMenu *recentFileMenu = menu();
-    delete recentFileMenu;
-    setMenu(0);
-    setEnabled(false);
+    menu()->setEnabled(false);
+    d->noEntriesAction->setVisible(true);
+    d->clearSeparator->setVisible(false);
+    d->clearAction->setVisible(false);
+
+    const QList<QAction*> actions = d->listRecentAction;
+    const int numberOfAction(actions.count());
+    for (int i = 0; i < numberOfAction; ++i)
+    {
+        menu()->removeAction(actions.at(i));
+        actions.at(i)->deleteLater();
+    }
+
     d->recentFiles.clear();
     Q_EMIT recentFileCleared();
 }
@@ -76,7 +86,7 @@ void QRecentFileAction::fillRecentMenu()
 {
     if(d->recentFiles.isEmpty())
         return;
-    setEnabled(true);
+    menu()->setEnabled(true);
 
 }
 
@@ -105,7 +115,7 @@ void QRecentFileAction::addRecentFile(const QString&file)
     d->noEntriesAction->setVisible(false);
     d->clearSeparator->setVisible(true);
     d->clearAction->setVisible(true);
-    setEnabled(true);
+    menu()->setEnabled(true);
     d->recentFiles.append(file);
 
     QAction* action = new QAction(file,this);
@@ -132,7 +142,7 @@ void QRecentFileAction::removeRecentFile(const QString&file)
         d->noEntriesAction->setVisible(true);
         d->clearSeparator->setVisible(false);
         d->clearAction->setVisible(false);
-        setEnabled(false);
+        menu()->setEnabled(false);
     }
 }
 
