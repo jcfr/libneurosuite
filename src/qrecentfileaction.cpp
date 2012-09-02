@@ -51,7 +51,7 @@ void QRecentFileAction::initMenu()
     d->clearAction = menu()->addAction(tr("Clear List"), this, SLOT(clear()));
     d->clearAction->setVisible(false);
     setEnabled(false);
-    connect(this, SIGNAL(triggered(QAction*)), SLOT(fileSelected(QAction*)));
+    connect(menu(), SIGNAL(triggered(QAction*)), SLOT(fileSelected(QAction*)));
 }
 
 void QRecentFileAction::clear()
