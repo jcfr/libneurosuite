@@ -109,7 +109,7 @@ void QRecentFileAction::addRecentFile(const QString&file)
     d->recentFiles.append(file);
 
     QAction* action = new QAction(file,this);
-    menu()->addAction(action);
+    menu()->insertAction(menu()->actions().value(0), action);
 }
 
 void QRecentFileAction::removeRecentFile(const QString&file)
