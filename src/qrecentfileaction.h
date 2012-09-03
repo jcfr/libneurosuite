@@ -18,17 +18,39 @@ public:
     explicit QRecentFileAction(QObject *parent);
     ~QRecentFileAction();
 
-    void addRecentFile(const QString&);
-    void removeRecentFile(const QString&);
+    /**
+     * @brief addRecentFile
+     * @param file
+     */
+    void addRecentFile(const QString& file);
+    /**
+     * @brief removeRecentFile
+     * @param file
+     */
+    void removeRecentFile(const QString& file);
+
+    /**
+     * @brief saveRecentFile
+     */
     void saveRecentFile();
 
+    /**
+     * @brief maximumNumberOfRecentFile
+     * @return
+     */
     int maximumNumberOfRecentFile() const;
+    /**
+     * @brief setMaximumNumberOfRecentFile
+     */
     void setMaximumNumberOfRecentFile(int) const;
 
 
-public Q_SLOTS:
+private Q_SLOTS:
     void fileSelected(QAction*);
+
+public Q_SLOTS:
     void clear();
+
 Q_SIGNALS:
     void recentFileSelected(const QString&);
     void recentFileCleared();
