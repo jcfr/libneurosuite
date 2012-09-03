@@ -9,7 +9,7 @@ class QPageDialogPrivate
 {
 public:
     QPageDialogPrivate(QPageDialog *q)
-        :buttonBox(0), qq(q)
+        :type(QPageDialog::IconType),buttonBox(0), qq(q)
     {
         init();
     }
@@ -17,6 +17,7 @@ public:
     void init();
     void setButtons(QDialogButtonBox::StandardButtons standardButtons);
 
+    QPageDialog::PageType type;
     QDialogButtonBox *buttonBox;
     QPageDialog *qq;
 };
@@ -57,4 +58,14 @@ void QPageDialog::setButtons(QDialogButtonBox::StandardButtons standardButtons)
 QDialogButtonBox *QPageDialog::dialogButtonBox() const
 {
     return d->buttonBox;
+}
+
+void QPageDialog::setType(QPageDialog::PageType type)
+{
+    d->type = type;
+}
+
+void QPageDialog::addPage(QWidget *page)
+{
+    //TODO
 }

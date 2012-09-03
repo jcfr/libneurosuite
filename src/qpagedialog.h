@@ -18,8 +18,17 @@ public:
     explicit QPageDialog(QWidget *parent);
     ~QPageDialog();
 
+    enum PageType {
+        IconType = 0,
+        TreeType = 1,
+        ListType = 2
+    };
+
     QDialogButtonBox *dialogButtonBox() const;
     void setButtons(QDialogButtonBox::StandardButtons standardButtons);
+    void setType(QPageDialog::PageType type);
+
+    void addPage(QWidget *page);
 private:
     QPageDialogPrivate *d;
     Q_DISABLE_COPY(QPageDialog)
