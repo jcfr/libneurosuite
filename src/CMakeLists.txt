@@ -1,6 +1,6 @@
 project(libklustersshared-src)
-set(libklustersshared_SRCS qrecentfileaction.cpp qcolorbutton.cpp)
-set (libklustersshared_HEADERS libklustersshared_export.h qrecentfileaction.h qcolorbutton.h )
+set(libklustersshared_SRCS qrecentfileaction.cpp qcolorbutton.cpp qpagedialog.cpp)
+set (libklustersshared_HEADERS libklustersshared_export.h qrecentfileaction.h qcolorbutton.h qpagedialog.h )
 
 
 add_library (klustersshared SHARED ${libklustersshared_SRCS})
