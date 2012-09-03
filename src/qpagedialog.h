@@ -26,7 +26,9 @@ public:
 
     QDialogButtonBox *dialogButtonBox() const;
     void setButtons(QDialogButtonBox::StandardButtons standardButtons);
+
     void setType(QPageDialog::PageType type);
+    QPageDialog::PageType type() const;
 
     void addPage(QWidget *page);
 private:

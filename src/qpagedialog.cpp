@@ -4,6 +4,7 @@ Copyright (C) 2012 Klarälvdalens Datakonsult AB, a KDAB Group company, info@kda
 
 #include "qpagedialog.h"
 #include <QVBoxLayout>
+#include <QDebug>
 
 class QPageDialogPrivate
 {
@@ -17,6 +18,7 @@ public:
     void init();
     void setButtons(QDialogButtonBox::StandardButtons standardButtons);
 
+    void recreateGUI();
     QPageDialog::PageType type;
     QDialogButtonBox *buttonBox;
     QPageDialog *qq;
@@ -29,6 +31,20 @@ void QPageDialogPrivate::init()
     w->setLayout(lay);
     buttonBox = new QDialogButtonBox;
     lay->addWidget(buttonBox);
+}
+
+void QPageDialogPrivate::recreateGUI()
+{
+    switch(type) {
+    case QPageDialog::IconType:
+        break;
+    case QPageDialog::TreeType:
+        break;
+    case QPageDialog::ListType:
+        break;
+    default:
+        qDebug()<<" type undefined : "<<type;
+    }
 }
 
 void QPageDialogPrivate::setButtons(QDialogButtonBox::StandardButtons standardButtons)
@@ -62,10 +78,19 @@ QDialogButtonBox *QPageDialog::dialogButtonBox() const
 
 void QPageDialog::setType(QPageDialog::PageType type)
 {
-    d->type = type;
+    if(d->type != type) {
+        d->type = type;
+        d->recreateGUI();
+    }
+}
+
+QPageDialog::PageType QPageDialog::type() const
+{
+    return d->type;
 }
 
 void QPageDialog::addPage(QWidget *page)
 {
     //TODO
 }
+
