@@ -71,6 +71,7 @@ void QRecentFileAction::clear()
     }
 
     d->recentFiles.clear();
+    saveRecentFile();
     Q_EMIT recentFileCleared();
 }
 
@@ -132,6 +133,7 @@ void QRecentFileAction::addRecentFile(const QString&file)
 
     QAction* action = new QAction(file,this);
     menu()->insertAction(menu()->actions().value(0), action);
+    saveRecentFile();
 }
 
 void QRecentFileAction::removeRecentFile(const QString&file)
@@ -156,6 +158,7 @@ void QRecentFileAction::removeRecentFile(const QString&file)
         d->clearAction->setVisible(false);
         menu()->setEnabled(false);
     }
+    saveRecentFile();
 }
 
 void QRecentFileAction::saveRecentFile()
