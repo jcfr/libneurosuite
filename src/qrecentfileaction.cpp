@@ -87,7 +87,19 @@ void QRecentFileAction::fillRecentMenu()
     if(d->recentFiles.isEmpty())
         return;
     menu()->setEnabled(true);
-
+    const int numberOfRecentFile(d->recentFiles.count());
+    for( int i = 0 ; i < numberOfRecentFile; i++ )
+    {
+        QAction* action = new QAction(d->recentFiles.at(i),this);
+        menu()->insertAction(menu()->actions().value(0), action);
+        if( i == d->maximumNumberOfRecentFile) {
+            break;
+        }
+    }
+    d->noEntriesAction->setVisible(false);
+    d->clearSeparator->setVisible(true);
+    d->clearAction->setVisible(true);
+    menu()->setEnabled(true);
 }
 
 void QRecentFileAction::addRecentFile(const QString&file)
@@ -154,16 +166,19 @@ void QRecentFileAction::saveRecentFile()
         return; //Return ?
     }
     settings.setValue(QLatin1String("Recent Files"),d->recentFiles);
+    qDebug()<<"saveRecentFile d->recentFile"<<d->recentFiles;
 }
 
 void QRecentFileAction::loadRecentFile()
 {
     QSettings settings;
+    qDebug()<<" void QRecentFileAction::loadRecentFile()";
     if(settings.applicationName().isEmpty()) {
         qDebug()<<" application name empty";
         return; //Return ?
     }
     d->recentFiles = settings.value(QLatin1String("Recent Files"),QStringList()).toStringList();
+    qDebug()<<" d->recentFile"<<d->recentFiles;
     fillRecentMenu();
 }
 
