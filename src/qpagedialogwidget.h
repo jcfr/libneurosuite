@@ -8,7 +8,8 @@ Copyright (C) 2012 Klarälvdalens Datakonsult AB, a KDAB Group company, info@kda
 class QPageDialogWidget
 {
 public:
-    QPageDialogWidget();
+    explicit QPageDialogWidget(QWidget *parent);
+    ~QPageDialogWidget();
 };
 
 #endif // QPAGEDIALOGWIDGET_H

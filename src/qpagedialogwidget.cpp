@@ -5,6 +5,6 @@ Copyright (C) 2012 Klarälvdalens Datakonsult AB, a KDAB Group company, info@kda
 
 #include "qpagedialogwidget.h"
 
-QPageDialogWidget::QPageDialogWidget()
+QPageDialogWidget::QPageDialogWidget(QWidget *parent)
 {
 }

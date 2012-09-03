@@ -13,6 +13,7 @@ class QRecentFileActionPrivate;
 class KLUSTERSSHARED_EXPORT QRecentFileAction : public QAction
 {
     Q_OBJECT
+    Q_PROPERTY(int maximumNumberOfRecentFile READ maximumNumberOfRecentFile WRITE setMaximumNumberOfRecentFile)
 public:
     explicit QRecentFileAction(QObject *parent);
     ~QRecentFileAction();
@@ -32,9 +33,6 @@ Q_SIGNALS:
     void recentFileSelected(const QString&);
     void recentFileCleared();
 private:
-    void initMenu();
-    void loadRecentFile();
-    void fillRecentMenu();
     QRecentFileActionPrivate *d;
     Q_DISABLE_COPY(QRecentFileAction)
 

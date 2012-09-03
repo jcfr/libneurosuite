@@ -15,7 +15,13 @@ public:
         :qq(q)
     {
         maximumNumberOfRecentFile = 10;
+        initMenu();
+        loadRecentFile();
     }
+    void initMenu();
+    void loadRecentFile();
+    void fillRecentMenu();
+
     QList<QAction*> listRecentAction;
     QStringList recentFiles;
     int maximumNumberOfRecentFile;
@@ -26,33 +32,63 @@ public:
     QAction *qq;
 };
 
+void QRecentFileActionPrivate::initMenu()
+{
+    delete qq->menu();
+    qq->setMenu(new QMenu());
+    noEntriesAction = qq->menu()->addAction(qq->tr("No Entries"));
+    noEntriesAction->setEnabled(false);
+    clearSeparator = qq->menu()->addSeparator();
+    clearSeparator->setVisible(false);
+    clearAction = qq->menu()->addAction(qq->tr("Clear List"), qq, SLOT(clear()));
+    clearAction->setVisible(false);
+    qq->menu()->setEnabled(false);
+    qq->connect(qq->menu(), SIGNAL(triggered(QAction*)),qq, SLOT(fileSelected(QAction*)));
+}
+
+void QRecentFileActionPrivate::loadRecentFile()
+{
+    QSettings settings;
+    if(settings.applicationName().isEmpty()) {
+        qDebug()<<" application name empty";
+        return; //Return ?
+    }
+    recentFiles = settings.value(QLatin1String("Recent Files"),QStringList()).toStringList();
+    fillRecentMenu();
+}
+
+void QRecentFileActionPrivate::fillRecentMenu()
+{
+    if(recentFiles.isEmpty())
+        return;
+    qq->menu()->setEnabled(true);
+    const int numberOfRecentFile(recentFiles.count());
+    for( int i = 0 ; i < numberOfRecentFile; i++ )
+    {
+        QAction* action = new QAction(recentFiles.at(i),qq);
+        qq->menu()->insertAction(qq->menu()->actions().value(0), action);
+        if( i == maximumNumberOfRecentFile) {
+            break;
+        }
+    }
+    noEntriesAction->setVisible(false);
+    clearSeparator->setVisible(true);
+    clearAction->setVisible(true);
+    qq->menu()->setEnabled(true);
+}
+
+
 
 QRecentFileAction::QRecentFileAction(QObject *parent)
     :QAction(parent), d(new QRecentFileActionPrivate(this))
 {
     setText(tr("Recent Files..."));
-    initMenu();
-    loadRecentFile();
 }
 
 QRecentFileAction::~QRecentFileAction()
 {
     saveRecentFile();
     delete d;
-}
-
-void QRecentFileAction::initMenu()
-{
-    delete menu();
-    setMenu(new QMenu());
-    d->noEntriesAction = menu()->addAction(tr("No Entries"));
-    d->noEntriesAction->setEnabled(false);
-    d->clearSeparator = menu()->addSeparator();
-    d->clearSeparator->setVisible(false);
-    d->clearAction = menu()->addAction(tr("Clear List"), this, SLOT(clear()));
-    d->clearAction->setVisible(false);
-    menu()->setEnabled(false);
-    connect(menu(), SIGNAL(triggered(QAction*)), SLOT(fileSelected(QAction*)));
 }
 
 void QRecentFileAction::clear()
@@ -82,30 +118,8 @@ void QRecentFileAction::fileSelected(QAction*action)
     }
 }
 
-
-void QRecentFileAction::fillRecentMenu()
-{
-    if(d->recentFiles.isEmpty())
-        return;
-    menu()->setEnabled(true);
-    const int numberOfRecentFile(d->recentFiles.count());
-    for( int i = 0 ; i < numberOfRecentFile; i++ )
-    {
-        QAction* action = new QAction(d->recentFiles.at(i),this);
-        menu()->insertAction(menu()->actions().value(0), action);
-        if( i == d->maximumNumberOfRecentFile) {
-            break;
-        }
-    }
-    d->noEntriesAction->setVisible(false);
-    d->clearSeparator->setVisible(true);
-    d->clearAction->setVisible(true);
-    menu()->setEnabled(true);
-}
-
 void QRecentFileAction::addRecentFile(const QString&file)
 {
-
     // remove file if already in list
     foreach (QAction* action, d->listRecentAction)
     {
@@ -171,20 +185,6 @@ void QRecentFileAction::saveRecentFile()
     settings.setValue(QLatin1String("Recent Files"),d->recentFiles);
     qDebug()<<"saveRecentFile d->recentFile"<<d->recentFiles;
 }
-
-void QRecentFileAction::loadRecentFile()
-{
-    QSettings settings;
-    qDebug()<<" void QRecentFileAction::loadRecentFile()";
-    if(settings.applicationName().isEmpty()) {
-        qDebug()<<" application name empty";
-        return; //Return ?
-    }
-    d->recentFiles = settings.value(QLatin1String("Recent Files"),QStringList()).toStringList();
-    qDebug()<<" d->recentFile"<<d->recentFiles;
-    fillRecentMenu();
-}
-
 
 int QRecentFileAction::maximumNumberOfRecentFile() const
 {
