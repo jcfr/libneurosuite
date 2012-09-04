@@ -15,8 +15,13 @@ set (libklustersshared_HEADERS
 	libklustersshared_export.h 
 	qrecentfileaction.h 
 	qcolorbutton.h 
-	qpagedialog.h 
-	)
+	qpagedialog.h
+       qextenddialog.h
+       qpagewidget.h
+       qpagemodel.h
+       qpageview.h
+       qpagewidgetmodel.h
+       )
 
 
 add_library (klustersshared SHARED ${libklustersshared_SRCS})
