@@ -22,10 +22,16 @@
  *  Boston, MA 02110-1301, USA.
  *
  */
+
+/*
+Copyright (C) 2012 Klarälvdalens Datakonsult AB, a KDAB Group company, info@kdab.com
+Port to Qt4
+*/
+
 #ifndef QPAGEDIALOG_H
 #define QPAGEDIALOG_H
 
-#include <qdialog.h>
+#include <qextenddialog.h>
 #include <qpagewidget.h>
 
 class QPageDialogPrivate;
@@ -62,7 +68,7 @@ class QPageDialogPrivate;
  *
  * @author Tobias Koenig (tokoe@kde.org)
  */
-class KLUSTERSSHARED_EXPORT QPageDialog : public QDialog
+class KLUSTERSSHARED_EXPORT QPageDialog : public QExtendDialog
 {
   Q_OBJECT
     Q_DECLARE_PRIVATE(QPageDialog)

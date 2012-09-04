@@ -20,16 +20,16 @@
 #ifndef KPAGEMODEL_P_H
 #define KPAGEMODEL_P_H
 
-#include "kpagemodel.h"
+#include "qpagemodel.h"
 
-class KPageModelPrivate
+class QPageModelPrivate
 {
-    Q_DECLARE_PUBLIC(KPageModel)
+    Q_DECLARE_PUBLIC(QPageModel)
     public:
-        virtual ~KPageModelPrivate();
+        virtual ~QPageModelPrivate();
 
     protected:
-        KPageModel *q_ptr;
+       QPageModel *q_ptr;
 };
 
 #endif // KPAGEMODEL_P_H

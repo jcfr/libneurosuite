@@ -17,14 +17,20 @@
 
 */
 
+
+/*
+Copyright (C) 2012 Klarälvdalens Datakonsult AB, a KDAB Group company, info@kdab.com
+Port to Qt4
+*/
+
 #ifndef PAGED_KPAGEDIALOG_P_H
 #define PAGED_KPAGEDIALOG_P_H
 
 #include "qpagedialog.h"
-#include "../dialogs/kdialog_p.h"
+#include "qextenddialog_p.h"
 #include <QtGui/QLayout>
 
-class KLUSTERSSHARED_EXPORT QPageDialogPrivate : public KDialogPrivate
+class KLUSTERSSHARED_EXPORT QPageDialogPrivate : public QExtendDialogPrivate
 {
     Q_DECLARE_PUBLIC(QPageDialog)
     protected:

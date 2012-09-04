@@ -20,6 +20,12 @@
     Boston, MA 02110-1301, USA.
 */
 
+/*
+Copyright (C) 2012 Klarälvdalens Datakonsult AB, a KDAB Group company, info@kdab.com
+Port to Qt4
+*/
+
+
 #ifndef QPAGEVIEW_P_H
 #define QPAGEVIEW_P_H
 
@@ -32,7 +38,7 @@
 #include <QListView>
 #include <QTabBar>
 #include <QTreeView>
-#include <ktitlewidget.h>
+//#include <ktitlewidget.h>
 
 class QPageStackedWidget : public QStackedWidget
 {
@@ -71,7 +77,7 @@ class QPageViewPrivate
         // gui
         QGridLayout *layout;
         QPageStackedWidget *stack;
-        KTitleWidget *titleWidget;
+        //KTitleWidget *titleWidget;
         QWidget *defaultWidget;
 
         QAbstractItemView *view;
@@ -189,8 +195,8 @@ class QPageListViewDelegate : public QAbstractItemDelegate
     virtual void paint( QPainter *painter, const QStyleOptionViewItem &option, const QModelIndex &index ) const;
     virtual QSize sizeHint( const QStyleOptionViewItem &option, const QModelIndex &index ) const;
 
-  private Q_SLOTS:
-    void iconSettingsChanged( int group );
+  //private Q_SLOTS:
+    //void iconSettingsChanged( int group );
 
   private:
     void drawFocus( QPainter*, const QStyleOptionViewItem&, const QRect& ) const;

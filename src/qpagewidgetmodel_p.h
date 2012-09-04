@@ -20,13 +20,13 @@
 #ifndef KPAGEWIDGETMODEL_P_H
 #define KPAGEWIDGETMODEL_P_H
 
-#include "kpagemodel_p.h"
-#include "kpagewidgetmodel.h"
+#include "qpagemodel_p.h"
+#include "qpagewidgetmodel.h"
 
 class PageItem
 {
     public:
-        explicit PageItem(KPageWidgetItem *pageItem, PageItem *parent = 0);
+        explicit PageItem(QPageWidgetItem *pageItem, PageItem *parent = 0);
         ~PageItem();
 
         void appendChild(PageItem *child);
@@ -39,29 +39,29 @@ class PageItem
         int row() const;
         PageItem *parent();
 
-        KPageWidgetItem *pageWidgetItem() const;
+        QPageWidgetItem *pageWidgetItem() const;
 
-        PageItem *findChild(const KPageWidgetItem *item);
+        PageItem *findChild(const QPageWidgetItem *item);
 
         void dump(int indent = 0);
 
     private:
-        KPageWidgetItem *mPageWidgetItem;
+        QPageWidgetItem *mPageWidgetItem;
 
         QList<PageItem*> mChildItems;
         PageItem *mParentItem;
 };
 
-class KPageWidgetModelPrivate : public KPageModelPrivate
+class QPageWidgetModelPrivate : public QPageModelPrivate
 {
-    Q_DECLARE_PUBLIC(KPageWidgetModel)
+    Q_DECLARE_PUBLIC(QPageWidgetModel)
     protected:
-        KPageWidgetModelPrivate()
+        QPageWidgetModelPrivate()
             : rootItem(new PageItem(0, 0))
         {
         }
 
-        ~KPageWidgetModelPrivate()
+        ~QPageWidgetModelPrivate()
         {
             delete rootItem;
             rootItem = 0;
@@ -71,8 +71,8 @@ class KPageWidgetModelPrivate : public KPageModelPrivate
 
         void _k_itemChanged()
         {
-            Q_Q(KPageWidgetModel);
-            KPageWidgetItem *item = qobject_cast<KPageWidgetItem*>(q->sender());
+            Q_Q(QPageWidgetModel);
+            QPageWidgetItem *item = qobject_cast<QPageWidgetItem*>(q->sender());
             if (!item) {
                 return;
             }
@@ -87,8 +87,8 @@ class KPageWidgetModelPrivate : public KPageModelPrivate
 
         void _k_itemToggled(bool checked)
         {
-            Q_Q(KPageWidgetModel);
-            KPageWidgetItem *item = qobject_cast<KPageWidgetItem*>(q->sender());
+            Q_Q(QPageWidgetModel);
+            QPageWidgetItem *item = qobject_cast<QPageWidgetItem*>(q->sender());
             if (!item) {
                 return;
             }

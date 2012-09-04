@@ -19,6 +19,11 @@
     Boston, MA 02110-1301, USA.
 */
 
+/*
+Copyright (C) 2012 Klarälvdalens Datakonsult AB, a KDAB Group company, info@kdab.com
+Port to Qt4
+*/
+
 #include "qpagemodel.h"
 #include "qpagemodel_p.h"
 

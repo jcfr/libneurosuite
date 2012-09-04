@@ -20,6 +20,12 @@
     Boston, MA 02110-1301, USA.
 */
 
+/*
+Copyright (C) 2012 Klarälvdalens Datakonsult AB, a KDAB Group company, info@kdab.com
+Port to Qt4
+*/
+
+
 #include "qpageview_p.h"
 
 #include <QtGui/QApplication>
@@ -28,9 +34,9 @@
 #include <QtGui/QTextLayout>
 #include <QtGui/QVBoxLayout>
 
-#include <kdialog.h>
-#include <kiconloader.h>
-#include <kglobalsettings.h>
+//#include <kdialog.h>
+//#include <kiconloader.h>
+//#include <kglobalsettings.h>
 
 #include "qpagemodel.h"
 
@@ -362,11 +368,12 @@ void QPageTabbedView::dataChanged( const QModelIndex &index, const QModelIndex& 
 QPageListViewDelegate::QPageListViewDelegate( QObject *parent )
  : QAbstractItemDelegate( parent )
 {
-    mIconSize = KIconLoader::global()->currentSize( KIconLoader::Dialog );
+    mIconSize = /*KIconLoader::global()->currentSize( KIconLoader::Dialog )*/22;
 
-    connect(KGlobalSettings::self(), SIGNAL(iconChanged(int)), this, SLOT(iconSettingsChanged(int)) );
+    //connect(KGlobalSettings::self(), SIGNAL(iconChanged(int)), this, SLOT(iconSettingsChanged(int)) );
 }
 
+/*
 void QPageListViewDelegate::iconSettingsChanged( int group )
 {
     if ( group == KIconLoader::Dialog ) {
@@ -377,6 +384,7 @@ void QPageListViewDelegate::iconSettingsChanged( int group )
         }
     }
 }
+*/
 
 static int layoutText(QTextLayout *layout, int maxWidth)
 {

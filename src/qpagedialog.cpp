@@ -22,6 +22,12 @@
  *
  */
 
+/*
+Copyright (C) 2012 Klarälvdalens Datakonsult AB, a KDAB Group company, info@kdab.com
+Port to Qt4
+*/
+
+
 #include "qpagedialog.h"
 #include "qpagedialog_p.h"
 
@@ -29,7 +35,7 @@
 #include <QLayout>
 
 QPageDialog::QPageDialog( QWidget *parent, Qt::WFlags flags )
-    : QDialog(*new QPageDialogPrivate, parent, flags)
+    : QExtendDialog(*new QPageDialogPrivate, parent, flags)
 {
     Q_D(QPageDialog);
   d->mPageWidget = new QPageWidget( this );
@@ -38,7 +44,7 @@ QPageDialog::QPageDialog( QWidget *parent, Qt::WFlags flags )
 }
 
 QPageDialog::QPageDialog( QPageWidget *widget, QWidget *parent, Qt::WFlags flags )
-    : QDialog(*new QPageDialogPrivate, parent, flags)
+    : QExtendDialog(*new QPageDialogPrivate, parent, flags)
 {
     Q_D(QPageDialog);
     Q_ASSERT(widget);
@@ -49,7 +55,7 @@ QPageDialog::QPageDialog( QPageWidget *widget, QWidget *parent, Qt::WFlags flags
 }
 
 QPageDialog::QPageDialog(QPageDialogPrivate &dd, QPageWidget *widget, QWidget *parent, Qt::WFlags flags)
-    : QDialog(dd, parent, flags)
+    : QExtendDialog(dd, parent, flags)
 {
     Q_D(QPageDialog);
     if (widget) {

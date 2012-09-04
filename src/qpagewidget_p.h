@@ -20,17 +20,17 @@
 #ifndef KPAGEWIDGET_P_H
 #define KPAGEWIDGET_P_H
 
-#include "kpagewidget.h"
-#include "kpageview_p.h"
+#include "qpagewidget.h"
+#include "qpageview_p.h"
 
-class KPageWidgetModel;
-class KPageWidgetPrivate : public KPageViewPrivate
+class QPageWidgetModel;
+class QPageWidgetPrivate : public QPageViewPrivate
 {
-    Q_DECLARE_PUBLIC(KPageWidget)
+    Q_DECLARE_PUBLIC(QPageWidget)
     protected:
-        KPageWidgetPrivate(KPageWidget *q);
+        QPageWidgetPrivate(QPageWidget *q);
 
-        KPageWidgetModel *model() const { return static_cast<KPageWidgetModel *>(KPageViewPrivate::model); }
+        QPageWidgetModel *model() const { return static_cast<QPageWidgetModel *>(QPageViewPrivate::model); }
 
         void _k_slotCurrentPageChanged(const QModelIndex &, const QModelIndex &);
 };

@@ -20,14 +20,20 @@
     Boston, MA 02110-1301, USA.
 */
 
+/*
+Copyright (C) 2012 Klarälvdalens Datakonsult AB, a KDAB Group company, info@kdab.com
+Port to Qt4
+*/
+
+
 #include "qpageview.h"
 #include "qpageview_p.h"
 
 #include "qpagemodel.h"
 
-#include <kdialog.h>
-#include <kiconloader.h>
-#include <ktitlewidget.h>
+//#include <kdialog.h>
+//#include <kiconloader.h>
+//#include <ktitlewidget.h>
 
 #include <QAbstractItemView>
 #include <QGridLayout>
@@ -78,7 +84,7 @@ void QPageViewPrivate::_k_rebuildGui()
     stack->setVisible(true);
   }
 
-    titleWidget->setVisible(q->showPageHeader());
+    //titleWidget->setVisible(q->showPageHeader());
 
     Qt::Alignment alignment = q->viewPosition();
   if ( alignment & Qt::AlignTop )
@@ -247,7 +253,7 @@ void QPageViewPrivate::_k_pageSelected(const QItemSelection &index, const QItemS
 void QPageViewPrivate::updateTitleWidget(const QModelIndex& index)
 {
     Q_Q(QPageView);
-
+/*
     QString header = model->data( index, QPageModel::HeaderRole ).toString();
     if ( header.isNull() ) { //TODO KDE5 remove that ugly logic, see also doxy-comments in QPageWidgetItem::setHeader()
         header = model->data( index, Qt::DisplayRole ).toString();
@@ -258,6 +264,7 @@ void QPageViewPrivate::updateTitleWidget(const QModelIndex& index)
     titleWidget->setText( header );
 
     titleWidget->setVisible(q->showPageHeader());
+    */
 }
 
 void QPageViewPrivate::_k_dataChanged(const QModelIndex &, const QModelIndex &)
@@ -278,7 +285,9 @@ void QPageViewPrivate::_k_dataChanged(const QModelIndex &, const QModelIndex &)
 
 QPageViewPrivate::QPageViewPrivate(QPageView *_parent)
     : q_ptr(_parent), model(0), faceType(QPageView::Auto),
-    layout(0), stack(0), titleWidget(0), view(0)
+    layout(0), stack(0)
+  //, titleWidget(0)
+  , view(0)
 {
 }
 
@@ -287,11 +296,11 @@ void QPageViewPrivate::init()
     Q_Q(QPageView);
     layout = new QGridLayout(q);
     stack = new QPageStackedWidget(q);
-    titleWidget = new KTitleWidget(q);
+    //titleWidget = new KTitleWidget(q);
     QPixmap emptyPixmap(22, 22);
     emptyPixmap.fill(Qt::transparent);
-    titleWidget->setPixmap(emptyPixmap);
-    layout->addWidget(titleWidget, 1, 1);
+    //titleWidget->setPixmap(emptyPixmap);
+    //layout->addWidget(titleWidget, 1, 1);
     layout->addWidget(stack, 2, 1);
 
     defaultWidget = new QWidget(q);
@@ -456,7 +465,7 @@ bool QPageView::showPageHeader() const
   if ( faceType == Tabbed ) {
     return false;
   } else {
-    return !d->titleWidget->text().isEmpty();
+    return /*!d->titleWidget->text().isEmpty()*/false;
   }
 }
 

@@ -19,13 +19,19 @@
     Boston, MA 02110-1301, USA.
 */
 
+/*
+Copyright (C) 2012 Klarälvdalens Datakonsult AB, a KDAB Group company, info@kdab.com
+Port to Qt4
+*/
+
+
 #include "qpagewidgetmodel.h"
 #include "qpagewidgetmodel_p.h"
 
 #include <QPointer>
 #include <QWidget>
 
-#include <kicon.h>
+#include <qicon.h>
 
 class QPageWidgetItem::Private
 {
@@ -43,7 +49,7 @@ class QPageWidgetItem::Private
 
     QString name;
     QString header;
-    KIcon icon;
+    QIcon icon;
     QPointer<QWidget> widget;
     bool checkable : 1;
     bool checked : 1;
@@ -127,14 +133,14 @@ QString QPageWidgetItem::header() const
   return d->header;
 }
 
-void QPageWidgetItem::setIcon( const KIcon &icon )
+void QPageWidgetItem::setIcon( const QIcon &icon )
 {
   d->icon = icon;
 
   emit changed();
 }
 
-KIcon QPageWidgetItem::icon() const
+QIcon QPageWidgetItem::icon() const
 {
   return d->icon;
 }

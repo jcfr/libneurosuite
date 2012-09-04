@@ -19,6 +19,12 @@
     Boston, MA 02110-1301, USA.
 */
 
+/*
+Copyright (C) 2012 Klarälvdalens Datakonsult AB, a KDAB Group company, info@kdab.com
+Port to Qt4
+*/
+
+
 #ifndef QPAGEWIDGETMODEL_H
 #define QPAGEWIDGETMODEL_H
 
@@ -121,12 +127,12 @@ class KLUSTERSSHARED_EXPORT QPageWidgetItem : public QObject
      * Sets the icon of the page widget item.
      * @param icon Icon of the page widget item.
      */
-    void setIcon( const KIcon &icon );
+    void setIcon( const QIcon &icon );
 
     /**
      * Returns the icon of the page widget item.
      */
-    KIcon icon() const;
+    QIcon icon() const;
 
     /**
      * Sets whether the page widget item is checkable in the view.
