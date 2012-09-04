@@ -24,25 +24,25 @@
 #include "../dialogs/kdialog_p.h"
 #include <QtGui/QLayout>
 
-class KDEUI_EXPORT KPageDialogPrivate : public KDialogPrivate
+class KLUSTERSSHARED_EXPORT QPageDialogPrivate : public KDialogPrivate
 {
-    Q_DECLARE_PUBLIC(KPageDialog)
+    Q_DECLARE_PUBLIC(QPageDialog)
     protected:
-        KPageDialogPrivate()
+        QPageDialogPrivate()
             : mPageWidget(0)
         {
         }
 
-        KPageWidget *mPageWidget;
+        QPageWidget *mPageWidget;
 
         void init()
         {
-            Q_Q(KPageDialog);
+            Q_Q(QPageDialog);
             if (mPageWidget) {
-                q->connect(mPageWidget, SIGNAL(currentPageChanged(KPageWidgetItem *, KPageWidgetItem *)),
-                        q, SIGNAL(currentPageChanged(KPageWidgetItem *, KPageWidgetItem *)));
-                q->connect(mPageWidget, SIGNAL(pageRemoved(KPageWidgetItem *)), 
-                        q, SIGNAL(pageRemoved(KPageWidgetItem *)));
+                q->connect(mPageWidget, SIGNAL(currentPageChanged(QPageWidgetItem *, QPageWidgetItem *)),
+                        q, SIGNAL(currentPageChanged(QPageWidgetItem *, QPageWidgetItem *)));
+                q->connect(mPageWidget, SIGNAL(pageRemoved(QPageWidgetItem *)),
+                        q, SIGNAL(pageRemoved(QPageWidgetItem *)));
             }
             q->setMainWidget(mPageWidget);
         }
