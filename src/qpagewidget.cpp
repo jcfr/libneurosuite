@@ -138,4 +138,4 @@ QPageWidgetItem* QPageWidget::currentPage() const
     return d_func()->model()->item(index);
 }
 
-#include "qpagewidget.moc"
+#include "moc_qpagewidget.cpp"

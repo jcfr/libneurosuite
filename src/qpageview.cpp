@@ -483,4 +483,4 @@ Qt::Alignment QPageView::viewPosition() const
     return Qt::AlignLeft;
 }
 
-#include "qpageview.moc"
+#include "moc_qpageview.cpp"

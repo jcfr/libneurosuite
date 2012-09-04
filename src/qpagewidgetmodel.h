@@ -32,7 +32,7 @@ Port to Qt4
 
 class QWidget;
 
-class KIcon;
+class QIcon;
 
 /**
  * QPageWidgetItem is used by @ref QPageWidget and represents
@@ -58,7 +58,7 @@ class KLUSTERSSHARED_EXPORT QPageWidgetItem : public QObject
   Q_OBJECT
   Q_PROPERTY( QString name READ name WRITE setName )
   Q_PROPERTY( QString header READ header WRITE setHeader )
-  Q_PROPERTY( KIcon icon READ icon WRITE setIcon )
+  Q_PROPERTY( QIcon icon READ icon WRITE setIcon )
   Q_PROPERTY( bool checkable READ isCheckable WRITE setCheckable )
   Q_PROPERTY( bool checked READ isChecked WRITE setChecked )
     /**

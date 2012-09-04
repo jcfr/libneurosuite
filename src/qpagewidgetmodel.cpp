@@ -548,4 +548,4 @@ QModelIndex QPageWidgetModel::index( const QPageWidgetItem *item ) const
   return createIndex( pageItem->row(), 0, (void*)pageItem );
 }
 
-#include "qpagewidgetmodel.moc"
+#include "moc_qpagewidgetmodel.cpp"

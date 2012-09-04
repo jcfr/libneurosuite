@@ -1123,7 +1123,7 @@ void KDialogQueue::Private::slotShowQueuedDialog()
     QTimer::singleShot( 20, q, SLOT(slotShowQueuedDialog()) );
 }
 #endif
-#include "qextenddialog.moc"
+#include "moc_qextenddialog.cpp"
 #if 0
 //#include "kdialogqueue_p.moc"
 #endif
