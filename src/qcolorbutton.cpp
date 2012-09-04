@@ -46,6 +46,7 @@ void QColorButton::setColor(const QColor&col)
     if(col != d->color) {
         d->color = col;
         d->updateBackgroundColor();
+        Q_EMIT colorChanged(col);
     }
 }
 

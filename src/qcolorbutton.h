@@ -22,6 +22,10 @@ public:
 
     void setColor(const QColor&);
     QColor color() const;
+
+Q_SIGNALS:
+    void colorChanged(const QColor&col);
+
 private Q_SLOTS:
     void slotSelectColor();
 private:
