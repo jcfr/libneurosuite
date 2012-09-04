@@ -11,6 +11,7 @@ class QColorButtonPrivate
 {
 public:
     QColorButtonPrivate(QColorButton *qq)
+        :q(qq)
     {
     }
     void slotSelectColor();
@@ -59,7 +60,6 @@ void QColorButton::slotSelectColor()
 {
     const QColor col = QColorDialog::getColor ( d->color, this );
     if(col.isValid()) {
-        d->color = col;
-        d->updateBackgroundColor();
+        setColor(col);
     }
 }
