@@ -67,6 +67,7 @@ void QRecentFileActionPrivate::fillRecentMenu()
     {
         QAction* action = new QAction(recentFiles.at(i),qq);
         qq->menu()->insertAction(qq->menu()->actions().value(0), action);
+        listRecentAction.append(action);
         if( i == maximumNumberOfRecentFile) {
             break;
         }
