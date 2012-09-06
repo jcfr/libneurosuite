@@ -44,7 +44,6 @@ void QRecentFileActionPrivate::initMenu()
     clearSeparator->setVisible(false);
     clearAction = qq->menu()->addAction(qq->tr("Clear List"), qq, SLOT(clear()));
     clearAction->setVisible(false);
-    qq->menu()->setEnabled(false);
     qq->connect(qq->menu(), SIGNAL(triggered(QAction*)),qq, SLOT(fileSelected(QAction*)));
 }
 
@@ -61,9 +60,10 @@ void QRecentFileActionPrivate::loadRecentFile()
 
 void QRecentFileActionPrivate::fillRecentMenu()
 {
-    if(recentFiles.isEmpty())
+    if(recentFiles.isEmpty()) {
+        noEntriesAction->setEnabled(true);
         return;
-    qq->menu()->setEnabled(true);
+    }
     const int numberOfRecentFile(recentFiles.count());
     for( int i = 0 ; i < numberOfRecentFile; i++ )
     {
@@ -75,7 +75,6 @@ void QRecentFileActionPrivate::fillRecentMenu()
     noEntriesAction->setVisible(false);
     clearSeparator->setVisible(true);
     clearAction->setVisible(true);
-    qq->menu()->setEnabled(true);
 }
 
 void QRecentFileActionPrivate::addAction(const QString& file)
@@ -106,7 +105,6 @@ QRecentFileAction::~QRecentFileAction()
 
 void QRecentFileAction::clear()
 {
-    menu()->setEnabled(false);
     d->noEntriesAction->setVisible(true);
     d->clearSeparator->setVisible(false);
     d->clearAction->setVisible(false);
@@ -115,11 +113,9 @@ void QRecentFileAction::clear()
     const int numberOfAction(actions.count());
     for (int i = 0; i < numberOfAction; ++i)
     {
-        menu()->removeAction(actions.at(i));
-        actions.at(i)->deleteLater();
+        d->removeAction(actions.at(i));
     }
 
-    d->recentFiles.clear();
     saveRecentFile();
     Q_EMIT recentFileCleared();
 }
@@ -153,7 +149,6 @@ void QRecentFileAction::addRecentFile(const QString&file)
     d->noEntriesAction->setVisible(false);
     d->clearSeparator->setVisible(true);
     d->clearAction->setVisible(true);
-    menu()->setEnabled(true);
     d->recentFiles.append(file);
 
     d->addAction(file);
@@ -178,7 +173,6 @@ void QRecentFileAction::removeRecentFile(const QString&file)
         d->noEntriesAction->setVisible(true);
         d->clearSeparator->setVisible(false);
         d->clearAction->setVisible(false);
-        menu()->setEnabled(false);
     }
     saveRecentFile();
 }
