@@ -30,7 +30,6 @@ public:
     QAction *noEntriesAction;
     QAction *clearSeparator;
     QAction *clearAction;
-
     QAction *qq;
 };
 
@@ -109,11 +108,8 @@ void QRecentFileAction::clear()
     d->clearSeparator->setVisible(false);
     d->clearAction->setVisible(false);
 
-    const QList<QAction*> actions = d->listRecentAction;
-    const int numberOfAction(actions.count());
-    for (int i = 0; i < numberOfAction; ++i)
-    {
-        d->removeAction(actions.at(i));
+    foreach (QAction* action, d->listRecentAction) {
+        d->removeAction(action);
     }
 
     saveRecentFile();
@@ -134,10 +130,8 @@ void QRecentFileAction::addRecentFile(const QString&file)
     {
       if ( action->text() == file )
       {
-        menu()->removeAction(action);
-        d->recentFiles.removeAll(file);
-        d->listRecentAction.removeAll(action);
-        break;
+          d->removeAction(action);
+          break;
       }
     }
     if( d->maximumNumberOfRecentFile && d->listRecentAction.count() == d->maximumNumberOfRecentFile )
