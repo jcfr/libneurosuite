@@ -181,11 +181,10 @@ void QRecentFileAction::saveRecentFile()
 {
     QSettings settings;
     if(settings.applicationName().isEmpty()) {
-        qDebug()<<" application name empty";
+        qWarning()<<" application name empty";
         return; //Return ?
     }
     settings.setValue(QLatin1String("Recent Files"),d->recentFiles);
-    qDebug()<<"saveRecentFile d->recentFile"<<d->recentFiles;
 }
 
 int QRecentFileAction::maximumNumberOfRecentFile() const
