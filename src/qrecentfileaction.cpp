@@ -23,6 +23,7 @@ public:
     void fillRecentMenu();
     void addAction(const QString& file);
     void removeAction(QAction* act);
+    void menuIsEmpty();
 
     QList<QAction*> listRecentAction;
     QStringList recentFiles;
@@ -90,6 +91,14 @@ void QRecentFileActionPrivate::removeAction(QAction* act)
     listRecentAction.removeAll(act);
 }
 
+void QRecentFileActionPrivate::menuIsEmpty()
+{
+    noEntriesAction->setVisible(true);
+    clearSeparator->setVisible(false);
+    clearAction->setVisible(false);
+}
+
+
 QRecentFileAction::QRecentFileAction(QObject *parent)
     :QAction(parent), d(new QRecentFileActionPrivate(this))
 {
@@ -104,9 +113,7 @@ QRecentFileAction::~QRecentFileAction()
 
 void QRecentFileAction::clear()
 {
-    d->noEntriesAction->setVisible(true);
-    d->clearSeparator->setVisible(false);
-    d->clearAction->setVisible(false);
+    d->menuIsEmpty();
 
     foreach (QAction* action, d->listRecentAction) {
         d->removeAction(action);
@@ -164,9 +171,7 @@ void QRecentFileAction::removeRecentFile(const QString&file)
       }
     }
     if(d->listRecentAction.isEmpty()) {
-        d->noEntriesAction->setVisible(true);
-        d->clearSeparator->setVisible(false);
-        d->clearAction->setVisible(false);
+        d->menuIsEmpty();
     }
     saveRecentFile();
 }
