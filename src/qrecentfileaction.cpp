@@ -61,7 +61,7 @@ void QRecentFileActionPrivate::loadRecentFile()
 void QRecentFileActionPrivate::fillRecentMenu()
 {
     if(recentFiles.isEmpty()) {
-        noEntriesAction->setEnabled(true);
+        noEntriesAction->setVisible(true);
         return;
     }
     const int numberOfRecentFile(recentFiles.count());
