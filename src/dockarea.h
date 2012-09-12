@@ -62,8 +62,8 @@ class KLUSTERSSHARED_EXPORT DockArea : public QScrollArea {
      * @param pWidget widget to be added.
      *
      * */
-    void addWidget ( QWidget * pWidget,QString pName,Qt::DockWidgetArea pAllowedAreas = Qt::AllDockWidgetAreas,
-		     Qt::DockWidgetArea pArea = Qt::RightDockWidgetArea );
+    void addWidget (QWidget * pWidget, const QString &pName, Qt::DockWidgetArea pAllowedAreas = Qt::AllDockWidgetAreas,
+             Qt::DockWidgetArea pArea = Qt::RightDockWidgetArea );
 
     /**
     * Add the given dockwidget to the specified area.

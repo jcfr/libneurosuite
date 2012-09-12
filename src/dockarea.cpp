@@ -55,8 +55,9 @@ DockArea::~DockArea()
 {
 }
 
-void DockArea::addWidget ( QWidget * pWidget,QString pName,Qt::DockWidgetArea pAllowedAreas,
-                           Qt::DockWidgetArea pArea ) {
+void DockArea::addWidget ( QWidget * pWidget,const QString& pName,Qt::DockWidgetArea pAllowedAreas,
+                           Qt::DockWidgetArea pArea )
+{
     QDockWidget * vDock = new QDockWidget (  pName , this );
     vDock->setFeatures(QDockWidget::DockWidgetMovable | QDockWidget::DockWidgetFloatable);
     vDock->setAllowedAreas ( pAllowedAreas );
@@ -81,10 +82,7 @@ void DockArea::addDockWidget ( Qt::DockWidgetArea pArea, QDockWidget * pDockwidg
         mDockWidgetByNameMap.insert ( pDockwidget->windowTitle(),vList );
     }
 
-    //Setup the connections if needed
-    if(pDockwidget->windowTitle() != "Logbook"){
-        setupConnection ( pDockwidget->widget() ) ;
-    }
+    setupConnection ( pDockwidget->widget() ) ;
 
     //Call the parent implementation
     mMainWindow.addDockWidget ( pArea,pDockwidget );
@@ -99,15 +97,8 @@ void DockArea::setupConnection ( QWidget * pWidget ) {
 
 void DockArea::showDockWidget ( const QString& pWidgetName, bool pShow ) {
     QList< QPointer<QDockWidget> > vDockWidgetList = mDockWidgetByNameMap.value ( pWidgetName );
-    if ( pShow ) {
-        for ( int i = 0;i < vDockWidgetList.size();++i ) {
-            vDockWidgetList.at ( i )->show();
-        }
-    }
-    else {
-        for ( int i = 0;i < vDockWidgetList.size();++i ) {
-            vDockWidgetList.at ( i )->hide();
-        }
+    for ( int i = 0;i < vDockWidgetList.size();++i ) {
+        vDockWidgetList.at ( i )->setVisible(pShow);
     }
 }
 
