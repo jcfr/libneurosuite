@@ -10,6 +10,7 @@ set(libklustersshared_SRCS
 	qpagewidgetmodel.cpp
 	qextenddialog.cpp
 	kseparator.cpp
+        dockarea.cpp
 	)
 set (libklustersshared_HEADERS 
 	libklustersshared_export.h 
@@ -21,6 +22,7 @@ set (libklustersshared_HEADERS
        qpagemodel.h
        qpageview.h
        qpagewidgetmodel.h
+       dockarea.h
        )
 
 
