@@ -38,8 +38,8 @@
 #include <QPainter>
 #include <QList>
 
-DockArea::DockArea ( QWidget * pParent )
-    : QScrollArea ( pParent )
+DockArea::DockArea (QWidget * parent )
+    : QScrollArea ( parent )
 {
 
     //Set the flags (so the QMainWindow does not act like a window) and dockoptions
@@ -49,6 +49,10 @@ DockArea::DockArea ( QWidget * pParent )
     QScrollArea::setWidgetResizable(true);
     QScrollArea::setWidget(&mMainWindow);
 
+}
+
+DockArea::~DockArea()
+{
 }
 
 void DockArea::addWidget ( QWidget * pWidget,QString pName,Qt::DockWidgetArea pAllowedAreas,
@@ -88,9 +92,7 @@ void DockArea::addDockWidget ( Qt::DockWidgetArea pArea, QDockWidget * pDockwidg
 
 void DockArea::setupConnection ( QWidget * pWidget ) {
 
-    connect ( this, SIGNAL ( modeUpdated ( Mode ) ),pWidget, SLOT ( setMode ( Mode ) ) );
     connect ( this, SIGNAL ( contentToUpdate ( ) ),pWidget, SLOT ( updateContent () ) );
-    connect ( this, SIGNAL ( visibilityUpdated ( VisibilityState ) ),pWidget, SLOT ( updateVisibilityState ( VisibilityState ) ) );
     connect ( this, SIGNAL ( backgroundColorChanged ( QColor ) ),pWidget, SLOT ( changeBackgroundColor ( QColor ) ) );
 
 }

@@ -51,9 +51,9 @@
 class KLUSTERSSHARED_EXPORT DockArea : public QScrollArea {
     Q_OBJECT
   public:
-    DockArea ( QWidget * pparent = 0 );
+    DockArea ( QWidget * parent = 0 );
 
-    virtual ~DockArea() {}
+    virtual ~DockArea();
     /**
      * Add a widget.
      * @param pName name of the widget.
