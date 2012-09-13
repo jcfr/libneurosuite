@@ -27,7 +27,7 @@ class DockArea;
 class KLUSTERSSHARED_EXPORT QExtendTabWidget : public QTabWidget
 {
 public:
-    explicit QExtendTabWidget(QWidget *parent);
+    explicit QExtendTabWidget(QWidget *parent = 0);
     ~QExtendTabWidget();
 
     void addDockArea(const QString& label);
