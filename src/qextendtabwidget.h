@@ -30,8 +30,9 @@ public:
     explicit QExtendTabWidget(QWidget *parent = 0);
     ~QExtendTabWidget();
 
-    void addDockArea(const QString& label);
+    DockArea *addDockArea(const QString& label);
     DockArea* currentDockArea();
+    void addDockArea(DockArea* area, const QString& label);
 
 };
 

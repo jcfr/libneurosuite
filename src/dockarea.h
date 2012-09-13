@@ -72,6 +72,7 @@ class KLUSTERSSHARED_EXPORT DockArea : public QScrollArea {
     */
     void addDockWidget ( Qt::DockWidgetArea pArea, QDockWidget * pDockwidget );
     
+
   public slots:
 
     /** Show or hide the dockWidget corresponding to widgetName.

@@ -28,11 +28,18 @@ QExtendTabWidget::~QExtendTabWidget()
 
 }
 
-void QExtendTabWidget::addDockArea(const QString& label)
+DockArea* QExtendTabWidget::addDockArea(const QString& label)
 {
     DockArea* dockArea = new DockArea ( this );
     addTab ( dockArea,label );
+    return dockArea;
 }
+
+void QExtendTabWidget::addDockArea(DockArea* area, const QString& label)
+{
+    addTab ( area,label );
+}
+
 
 DockArea* QExtendTabWidget::currentDockArea()
 {

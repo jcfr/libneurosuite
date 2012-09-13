@@ -55,6 +55,7 @@ DockArea::~DockArea()
 {
 }
 
+
 void DockArea::addWidget ( QWidget * pWidget,const QString& pName,Qt::DockWidgetArea pAllowedAreas,
                            Qt::DockWidgetArea pArea )
 {
