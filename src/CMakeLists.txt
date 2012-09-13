@@ -11,7 +11,9 @@ set(libklustersshared_SRCS
 	qextenddialog.cpp
 	kseparator.cpp
         dockarea.cpp
+	qextendtabwidget.cpp
 	)
+
 set (libklustersshared_HEADERS 
 	libklustersshared_export.h 
 	qrecentfileaction.h 
@@ -23,6 +25,7 @@ set (libklustersshared_HEADERS
        qpageview.h
        qpagewidgetmodel.h
        dockarea.h
+       qextendtabwidget.h
        )
 
 
