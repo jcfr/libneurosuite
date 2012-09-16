@@ -31,6 +31,7 @@ set (libklustersshared_HEADERS
        shared/channelcolors.h
        shared/itemcolors.h
        shared/types.h
+       shared/array.h
        )
 
 
