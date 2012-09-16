@@ -30,6 +30,7 @@ set (libklustersshared_HEADERS
        gui/qextendtabwidget.h
        shared/channelcolors.h
        shared/itemcolors.h
+       shared/types.h
        )
 
 
