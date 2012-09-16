@@ -14,6 +14,7 @@ set(libklustersshared_SRCS
 	gui/qextendtabwidget.cpp
 	shared/channelcolors.cpp
 	shared/itemcolors.cpp
+	shared/zoomwindow.cpp
 	)
 
 set (libklustersshared_HEADERS 
@@ -32,6 +33,7 @@ set (libklustersshared_HEADERS
        shared/itemcolors.h
        shared/types.h
        shared/array.h
+       shared/zoomwindow.h
        )
 
 
