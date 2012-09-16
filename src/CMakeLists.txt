@@ -1,31 +1,31 @@
 project(libklustersshared-src)
 set(libklustersshared_SRCS 
-	qrecentfileaction.cpp 
-	qcolorbutton.cpp 
-	qpagedialog.cpp
-	qpagemodel.cpp
-	qpageview.cpp
-	qpageview_p.cpp
-	qpagewidget.cpp
-	qpagewidgetmodel.cpp
-	qextenddialog.cpp
-	kseparator.cpp
-        dockarea.cpp
-	qextendtabwidget.cpp
+	gui/qrecentfileaction.cpp 
+	gui/qcolorbutton.cpp 
+	gui/qpagedialog.cpp
+	gui/qpagemodel.cpp
+	gui/qpageview.cpp
+	gui/qpageview_p.cpp
+	gui/qpagewidget.cpp
+	gui/qpagewidgetmodel.cpp
+	gui/qextenddialog.cpp
+	gui/kseparator.cpp
+        gui/dockarea.cpp
+	gui/qextendtabwidget.cpp
 	)
 
 set (libklustersshared_HEADERS 
 	libklustersshared_export.h 
-	qrecentfileaction.h 
-	qcolorbutton.h 
-	qpagedialog.h
-       qextenddialog.h
-       qpagewidget.h
-       qpagemodel.h
-       qpageview.h
-       qpagewidgetmodel.h
-       dockarea.h
-       qextendtabwidget.h
+	gui/qrecentfileaction.h 
+	gui/qcolorbutton.h 
+	gui/qpagedialog.h
+       gui/qextenddialog.h
+       gui/qpagewidget.h
+       gui/qpagemodel.h
+       gui/qpageview.h
+       gui/qpagewidgetmodel.h
+       gui/dockarea.h
+       gui/qextendtabwidget.h
        )
 
 
