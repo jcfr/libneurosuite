@@ -12,6 +12,7 @@ set(libklustersshared_SRCS
 	gui/kseparator.cpp
         gui/dockarea.cpp
 	gui/qextendtabwidget.cpp
+	shared/channelcolors.cpp
 	)
 
 set (libklustersshared_HEADERS 
@@ -26,6 +27,7 @@ set (libklustersshared_HEADERS
        gui/qpagewidgetmodel.h
        gui/dockarea.h
        gui/qextendtabwidget.h
+       shared/channelcolors.h
        )
 
 
