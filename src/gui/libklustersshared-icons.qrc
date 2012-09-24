@@ -1,7 +1,7 @@
 <RCC>
     <qresource prefix="/shared-icons">
-        <file>icons/document-close.png</file>
-        <file>icons/document-new.png</file>
+        <file alias="document-close">icons/document-close.png</file>
+        <file alias="document-new">icons/document-new.png</file>
         <file>icons/document-open-recent.png</file>
         <file>icons/document-open.png</file>
         <file>icons/document-print.png</file>
