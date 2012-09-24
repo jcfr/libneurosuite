@@ -37,6 +37,8 @@ set (libklustersshared_HEADERS
        )
 
 
+qt4_add_resources(libklustersshared_SRCS gui/libklustersshared-icons.qrc)
+
 add_library (klustersshared SHARED ${libklustersshared_SRCS})
 target_link_libraries( klustersshared ${QT_LIBRARIES})
 
