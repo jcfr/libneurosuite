@@ -37,9 +37,17 @@ set (libklustersshared_HEADERS
        )
 
 
+SET(translate_files
+    klustershared.ts
+)
+
+if(UPDATE_TRANSLATION)
+QT4_CREATE_TRANSLATION(translateSrcs ../translate ${libklustersshared_SRCS} ${translate_files})
+endif()
+
 qt4_add_resources(libklustersshared_SRCS gui/libklustersshared-icons.qrc)
 
-add_library (klustersshared SHARED ${libklustersshared_SRCS})
+add_library (klustersshared SHARED ${libklustersshared_SRCS} ${translateSrcs})
 target_link_libraries( klustersshared ${QT_LIBRARIES})
 
 install( TARGETS klustersshared EXPORT LibKlustersSharedLibraryTargets 
