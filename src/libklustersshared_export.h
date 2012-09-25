@@ -3,14 +3,17 @@
 
 #include <QtCore/qglobal.h>
 
-#ifndef KLUSTERSSHARED_EXPORT
-# if defined(KLUSTERSSHARED_MAKEDLL)
-   /* We are building this library */
-#  define KLUSTERSSHARED_EXPORT Q_DECL_EXPORT
+# ifdef KLUSTERSSHARED_STATICLIB
+#  undef KLUSTERSSHARED_SHAREDLIB
+#  define KLUSTERSSHARED_EXPORT
 # else
-   /* We are using this library */
-#  define KLUSTERSSHARED_EXPORT Q_DECL_IMPORT
+#  ifdef KLUSTERSSHARED_BUILD_KLUSTERSSHARED_LIB
+#   define KLUSTERSSHARED_EXPORT Q_DECL_EXPORT
+#  else
+#   define KLUSTERSSHARED_EXPORT Q_DECL_IMPORT
+#  endif
 # endif
-#endif
+
+
 
 #endif // KLUSTERSSHARED_EXPORT_H
