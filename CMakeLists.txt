@@ -11,12 +11,49 @@ include(MacroEnsureVersion)
 include(CheckCXXCompilerFlag)
 
 
+# This macro is for internal use only
+# Return the directories present in gcc's include path.
+macro(_DETERMINE_GCC_SYSTEM_INCLUDE_DIRS _lang _result)
+  set(${_result})
+  set(_gccOutput)
+  file(WRITE "${CMAKE_BINARY_DIR}/CMakeFiles/dummy" "\n" )
+  execute_process(COMMAND ${CMAKE_C_COMPILER} -v -E -x ${_lang} -dD dummy
+                  WORKING_DIRECTORY ${CMAKE_BINARY_DIR}/CMakeFiles
+                  ERROR_VARIABLE _gccOutput
+                  OUTPUT_VARIABLE _gccStdout )
+  file(REMOVE "${CMAKE_BINARY_DIR}/CMakeFiles/dummy")
+
+  if( "${_gccOutput}" MATCHES "> search starts here[^\n]+\n *(.+) *\n *End of (search) list" )
+    SET(${_result} ${CMAKE_MATCH_1})
+    STRING(REPLACE "\n" " " ${_result} "${${_result}}")
+    SEPARATE_ARGUMENTS(${_result})
+  ENDIF( "${_gccOutput}" MATCHES "> search starts here[^\n]+\n *(.+) *\n *End of (search) list" )
+ENDMACRO(_DETERMINE_GCC_SYSTEM_INCLUDE_DIRS _lang)
+
+
 #laurent check from kde
 if (CMAKE_COMPILER_IS_GNUCXX)
   if (NOT APPLE)
     set ( CMAKE_SHARED_LINKER_FLAGS "-Wl,--fatal-warnings -Wl,--no-undefined -lc ${CMAKE_SHARED_LINKER_FLAGS}")
     set ( CMAKE_MODULE_LINKER_FLAGS "-Wl,--fatal-warnings -Wl,--no-undefined -lc ${CMAKE_MODULE_LINKER_FLAGS}")
   endif ()
+   
+   _DETERMINE_GCC_SYSTEM_INCLUDE_DIRS(c++ _dirs)
+   set(CMAKE_CXX_IMPLICIT_INCLUDE_DIRECTORIES
+       ${CMAKE_CXX_IMPLICIT_INCLUDE_DIRECTORIES} ${_dirs})
+
+   set (KDE4_ENABLE_EXCEPTIONS "-fexceptions -UQT_NO_EXCEPTIONS")
+   # Select flags.
+   set(CMAKE_CXX_FLAGS_RELWITHDEBINFO "-O2 -g -DNDEBUG -DQT_NO_DEBUG")
+   set(CMAKE_CXX_FLAGS_RELEASE        "-O2 -DNDEBUG -DQT_NO_DEBUG")
+   set(CMAKE_CXX_FLAGS_DEBUG          "-g -O2 -fno-reorder-blocks -fno-schedule-insns -fno-inline")
+   set(CMAKE_CXX_FLAGS_DEBUGFULL      "-g3 -fno-inline")
+   set(CMAKE_CXX_FLAGS_PROFILE        "-g3 -fno-inline -ftest-coverage -fprofile-arcs")
+   set(CMAKE_C_FLAGS_RELWITHDEBINFO   "-O2 -g -DNDEBUG -DQT_NO_DEBUG")
+   set(CMAKE_C_FLAGS_RELEASE          "-O2 -DNDEBUG -DQT_NO_DEBUG")
+   set(CMAKE_C_FLAGS_DEBUG            "-g -O2 -fno-reorder-blocks -fno-schedule-insns -fno-inline")
+   set(CMAKE_C_FLAGS_DEBUGFULL        "-g3 -fno-inline")
+   set(CMAKE_C_FLAGS_PROFILE          "-g3 -fno-inline -ftest-coverage -fprofile-arcs")
 
   check_cxx_compiler_flag(-fvisibility=hidden __KDE_HAVE_GCC_VISIBILITY)
   set( __KDE_HAVE_GCC_VISIBILITY ${__KDE_HAVE_GCC_VISIBILITY} CACHE BOOL "GCC support for hidden visibility")
@@ -71,6 +108,10 @@ if (CMAKE_COMPILER_IS_GNUCXX)
 
 endif()
 
+
+if (MSVC)
+   set (KDE4_ENABLE_EXCEPTIONS -EHsc)
+endif()   
 
 # tell cmake where to search for Qt headers:
 include_directories(${QT_INCLUDE_DIR} ${CMAKE_CURRENT_BINARY_DIR} src/gui/ ${CMAKE_CURRENT_BINARY_DIR}/src/gui/)
