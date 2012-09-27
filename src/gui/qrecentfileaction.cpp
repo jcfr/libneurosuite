@@ -84,14 +84,12 @@ void QRecentFileActionPrivate::addAction(const QString& file)
     }
     QAction* action = new QAction(file,qq);
     qq->menu()->insertAction(qq->menu()->actions().value(0), action);
-    listRecentAction.append(action);
 }
 
 void QRecentFileActionPrivate::removeAction(QAction* act)
 {
     qq->menu()->removeAction(act);
     recentFiles.removeAll(act->text());
-    listRecentAction.removeAll(act);
 }
 
 void QRecentFileActionPrivate::menuIsEmpty()
@@ -118,7 +116,7 @@ void QRecentFileAction::clear()
 {
     d->menuIsEmpty();
 
-    foreach (QAction* action, d->listRecentAction) {
+    foreach (QAction* action, menu()->actions()) {
         d->removeAction(action);
     }
 
@@ -139,7 +137,7 @@ void QRecentFileAction::addRecentFile(const QString&file)
         return;
 
     // remove file if already in list
-    foreach (QAction* action, d->listRecentAction)
+    foreach (QAction* action, menu()->actions())
     {
       if ( action->text() == file )
       {
@@ -147,9 +145,9 @@ void QRecentFileAction::addRecentFile(const QString&file)
           break;
       }
     }
-    if( d->maximumFileCount && d->listRecentAction.count() == d->maximumFileCount )
+    if( d->maximumFileCount && menu()->actions().count() == d->maximumFileCount )
     {
-        QAction *act = d->listRecentAction.first();
+        QAction *act = menu()->actions().first();
         d->removeAction(act);
     }
 
@@ -168,7 +166,7 @@ void QRecentFileAction::removeRecentFile(const QString&file)
         d->recentFiles.removeAll(file);
     }
 
-    foreach (QAction* action, d->listRecentAction)
+    foreach (QAction* action, menu()->actions())
     {
       if ( action->text() == file )
       {
@@ -176,7 +174,7 @@ void QRecentFileAction::removeRecentFile(const QString&file)
           break;
       }
     }
-    if(d->listRecentAction.isEmpty()) {
+    if(menu()->actions().isEmpty()) {
         d->menuIsEmpty();
     }
     save();
@@ -202,8 +200,8 @@ void QRecentFileAction::setMaximumFileCount(int maximumRecentFile ) const
     if(d->maximumFileCount != maximumRecentFile) {
         d->maximumFileCount = maximumRecentFile;
         // remove all excess items
-        while( d->listRecentAction.count() > d->maximumFileCount ) {
-            QAction *act = d->listRecentAction.last();
+        while( menu()->actions().count() > d->maximumFileCount ) {
+            QAction *act = menu()->actions().last();
             d->removeAction(act);
         }
     }
