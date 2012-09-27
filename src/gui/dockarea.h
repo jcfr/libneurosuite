@@ -81,8 +81,6 @@ class KLUSTERSSHARED_EXPORT DockArea : public QScrollArea {
     */
     void showDockWidget ( const QString& pWidgetName, bool pShow );
 
-    /**Change the background color.*/
-    inline virtual void changeBackgroundColor ( const QColor& pColor ) {emit backgroundColorChanged ( pColor );}
 
 
     /** Return the names of the dockwidgets contained in this area.*/
@@ -107,8 +105,6 @@ class KLUSTERSSHARED_EXPORT DockArea : public QScrollArea {
     void dockWidgetAdded ( const QString& pWidgetName );
 
     void contentToUpdate();
-    void backgroundColorChanged ( const QColor& pColor );
-
 
   private:
 
