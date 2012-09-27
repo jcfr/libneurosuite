@@ -14,7 +14,7 @@ public:
     QRecentFileActionPrivate(QAction *q)
         :qq(q)
     {
-        maximumNumberOfRecentFile = 10;
+        maximumFileCount = 10;
         initMenu();
         loadRecentFile();
     }
@@ -27,7 +27,7 @@ public:
 
     QList<QAction*> listRecentAction;
     QStringList recentFiles;
-    int maximumNumberOfRecentFile;
+    int maximumFileCount;
     QAction *noEntriesAction;
     QAction *clearSeparator;
     QAction *clearAction;
@@ -68,7 +68,7 @@ void QRecentFileActionPrivate::fillRecentMenu()
     for( int i = 0 ; i < numberOfRecentFile; i++ )
     {
         addAction(recentFiles.at(i));
-        if( i == maximumNumberOfRecentFile) {
+        if( i == maximumFileCount) {
             break;
         }
     }
@@ -110,7 +110,7 @@ QRecentFileAction::QRecentFileAction(QObject *parent)
 
 QRecentFileAction::~QRecentFileAction()
 {
-    saveRecentFile();
+    save();
     delete d;
 }
 
@@ -122,7 +122,7 @@ void QRecentFileAction::clear()
         d->removeAction(action);
     }
 
-    saveRecentFile();
+    save();
     Q_EMIT recentFileCleared();
 }
 
@@ -147,7 +147,7 @@ void QRecentFileAction::addRecentFile(const QString&file)
           break;
       }
     }
-    if( d->maximumNumberOfRecentFile && d->listRecentAction.count() == d->maximumNumberOfRecentFile )
+    if( d->maximumFileCount && d->listRecentAction.count() == d->maximumFileCount )
     {
         QAction *act = d->listRecentAction.first();
         d->removeAction(act);
@@ -159,7 +159,7 @@ void QRecentFileAction::addRecentFile(const QString&file)
     d->recentFiles.append(file);
 
     d->addAction(file);
-    saveRecentFile();
+    save();
 }
 
 void QRecentFileAction::removeRecentFile(const QString&file)
@@ -179,10 +179,10 @@ void QRecentFileAction::removeRecentFile(const QString&file)
     if(d->listRecentAction.isEmpty()) {
         d->menuIsEmpty();
     }
-    saveRecentFile();
+    save();
 }
 
-void QRecentFileAction::saveRecentFile()
+void QRecentFileAction::save()
 {
     QSettings settings;
     if(settings.applicationName().isEmpty()) {
@@ -192,17 +192,17 @@ void QRecentFileAction::saveRecentFile()
     settings.setValue(QLatin1String("Recent Files"),d->recentFiles);
 }
 
-int QRecentFileAction::maximumNumberOfRecentFile() const
+int QRecentFileAction::maximumFileCount() const
 {
-    return d->maximumNumberOfRecentFile;
+    return d->maximumFileCount;
 }
 
-void QRecentFileAction::setMaximumNumberOfRecentFile(int maximumRecentFile ) const
+void QRecentFileAction::setMaximumFileCount(int maximumRecentFile ) const
 {
-    if(d->maximumNumberOfRecentFile != maximumRecentFile) {
-        d->maximumNumberOfRecentFile = maximumRecentFile;
+    if(d->maximumFileCount != maximumRecentFile) {
+        d->maximumFileCount = maximumRecentFile;
         // remove all excess items
-        while( d->listRecentAction.count() > d->maximumNumberOfRecentFile ) {
+        while( d->listRecentAction.count() > d->maximumFileCount ) {
             QAction *act = d->listRecentAction.last();
             d->removeAction(act);
         }
