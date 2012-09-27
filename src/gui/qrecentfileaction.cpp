@@ -79,6 +79,9 @@ void QRecentFileActionPrivate::fillRecentMenu()
 
 void QRecentFileActionPrivate::addAction(const QString& file)
 {
+    if(file.isEmpty()) {
+        return;
+    }
     QAction* action = new QAction(file,qq);
     qq->menu()->insertAction(qq->menu()->actions().value(0), action);
     listRecentAction.append(action);
@@ -132,6 +135,9 @@ void QRecentFileAction::fileSelected(QAction*action)
 
 void QRecentFileAction::addRecentFile(const QString&file)
 {
+    if(file.isEmpty())
+        return;
+
     // remove file if already in list
     foreach (QAction* action, d->listRecentAction)
     {
