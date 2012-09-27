@@ -25,7 +25,6 @@ public:
     void removeAction(QAction* act);
     void menuIsEmpty();
 
-    QList<QAction*> listRecentAction;
     QStringList recentFiles;
     int maximumFileCount;
     QAction *noEntriesAction;
@@ -117,7 +116,8 @@ void QRecentFileAction::clear()
     d->menuIsEmpty();
 
     foreach (QAction* action, menu()->actions()) {
-        d->removeAction(action);
+        if((action != d->clearAction) && (action != d->noEntriesAction) && (action != d->clearSeparator))
+            d->removeAction(action);
     }
 
     save();
