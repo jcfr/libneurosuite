@@ -162,9 +162,7 @@ void QRecentFileAction::addRecentFile(const QString&file)
 
 void QRecentFileAction::removeRecentFile(const QString&file)
 {
-    if(!d->recentFiles.contains(file)) {
-        d->recentFiles.removeAll(file);
-    }
+    d->recentFiles.removeAll(file);
 
     foreach (QAction* action, menu()->actions())
     {
