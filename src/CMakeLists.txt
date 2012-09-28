@@ -15,6 +15,7 @@ set(libklustersshared_SRCS
 	shared/channelcolors.cpp
 	shared/itemcolors.cpp
 	shared/zoomwindow.cpp
+	shared/utilities.cpp
 	)
 
 set (libklustersshared_HEADERS 
@@ -33,6 +34,7 @@ set (libklustersshared_HEADERS
        shared/itemcolors.h
        shared/types.h
        shared/array.h
+       shared/utilities.h
        shared/zoomwindow.h
        )
 
