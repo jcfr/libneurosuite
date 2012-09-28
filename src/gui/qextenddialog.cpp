@@ -156,6 +156,22 @@ void QExtendDialogPrivate::appendButton(QExtendDialog::ButtonCode key, const QSt
 
   QPushButton *button = new QPushButton( item );
   mButtonBox->addButton( button, role );
+  switch(key) {
+  case QExtendDialog::Ok:
+      button->setIcon(QPixmap(":/shared-icons/dialog-ok"));
+      break;
+  case QExtendDialog::Apply:
+      button->setIcon(QPixmap(":/shared-icons/dialog-ok-apply"));
+      break;
+  case QExtendDialog::Cancel:
+      button->setIcon(QPixmap(":/shared-icons/dialog-cancel"));
+      break;
+  case QExtendDialog::Close:
+      button->setIcon(QPixmap(":/shared-icons/dialog-close"));
+      break;
+  default:
+      break;
+  }
 
   mButtonList.insert( key, button );
   mButtonSignalMapper.setMapping( button, key );
@@ -1061,69 +1077,4 @@ void QExtendDialog::setAllowEmbeddingInGraphicsView( bool allowEmbedding )
   sAllowEmbeddingInGraphicsView = allowEmbedding;
 }
 
-#if 0
-class KDialogQueue::Private
-{
-  public:
-    Private(KDialogQueue *q): q(q) {}
-
-    void slotShowQueuedDialog();
-
-    KDialogQueue *q;
-    QList< QPointer<QDialog> > queue;
-    bool busy;
-
-};
-
-KDialogQueue* KDialogQueue::self()
-{
-  K_GLOBAL_STATIC(KDialogQueue, _self)
-  return _self;
-}
-
-KDialogQueue::KDialogQueue()
-  : d( new Private(this) )
-{
-  d->busy = false;
-}
-
-KDialogQueue::~KDialogQueue()
-{
-  delete d;
-}
-
-// static
-void KDialogQueue::queueDialog( QDialog *dialog )
-{
-  KDialogQueue *_this = self();
-  _this->d->queue.append( dialog );
-
-  QTimer::singleShot( 0, _this, SLOT(slotShowQueuedDialog()) );
-}
-
-void KDialogQueue::Private::slotShowQueuedDialog()
-{
-  if ( busy )
-    return;
-
-  QDialog *dialog;
-  do {
-    if ( queue.isEmpty() )
-      return;
-    dialog = queue.first();
-    queue.pop_front();
-  } while( !dialog );
-
-  busy = true;
-  dialog->exec();
-  busy = false;
-  delete dialog;
-
-  if ( !queue.isEmpty() )
-    QTimer::singleShot( 20, q, SLOT(slotShowQueuedDialog()) );
-}
-#endif
 #include "moc_qextenddialog.cpp"
-#if 0
-//#include "kdialogqueue_p.moc"
-#endif

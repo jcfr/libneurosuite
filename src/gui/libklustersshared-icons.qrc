@@ -10,7 +10,7 @@
         <file alias="document-save">icons/document-save.png</file>
         <file alias="dialog-cancel">icons/dialog-cancel.png</file>
         <file alias="dialog-close">icons/dialog-close.png</file>
-        <file alias="dilaog-ok-apply">icons/dialog-ok-apply.png</file>
+        <file alias="dialog-ok-apply">icons/dialog-ok-apply.png</file>
         <file alias="dialog-ok">icons/dialog-ok.png</file>
         <file alias="edit-redo">icons/edit-redo.png</file>
         <file alias="edit-undo">icons/edit-undo.png</file>
