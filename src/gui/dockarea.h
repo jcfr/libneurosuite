@@ -75,6 +75,10 @@ class KLUSTERSSHARED_EXPORT DockArea : public QScrollArea {
 
   public slots:
 
+    /**Change the background color.*/
+    void slotChangeBackgroundColor ( const QColor& pColor ) {emit sig_backgroundColorChanged ( pColor );}
+
+
     /** Show or hide the dockWidget corresponding to widgetName.
     * @param pWidgetName name of the dockWidget to show or hide.
     * @param show show the dockWidget if true, hide otherwise.
@@ -105,6 +109,7 @@ class KLUSTERSSHARED_EXPORT DockArea : public QScrollArea {
     void dockWidgetAdded ( const QString& pWidgetName );
 
     void contentToUpdate();
+    void sig_backgroundColorChanged( const QColor&);
 
   private:
 
