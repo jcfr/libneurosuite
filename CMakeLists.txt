@@ -130,6 +130,7 @@ set(CMAKE_AUTOMOC TRUE)
 configure_file(LibKlustersSharedConfig.cmake.in ${CMAKE_CURRENT_BINARY_DIR}/LibKlustersSharedConfig.cmake @ONLY)
 
 add_definitions(-DKLUSTERSSHARED_BUILD_KLUSTERSSHARED_LIB)
+add_definitions(-DQT_USE_FAST_CONCATENATION -DQT_USE_FAST_OPERATOR_PLUS)
 
 add_subdirectory(src)
 
