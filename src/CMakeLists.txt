@@ -16,7 +16,20 @@ set(libklustersshared_SRCS
 	shared/itemcolors.cpp
 	shared/zoomwindow.cpp
 	shared/utilities.cpp
+	#remove it in qt5
+	libinqt5/qstandardpaths.cpp
 	)
+
+#remove it in qt5
+if (UNIX)
+  set(libklustersshared_SRCS ${libklustersshared_SRCS} libinqt5/qstandardpaths_unix.cpp )
+endif()
+if (WIN32)
+  set(libklustersshared_SRCS ${libklustersshared_SRCS} libinqt5/qstandardpaths_win.cpp )
+endif()
+if (APPLE)
+  set(libklustersshared_SRCS ${libklustersshared_SRCS} libinqt5/qstandardpaths_mac.cpp )
+endif()
 
 set (libklustersshared_HEADERS 
 	libklustersshared_export.h 
@@ -36,6 +49,8 @@ set (libklustersshared_HEADERS
        shared/array.h
        shared/utilities.h
        shared/zoomwindow.h
+       #Remove in qt5
+       libinqt5/qstandardpaths.h
        )
 
 
