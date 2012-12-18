@@ -12,6 +12,7 @@ set(libklustersshared_SRCS
 	gui/kseparator.cpp
         gui/dockarea.cpp
 	gui/qextendtabwidget.cpp
+	gui/qhelpviewer.cpp
 	shared/channelcolors.cpp
 	shared/itemcolors.cpp
 	shared/zoomwindow.cpp
@@ -43,6 +44,7 @@ set (libklustersshared_HEADERS
        gui/qpagewidgetmodel.h
        gui/dockarea.h
        gui/qextendtabwidget.h
+       gui/qhelpviewer.h
        shared/channelcolors.h
        shared/itemcolors.h
        shared/types.h
@@ -65,6 +67,10 @@ endif()
 qt4_add_resources(libklustersshared_SRCS gui/libklustersshared-icons.qrc)
 
 add_library (klustersshared SHARED ${libklustersshared_SRCS} ${translateSrcs})
+if(QT_QTWEBKIT_FOUND)
+     target_link_libraries(klustersshared ${QT_QTWEBKIT_LIBRARY})
+endif()
+
 target_link_libraries( klustersshared ${QT_LIBRARIES})
 
 install( TARGETS klustersshared EXPORT LibKlustersSharedLibraryTargets 

@@ -126,6 +126,12 @@ set(INCLUDE_INSTALL_DIR          "${EXEC_INSTALL_PREFIX}/include/klustersshared"
 
 set(CMAKE_INCLUDE_CURRENT_DIR TRUE)
 set(CMAKE_AUTOMOC TRUE)
+set( QT_USE_QTWEBKIT TRUE)
+
+
+if(QT_QTWEBKIT_FOUND)
+   include_directories(${QT_QTWEBKIT_INCLUDE_DIR})
+endif()
 
 configure_file(LibKlustersSharedConfig.cmake.in ${CMAKE_CURRENT_BINARY_DIR}/LibKlustersSharedConfig.cmake @ONLY)
 

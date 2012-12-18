@@ -6,6 +6,8 @@ Copyright (C) 2012 Klarälvdalens Datakonsult AB, a KDAB Group company, info@kda
 #define QHELPVIEWER_H
 #include <QDialog>
 
+class QWebView;
+
 class QHelpViewer : public QDialog
 {
 public:
@@ -13,6 +15,7 @@ public:
     ~QHelpViewer();
     void setHtml(const QString& filename);
 private:
+    QWebView *mView;
 };
 
 #endif // QHELPVIEWER_H
