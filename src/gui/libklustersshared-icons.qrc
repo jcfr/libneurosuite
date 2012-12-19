@@ -15,5 +15,6 @@
         <file alias="edit-redo">icons/edit-redo.png</file>
         <file alias="edit-undo">icons/edit-undo.png</file>
         <file alias="window-close">icons/window-close.png</file>
+        <file alias="folder-open">icons/folder-open.png</file>
     </qresource>
 </RCC>
