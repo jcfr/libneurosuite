@@ -10,6 +10,7 @@ Copyright (C) 2012 Klarälvdalens Datakonsult AB, a KDAB Group company, info@kda
 QHelpViewer::QHelpViewer(QWidget *parent)
     :QDialog(parent)
 {
+    setWindowTitle(tr("Handbook"));
     QVBoxLayout *lay = new QVBoxLayout;
     mView = new QWebView;
     lay->addWidget(mView);
