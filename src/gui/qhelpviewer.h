@@ -6,9 +6,10 @@ Copyright (C) 2012 Klarälvdalens Datakonsult AB, a KDAB Group company, info@kda
 #define QHELPVIEWER_H
 #include <QDialog>
 
+#include "libklustersshared_export.h"
 class QWebView;
 
-class QHelpViewer : public QDialog
+class KLUSTERSSHARED_EXPORT QHelpViewer : public QDialog
 {
 public:
     explicit QHelpViewer(QWidget *parent);
