@@ -3,14 +3,14 @@ Copyright (C) 2012 Klarälvdalens Datakonsult AB, a KDAB Group company, info@kda
 */
 
 #include "qhelpviewer.h"
-#include <QHBoxLayout>
+#include <QVBoxLayout>
 #include <QWebView>
 #include <QDialogButtonBox>
 
 QHelpViewer::QHelpViewer(QWidget *parent)
     :QDialog(parent)
 {
-    QHBoxLayout *lay = new QHBoxLayout;
+    QVBoxLayout *lay = new QVBoxLayout;
     mView = new QWebView;
     lay->addWidget(mView);
 
