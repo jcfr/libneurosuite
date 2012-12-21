@@ -9,6 +9,8 @@ Copyright (C) 2012 Klarälvdalens Datakonsult AB, a KDAB Group company, info@kda
 #include <QDebug>
 #include <QFileInfo>
 
+QT_BEGIN_NAMESPACE
+
 class QRecentFileActionPrivate
 {
 public:
@@ -219,3 +221,7 @@ void QRecentFileAction::initializeMenu()
 {
     d->initializeMenu();
 }
+
+QT_END_NAMESPACE
+
+#include "moc_qrecentfileaction.cpp"
