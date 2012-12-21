@@ -60,6 +60,7 @@ public Q_SLOTS:
 Q_SIGNALS:
     void recentFileSelected(const QString &);
     void recentFileCleared();
+    void recentFileListChanged();
 
 private:
     QRecentFileActionPrivate * const d;

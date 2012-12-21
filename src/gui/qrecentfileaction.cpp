@@ -150,8 +150,10 @@ QRecentFileAction::QRecentFileAction(QObject *parent)
 
 QRecentFileAction::~QRecentFileAction()
 {
-    if (d->initialized)
+    if (d->initialized) {
+        Q_EMIT recentFileListChanged();
         save();
+    }
     delete d;
 }
 
@@ -163,6 +165,7 @@ void QRecentFileAction::clear()
     }
     d->updateActionsState();
     save();
+    Q_EMIT recentFileListChanged();
     Q_EMIT recentFileCleared();
 }
 
@@ -182,6 +185,7 @@ void QRecentFileAction::addRecentFile(const QString &file)
     d->addAction(file);
     d->updateActionsState();
     save();
+    Q_EMIT recentFileListChanged();
 }
 
 void QRecentFileAction::removeRecentFile(const QString &file)
@@ -190,6 +194,7 @@ void QRecentFileAction::removeRecentFile(const QString &file)
     d->removeAction(file);
     d->updateActionsState();
     save();
+    Q_EMIT recentFileListChanged();
 }
 
 void QRecentFileAction::save()
@@ -200,6 +205,7 @@ void QRecentFileAction::save()
         return; //Return ?
     }
     settings.setValue(QLatin1String("Recent Files"),d->recentFiles);
+    Q_EMIT recentFileListChanged();
 }
 
 int QRecentFileAction::maximumFileCount() const
