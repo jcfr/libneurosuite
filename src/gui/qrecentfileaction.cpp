@@ -7,6 +7,7 @@ Copyright (C) 2012 Klarälvdalens Datakonsult AB, a KDAB Group company, info@kda
 #include <QSettings>
 #include <QMenu>
 #include <QDebug>
+#include <QFileInfo>
 
 class QRecentFileActionPrivate
 {
@@ -24,6 +25,7 @@ public:
     void addAction(const QString& file);
     void removeAction(QAction* act);
     void menuIsEmpty();
+    QString actionText(QString text);
 
     QStringList recentFiles;
     int maximumFileCount;
@@ -76,19 +78,35 @@ void QRecentFileActionPrivate::fillRecentMenu()
     clearAction->setVisible(true);
 }
 
+QString QRecentFileActionPrivate::actionText(QString text)
+{
+    QString str;
+
+}
+
 void QRecentFileActionPrivate::addAction(const QString& file)
 {
     if(file.isEmpty()) {
         return;
     }
-    QAction* action = new QAction(file,qq);
+
+    QString newFileName = file;
+    if(file.length() > 30) {
+        newFileName = file.left(15) + "..." + file.right(15);
+
+    }
+
+    const QString actionText = QString::fromLatin1("%1 [%2]").arg(QFileInfo(file).fileName()).arg(newFileName);
+    QAction* action = new QAction(actionText,qq);
+    action->setToolTip(file);
+    action->setData(file);
     qq->menu()->insertAction(qq->menu()->actions().value(0), action);
 }
 
 void QRecentFileActionPrivate::removeAction(QAction* act)
 {
     qq->menu()->removeAction(act);
-    recentFiles.removeAll(act->text());
+    recentFiles.removeAll(act->data().toString());
 }
 
 void QRecentFileActionPrivate::menuIsEmpty()
@@ -127,7 +145,7 @@ void QRecentFileAction::clear()
 void QRecentFileAction::fileSelected(QAction*action)
 {
     if(action) {
-        Q_EMIT recentFileSelected(action->text());
+        Q_EMIT recentFileSelected(action->data().toString());
     }
 }
 
@@ -139,7 +157,7 @@ void QRecentFileAction::addRecentFile(const QString&file)
     // remove file if already in list
     foreach (QAction* action, menu()->actions())
     {
-      if ( action->text() == file )
+      if ( action->data().toString() == file )
       {
           d->removeAction(action);
           break;
@@ -166,7 +184,7 @@ void QRecentFileAction::removeRecentFile(const QString&file)
 
     foreach (QAction* action, menu()->actions())
     {
-      if ( action->text() == file )
+      if ( action->data().toString() == file )
       {
           d->removeAction(action);
           break;
