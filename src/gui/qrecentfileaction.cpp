@@ -40,9 +40,9 @@ public:
 
 void QRecentFileActionPrivate::initializeMenu()
 {
-
-    if(initialized)
+    if(initialized) {
         return;
+    }
 
     QSettings settings;
     if(settings.applicationName().isEmpty()) {
@@ -63,8 +63,7 @@ void QRecentFileActionPrivate::initializeMenu()
 
     if(!recentFiles.isEmpty()) {
         const int numberOfRecentFile(recentFiles.count());
-        for( int i = 0 ; i < numberOfRecentFile; i++ )
-        {
+        for( int i = 0 ; i < numberOfRecentFile; ++i ) {
             addAction(recentFiles.at(i));
             if( i == maximumFileCount) {
                 break;
@@ -77,8 +76,9 @@ void QRecentFileActionPrivate::initializeMenu()
 
 void QRecentFileActionPrivate::initialize()
 {
-    if(initialized)
+    if(initialized) {
         return;
+    }
 
     delete q->menu();
     QMenu *menu = new QMenu();
@@ -122,10 +122,8 @@ void QRecentFileActionPrivate::updateActionsState()
 
 void QRecentFileActionPrivate::removeAction(const QString &file)
 {
-    Q_FOREACH(QAction* action, q->menu()->actions())
-    {
-      if ( action->data().toString() == file )
-      {
+    Q_FOREACH(QAction* action, q->menu()->actions()) {
+      if ( action->data().toString() == file ) {
           removeAction(action);
           break;
       }
@@ -171,11 +169,11 @@ void QRecentFileAction::addRecentFile(const QString&file)
 
     // remove file if already in list
     d->removeAction(file);
-    if( d->maximumFileCount && menu()->actions().count() == d->maximumFileCount )
-    {
+    if( d->maximumFileCount && menu()->actions().count() == d->maximumFileCount ) {
         QAction *act = menu()->actions().first();
         d->removeAction(act);
     }
+
     d->recentFiles.append(file);
     d->addAction(file);
     d->updateActionsState();

@@ -58,6 +58,7 @@ Q_SIGNALS:
 private Q_SLOTS:
     void fileSelected(QAction*);
     void initializeMenu();
+
 private:
     QRecentFileActionPrivate * const d;
     Q_DISABLE_COPY(QRecentFileAction)
