@@ -148,8 +148,7 @@ QRecentFileAction::~QRecentFileAction()
 
 void QRecentFileAction::clear()
 {
-    qDebug()<<" void QRecentFileAction::clear()";
-    foreach (QAction* action, menu()->actions()) {
+    Q_FOREACH (QAction* action, menu()->actions()) {
         if((action != d->clearAction) && (action != d->noEntriesAction) && (action != d->clearSeparator))
             d->removeAction(action);
     }
