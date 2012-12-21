@@ -24,7 +24,7 @@ public:
     void fillRecentMenu();
     void addAction(const QString& file);
     void removeAction(QAction* act);
-    void menuIsEmpty();
+    void updateActionsState();
 
     QStringList recentFiles;
     int maximumFileCount;
@@ -40,10 +40,13 @@ void QRecentFileActionPrivate::initMenu()
     qq->setMenu(new QMenu());
     noEntriesAction = qq->menu()->addAction(qq->tr("No Entries"));
     noEntriesAction->setEnabled(false);
+
     clearSeparator = qq->menu()->addSeparator();
     clearSeparator->setVisible(false);
+
     clearAction = qq->menu()->addAction(qq->tr("Clear List"), qq, SLOT(clear()));
     clearAction->setVisible(false);
+
     qq->connect(qq->menu(), SIGNAL(triggered(QAction*)),qq, SLOT(fileSelected(QAction*)));
 }
 
@@ -72,7 +75,7 @@ void QRecentFileActionPrivate::fillRecentMenu()
             break;
         }
     }
-    menuIsEmpty();
+    updateActionsState();
 }
 
 void QRecentFileActionPrivate::addAction(const QString& file)
@@ -83,7 +86,7 @@ void QRecentFileActionPrivate::addAction(const QString& file)
 
     QString troncateFileName = file;
     if(file.length() > 30) {
-        troncateFileName = file.left(15) + "..." + file.right(15);
+        troncateFileName = file.left(15) + QLatin1String("...") + file.right(15);
     }
 
     const QString actionText = QString::fromLatin1("%1 [%2]").arg(QFileInfo(file).fileName()).arg(troncateFileName);
@@ -99,7 +102,7 @@ void QRecentFileActionPrivate::removeAction(QAction* act)
     recentFiles.removeAll(act->data().toString());
 }
 
-void QRecentFileActionPrivate::menuIsEmpty()
+void QRecentFileActionPrivate::updateActionsState()
 {
     bool isMenuEmpty = qq->menu()->actions().isEmpty();
     noEntriesAction->setVisible(isMenuEmpty);
@@ -127,7 +130,7 @@ void QRecentFileAction::clear()
         if((action != d->clearAction) && (action != d->noEntriesAction) && (action != d->clearSeparator))
             d->removeAction(action);
     }
-    d->menuIsEmpty();
+    d->updateActionsState();
     save();
     Q_EMIT recentFileCleared();
 }
@@ -159,10 +162,9 @@ void QRecentFileAction::addRecentFile(const QString&file)
         d->removeAction(act);
     }
 
-    d->menuIsEmpty();
     d->recentFiles.append(file);
-
     d->addAction(file);
+    d->updateActionsState();
     save();
 }
 
@@ -178,9 +180,7 @@ void QRecentFileAction::removeRecentFile(const QString&file)
           break;
       }
     }
-    if(menu()->actions().isEmpty()) {
-        d->menuIsEmpty();
-    }
+    d->updateActionsState();
     save();
 }
 
