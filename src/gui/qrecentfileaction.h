@@ -8,6 +8,12 @@ Copyright (C) 2012 Klarälvdalens Datakonsult AB, a KDAB Group company, info@kda
 #include "libklustersshared_export.h"
 #include <QAction>
 
+QT_BEGIN_HEADER
+
+QT_BEGIN_NAMESPACE
+
+QT_MODULE(Gui)
+
 class QRecentFileActionPrivate;
 
 class KLUSTERSSHARED_EXPORT QRecentFileAction : public QAction
@@ -64,5 +70,9 @@ private:
     Q_DISABLE_COPY(QRecentFileAction)
 
 };
+
+QT_END_NAMESPACE
+
+QT_END_HEADER
 
 #endif // QRECENTFILEACTION_H
