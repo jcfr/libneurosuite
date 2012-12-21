@@ -45,8 +45,6 @@ public:
     void setMaximumFileCount(int) const;
 
 
-private Q_SLOTS:
-    void fileSelected(QAction*);
 
 public Q_SLOTS:
     void clear();
@@ -54,8 +52,12 @@ public Q_SLOTS:
 Q_SIGNALS:
     void recentFileSelected(const QString&);
     void recentFileCleared();
+
+private Q_SLOTS:
+    void fileSelected(QAction*);
+    void initializeMenu();
 private:
-    QRecentFileActionPrivate *d;
+    QRecentFileActionPrivate * const d;
     Q_DISABLE_COPY(QRecentFileAction)
 
 };

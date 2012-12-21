@@ -13,11 +13,12 @@ class QRecentFileActionPrivate
 {
 public:
     QRecentFileActionPrivate(QAction *q)
-        :qq(q)
+        :qq(q), initialized(false)
+
     {
         maximumFileCount = 10;
         initMenu();
-        loadRecentFile();
+
     }
     void initMenu();
     void loadRecentFile();
@@ -26,18 +27,22 @@ public:
     void removeAction(QAction* act);
     void updateActionsState();
 
+    void initializeMenu();
+
     QStringList recentFiles;
     int maximumFileCount;
     QAction *noEntriesAction;
     QAction *clearSeparator;
     QAction *clearAction;
     QAction *qq;
+    bool initialized;
 };
 
-void QRecentFileActionPrivate::initMenu()
+void QRecentFileActionPrivate::initializeMenu()
 {
-    delete qq->menu();
-    qq->setMenu(new QMenu());
+    if(initialized)
+        return;
+    initialized = true;
     noEntriesAction = qq->menu()->addAction(qq->tr("No Entries"));
     noEntriesAction->setEnabled(false);
 
@@ -48,6 +53,18 @@ void QRecentFileActionPrivate::initMenu()
     clearAction->setVisible(false);
 
     qq->connect(qq->menu(), SIGNAL(triggered(QAction*)),qq, SLOT(fileSelected(QAction*)));
+    loadRecentFile();
+}
+
+void QRecentFileActionPrivate::initMenu()
+{
+    if(initialized)
+        return;
+
+    delete qq->menu();
+    QMenu *menu = new QMenu();
+    qq->setMenu(menu);
+    qq->connect(menu,SIGNAL(aboutToShow()),qq,SLOT(initializeMenu()));
 }
 
 void QRecentFileActionPrivate::loadRecentFile()
@@ -119,7 +136,8 @@ QRecentFileAction::QRecentFileAction(QObject *parent)
 
 QRecentFileAction::~QRecentFileAction()
 {
-    save();
+    if(d->initialized)
+        save();
     delete d;
 }
 
@@ -209,4 +227,9 @@ void QRecentFileAction::setMaximumFileCount(int maximumRecentFile ) const
             d->removeAction(act);
         }
     }
+}
+
+void QRecentFileAction::initializeMenu()
+{
+    d->initializeMenu();
 }
