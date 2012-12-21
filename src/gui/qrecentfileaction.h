@@ -28,12 +28,12 @@ public:
      * @brief addRecentFile
      * @param file
      */
-    void addRecentFile(const QString& file);
+    void addRecentFile(const QString &file);
     /**
      * @brief removeRecentFile
      * @param file
      */
-    void removeRecentFile(const QString& file);
+    void removeRecentFile(const QString &file);
 
     /**
      * @brief save Save list of recent file in settings.
@@ -49,7 +49,7 @@ public:
     /**
      * @brief setMaximumFileCount
      */
-    void setMaximumFileCount(int) const;
+    void setMaximumFileCount(int);
 
 public Q_SLOTS:
     /**
@@ -58,17 +58,15 @@ public Q_SLOTS:
     void clear();
 
 Q_SIGNALS:
-    void recentFileSelected(const QString&);
+    void recentFileSelected(const QString &);
     void recentFileCleared();
-
-private Q_SLOTS:
-    void fileSelected(QAction*);
-    void initializeMenu();
 
 private:
     QRecentFileActionPrivate * const d;
+    friend class QRecentFileActionPrivate;
     Q_DISABLE_COPY(QRecentFileAction)
-
+    Q_PRIVATE_SLOT(d, void initializeMenu())
+    Q_PRIVATE_SLOT(d, void fileSelected(QAction *))
 };
 
 QT_END_NAMESPACE

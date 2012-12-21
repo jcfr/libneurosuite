@@ -14,7 +14,7 @@ QT_BEGIN_NAMESPACE
 class QRecentFileActionPrivate
 {
 public:
-    QRecentFileActionPrivate(QAction *qq)
+    QRecentFileActionPrivate(QRecentFileAction *qq)
         : maximumFileCount(10),
           q(qq),
           initialized(false)
@@ -24,30 +24,39 @@ public:
     }
     void initialize();
 
-    void addAction(const QString& file);
-    void removeAction(QAction* act);
+    void addAction(const QString &file);
+    void removeAction(QAction *act);
     void removeAction(const QString &file);
     void updateActionsState();
 
     void initializeMenu();
+    void fileSelected(QAction *action);
 
     QStringList recentFiles;
     int maximumFileCount;
     QAction *noEntriesAction;
     QAction *clearSeparator;
     QAction *clearAction;
-    QAction *q;
+    QRecentFileAction *q;
     bool initialized;
 };
 
+void QRecentFileActionPrivate::fileSelected(QAction *action)
+{
+    if (action && (action != clearAction) && (action != noEntriesAction) && (action != clearSeparator)) {
+        Q_EMIT q->recentFileSelected(action->data().toString());
+    }
+}
+
+
 void QRecentFileActionPrivate::initializeMenu()
 {
-    if(initialized) {
+    if (initialized) {
         return;
     }
 
     QSettings settings;
-    if(settings.applicationName().isEmpty()) {
+    if (settings.applicationName().isEmpty()) {
         qDebug()<<" application name empty";
         return;
     }
@@ -63,7 +72,7 @@ void QRecentFileActionPrivate::initializeMenu()
 
     recentFiles = settings.value(QLatin1String("Recent Files"),QStringList()).toStringList();
 
-    if(!recentFiles.isEmpty()) {
+    if (!recentFiles.isEmpty()) {
         const int numberOfRecentFile(recentFiles.count());
         for( int i = 0 ; i < numberOfRecentFile; ++i ) {
             addAction(recentFiles.at(i));
@@ -78,7 +87,7 @@ void QRecentFileActionPrivate::initializeMenu()
 
 void QRecentFileActionPrivate::initialize()
 {
-    if(initialized) {
+    if (initialized) {
         return;
     }
 
@@ -88,14 +97,14 @@ void QRecentFileActionPrivate::initialize()
     q->connect(menu,SIGNAL(aboutToShow()),q,SLOT(initializeMenu()));
 }
 
-void QRecentFileActionPrivate::addAction(const QString& file)
+void QRecentFileActionPrivate::addAction(const QString &file)
 {
-    if(file.isEmpty()) {
+    if (file.isEmpty()) {
         return;
     }
 
     QString troncateFileName = file;
-    if(file.length() > 30) {
+    if (file.length() > 30) {
         troncateFileName = file.left(15) + QLatin1String("...") + file.right(15);
     }
 
@@ -106,7 +115,7 @@ void QRecentFileActionPrivate::addAction(const QString& file)
     q->menu()->insertAction(q->menu()->actions().value(0), action);
 }
 
-void QRecentFileActionPrivate::removeAction(QAction* act)
+void QRecentFileActionPrivate::removeAction(QAction *act)
 {
     q->menu()->removeAction(act);
     recentFiles.removeAll(act->data().toString());
@@ -124,7 +133,7 @@ void QRecentFileActionPrivate::updateActionsState()
 
 void QRecentFileActionPrivate::removeAction(const QString &file)
 {
-    Q_FOREACH(QAction* action, q->menu()->actions()) {
+    Q_FOREACH (QAction *action, q->menu()->actions()) {
       if ( action->data().toString() == file ) {
           removeAction(action);
           break;
@@ -141,15 +150,15 @@ QRecentFileAction::QRecentFileAction(QObject *parent)
 
 QRecentFileAction::~QRecentFileAction()
 {
-    if(d->initialized)
+    if (d->initialized)
         save();
     delete d;
 }
 
 void QRecentFileAction::clear()
 {
-    Q_FOREACH (QAction* action, menu()->actions()) {
-        if((action != d->clearAction) && (action != d->noEntriesAction) && (action != d->clearSeparator))
+    Q_FOREACH (QAction *action, menu()->actions()) {
+        if ((action != d->clearAction) && (action != d->noEntriesAction) && (action != d->clearSeparator))
             d->removeAction(action);
     }
     d->updateActionsState();
@@ -157,21 +166,14 @@ void QRecentFileAction::clear()
     Q_EMIT recentFileCleared();
 }
 
-void QRecentFileAction::fileSelected(QAction*action)
+void QRecentFileAction::addRecentFile(const QString &file)
 {
-    if(action && (action != d->clearAction) && (action != d->noEntriesAction) && (action != d->clearSeparator)) {
-        Q_EMIT recentFileSelected(action->data().toString());
-    }
-}
-
-void QRecentFileAction::addRecentFile(const QString&file)
-{
-    if(file.isEmpty())
+    if (file.isEmpty())
         return;
 
     // remove file if already in list
     d->removeAction(file);
-    if( d->maximumFileCount && menu()->actions().count() == d->maximumFileCount ) {
+    if (d->maximumFileCount && menu()->actions().count() == d->maximumFileCount) {
         QAction *act = menu()->actions().first();
         d->removeAction(act);
     }
@@ -182,7 +184,7 @@ void QRecentFileAction::addRecentFile(const QString&file)
     save();
 }
 
-void QRecentFileAction::removeRecentFile(const QString&file)
+void QRecentFileAction::removeRecentFile(const QString &file)
 {
     d->recentFiles.removeAll(file);
     d->removeAction(file);
@@ -193,7 +195,7 @@ void QRecentFileAction::removeRecentFile(const QString&file)
 void QRecentFileAction::save()
 {
     QSettings settings;
-    if(settings.applicationName().isEmpty()) {
+    if (settings.applicationName().isEmpty()) {
         qWarning()<<" application name empty";
         return; //Return ?
     }
@@ -205,22 +207,18 @@ int QRecentFileAction::maximumFileCount() const
     return d->maximumFileCount;
 }
 
-void QRecentFileAction::setMaximumFileCount(int maximumRecentFile ) const
+void QRecentFileAction::setMaximumFileCount(int maximumRecentFile )
 {
-    if(d->maximumFileCount != maximumRecentFile) {
+    if (d->maximumFileCount != maximumRecentFile) {
         d->maximumFileCount = maximumRecentFile;
         // remove all excess items
-        while( menu()->actions().count() > d->maximumFileCount ) {
+        while ( menu()->actions().count() > d->maximumFileCount ) {
             QAction *act = menu()->actions().last();
             d->removeAction(act);
         }
     }
 }
 
-void QRecentFileAction::initializeMenu()
-{
-    d->initializeMenu();
-}
 
 QT_END_NAMESPACE
 
