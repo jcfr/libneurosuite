@@ -18,11 +18,10 @@ public:
           initialized(false)
 
     {
-        initMenu();
+        initialize();
     }
-    void initMenu();
-    void loadRecentFile();
-    void fillRecentMenu();
+    void initialize();
+
     void addAction(const QString& file);
     void removeAction(QAction* act);
     void removeAction(const QString &file);
@@ -41,20 +40,42 @@ public:
 
 void QRecentFileActionPrivate::initializeMenu()
 {
+
     if(initialized)
         return;
+
+    QSettings settings;
+    if(settings.applicationName().isEmpty()) {
+        qDebug()<<" application name empty";
+        return;
+    }
 
     initialized = true;
 
     noEntriesAction = qq->menu()->addAction(qq->tr("No Entries"));
+    noEntriesAction->setEnabled(false);
     clearSeparator = qq->menu()->addSeparator();
     clearAction = qq->menu()->addAction(qq->tr("Clear List"), qq, SLOT(clear()));
 
     qq->connect(qq->menu(), SIGNAL(triggered(QAction*)),qq, SLOT(fileSelected(QAction*)));
-    loadRecentFile();
+
+    recentFiles = settings.value(QLatin1String("Recent Files"),QStringList()).toStringList();
+
+    if(!recentFiles.isEmpty()) {
+        const int numberOfRecentFile(recentFiles.count());
+        for( int i = 0 ; i < numberOfRecentFile; i++ )
+        {
+            addAction(recentFiles.at(i));
+            if( i == maximumFileCount) {
+                break;
+            }
+        }
+    }
+    updateActionsState();
+
 }
 
-void QRecentFileActionPrivate::initMenu()
+void QRecentFileActionPrivate::initialize()
 {
     if(initialized)
         return;
@@ -63,34 +84,6 @@ void QRecentFileActionPrivate::initMenu()
     QMenu *menu = new QMenu();
     qq->setMenu(menu);
     qq->connect(menu,SIGNAL(aboutToShow()),qq,SLOT(initializeMenu()));
-}
-
-void QRecentFileActionPrivate::loadRecentFile()
-{
-    QSettings settings;
-    if(settings.applicationName().isEmpty()) {
-        qDebug()<<" application name empty";
-        return;
-    }
-    recentFiles = settings.value(QLatin1String("Recent Files"),QStringList()).toStringList();
-    fillRecentMenu();
-}
-
-void QRecentFileActionPrivate::fillRecentMenu()
-{
-    if(recentFiles.isEmpty()) {
-        updateActionsState();
-        return;
-    }
-    const int numberOfRecentFile(recentFiles.count());
-    for( int i = 0 ; i < numberOfRecentFile; i++ )
-    {
-        addAction(recentFiles.at(i));
-        if( i == maximumFileCount) {
-            break;
-        }
-    }
-    updateActionsState();
 }
 
 void QRecentFileActionPrivate::addAction(const QString& file)
@@ -119,7 +112,9 @@ void QRecentFileActionPrivate::removeAction(QAction* act)
 
 void QRecentFileActionPrivate::updateActionsState()
 {
-    bool isMenuEmpty = qq->menu()->actions().isEmpty();
+    //We have noEntriesAction/clearSeparator/clearAction action by default
+    //=> an empty menu has number action <4
+    const bool isMenuEmpty = (qq->menu()->actions().count() < 4);
     noEntriesAction->setVisible(isMenuEmpty);
     clearSeparator->setVisible(!isMenuEmpty);
     clearAction->setVisible(!isMenuEmpty);
@@ -153,6 +148,7 @@ QRecentFileAction::~QRecentFileAction()
 
 void QRecentFileAction::clear()
 {
+    qDebug()<<" void QRecentFileAction::clear()";
     foreach (QAction* action, menu()->actions()) {
         if((action != d->clearAction) && (action != d->noEntriesAction) && (action != d->clearSeparator))
             d->removeAction(action);
@@ -164,7 +160,7 @@ void QRecentFileAction::clear()
 
 void QRecentFileAction::fileSelected(QAction*action)
 {
-    if(action) {
+    if(action && (action != d->clearAction) && (action != d->noEntriesAction) && (action != d->clearSeparator)) {
         Q_EMIT recentFileSelected(action->data().toString());
     }
 }
