@@ -21,7 +21,7 @@ class KLUSTERSSHARED_EXPORT QRecentFileAction : public QAction
     Q_OBJECT
     Q_PROPERTY(int maximumFileCount READ maximumFileCount WRITE setMaximumFileCount)
 public:
-    explicit QRecentFileAction(QObject *parent);
+    explicit QRecentFileAction(QObject *parent = 0);
     ~QRecentFileAction();
 
     /**
