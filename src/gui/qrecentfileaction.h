@@ -24,6 +24,9 @@ public:
     explicit QRecentFileAction(QObject *parent = 0);
     ~QRecentFileAction();
 
+    void setListOfRecentFile(const QStringList& lst);
+    QStringList listOfRecentFile() const;
+
     /**
      * @brief addRecentFile
      * @param file

@@ -55,12 +55,6 @@ void QRecentFileActionPrivate::initializeMenu()
         return;
     }
 
-    QSettings settings;
-    if (settings.applicationName().isEmpty()) {
-        qDebug()<<" application name empty";
-        return;
-    }
-
     initialized = true;
 
     noEntriesAction = q->menu()->addAction(q->tr("No Entries"));
@@ -69,8 +63,6 @@ void QRecentFileActionPrivate::initializeMenu()
     clearAction = q->menu()->addAction(q->tr("Clear List"), q, SLOT(clear()));
 
     q->connect(q->menu(), SIGNAL(triggered(QAction*)),q, SLOT(fileSelected(QAction*)));
-
-    recentFiles = settings.value(QLatin1String("Recent Files"),QStringList()).toStringList();
 
     if (!recentFiles.isEmpty()) {
         const int numberOfRecentFile(recentFiles.count());
@@ -151,7 +143,6 @@ QRecentFileAction::QRecentFileAction(QObject *parent)
 QRecentFileAction::~QRecentFileAction()
 {
     if (d->initialized) {
-        Q_EMIT recentFileListChanged();
         save();
     }
     delete d;
@@ -165,7 +156,6 @@ void QRecentFileAction::clear()
     }
     d->updateActionsState();
     save();
-    Q_EMIT recentFileListChanged();
     Q_EMIT recentFileCleared();
 }
 
@@ -185,7 +175,6 @@ void QRecentFileAction::addRecentFile(const QString &file)
     d->addAction(file);
     d->updateActionsState();
     save();
-    Q_EMIT recentFileListChanged();
 }
 
 void QRecentFileAction::removeRecentFile(const QString &file)
@@ -194,17 +183,10 @@ void QRecentFileAction::removeRecentFile(const QString &file)
     d->removeAction(file);
     d->updateActionsState();
     save();
-    Q_EMIT recentFileListChanged();
 }
 
 void QRecentFileAction::save()
 {
-    QSettings settings;
-    if (settings.applicationName().isEmpty()) {
-        qWarning()<<" application name empty";
-        return; //Return ?
-    }
-    settings.setValue(QLatin1String("Recent Files"),d->recentFiles);
     Q_EMIT recentFileListChanged();
 }
 
@@ -224,6 +206,19 @@ void QRecentFileAction::setMaximumFileCount(int maximumRecentFile )
         }
     }
 }
+
+void QRecentFileAction::setListOfRecentFile(const QStringList& lst)
+{
+    d->recentFiles = lst;
+    d->initialized = false;
+    d->initialize();
+}
+
+QStringList QRecentFileAction::listOfRecentFile() const
+{
+  return d->recentFiles;
+}
+
 
 
 QT_END_NAMESPACE
