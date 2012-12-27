@@ -9,12 +9,16 @@ add_definitions(${QT_DEFINITIONS} )
 
 include(MacroEnsureVersion)
 include(CheckCXXCompilerFlag)
+include(MacroWriteBasicCMakeVersionFile)
 
 set(LIBKLUSTERSSHARED_VERSION_MAJOR 1)
 set(LIBKLUSTERSSHARED_VERSION_MINOR 0)
 set(LIBKLUSTERSSHARED_VERSION_PATCH 0)
 set(LIBKLUSTERSSHARED_VERSION ${LIBKLUSTERSSHARED_VERSION_MAJOR}.${LIBKLUSTERSSHARED_VERSION_MINOR}.${LIBKLUSTERSSHARED_VERSION_PATCH})
 
+# this file will be installed too and will be used by cmake when searching for the Config.cmake file to check the version of kdepimlibs, Alex
+macro_write_basic_cmake_version_file(${CMAKE_CURRENT_BINARY_DIR}/LibKlustersSharedConfigVersion.cmake
+	${LIBKLUSTERSSHARED_VERSION_MAJOR} ${LIBKLUSTERSSHARED_VERSION_MINOR} ${LIBKLUSTERSSHARED_VERSION_PATCH})
 
 
 # This macro is for internal use only
@@ -154,7 +158,7 @@ install(EXPORT LibKlustersSharedLibraryTargets
 
 
 install(FILES
-  ${CMAKE_CURRENT_BINARY_DIR}/LibKlustersSharedConfig.cmake
-  DESTINATION ${LIB_INSTALL_DIR}/cmake/LibKlustersShared)
+	${CMAKE_CURRENT_BINARY_DIR}/LibKlustersSharedConfig.cmake ${CMAKE_CURRENT_BINARY_DIR}/LibKlustersSharedConfigVersion.cmake
+  	DESTINATION ${LIB_INSTALL_DIR}/cmake/LibKlustersShared)
 
 
