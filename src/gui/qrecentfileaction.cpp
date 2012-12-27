@@ -16,11 +16,11 @@ class QRecentFileActionPrivate
 public:
     QRecentFileActionPrivate(QRecentFileAction *qq)
         : maximumFileCount(10),
-          q(qq),
-          initialized(false),
           noEntriesAction(0),
           clearSeparator(0),
-          clearAction(0)
+          clearAction(0),
+          q(qq),
+          initialized(false)
     {
         createRecentMenu();
     }
