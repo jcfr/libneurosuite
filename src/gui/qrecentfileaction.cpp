@@ -17,8 +17,10 @@ public:
     QRecentFileActionPrivate(QRecentFileAction *qq)
         : maximumFileCount(10),
           q(qq),
-          initialized(false)
-
+          initialized(false),
+          noEntriesAction(0),
+          clearSeparator(0),
+          clearAction(0)
     {
         createRecentMenu();
     }
@@ -114,6 +116,8 @@ void QRecentFileActionPrivate::removeAction(QAction *act)
 
 void QRecentFileActionPrivate::updateActionsState()
 {
+    if(!initialized)
+        return;
     //We have noEntriesAction/clearSeparator/clearAction action by default
     //=> an empty menu has number action <4
     const bool isMenuEmpty = (q->menu()->actions().count() < 4);
@@ -183,7 +187,6 @@ void QRecentFileAction::addRecentFile(const QString &file)
         QAction *act = menu()->actions().first();
         d->removeAction(act);
     }
-
     d->recentFiles.append(file);
     d->addAction(file);
     save();
