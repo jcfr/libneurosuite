@@ -10,6 +10,12 @@ add_definitions(${QT_DEFINITIONS} )
 include(MacroEnsureVersion)
 include(CheckCXXCompilerFlag)
 
+set(LIBKLUSTERSSHARED_VERSION_MAJOR 1)
+set(LIBKLUSTERSSHARED_VERSION_MINOR 0)
+set(LIBKLUSTERSSHARED_VERSION_PATCH 0)
+set(LIBKLUSTERSSHARED_VERSION ${LIBKLUSTERSSHARED_VERSION_MAJOR}.${LIBKLUSTERSSHARED_VERSION_MINOR}.${LIBKLUSTERSSHARED_VERSION_PATCH})
+
+
 
 # This macro is for internal use only
 # Return the directories present in gcc's include path.
