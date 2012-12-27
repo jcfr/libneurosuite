@@ -71,6 +71,12 @@ if(QT_QTWEBKIT_FOUND)
      target_link_libraries(klustersshared ${QT_QTWEBKIT_LIBRARY})
 endif()
 
+
+set_target_properties(klustersshared PROPERTIES
+	        VERSION ${LIBKLUSTERSSHARED_VERSION}
+		SOVERSION ${LIBKLUSTERSSHARED_VERSION_MAJOR}
+		)
+
 target_link_libraries( klustersshared ${QT_LIBRARIES})
 
 install( TARGETS klustersshared EXPORT LibKlustersSharedLibraryTargets 
