@@ -33,7 +33,7 @@ public:
     void fileSelected(QAction *action);
 
     QStringList recentFiles;
-    int maximumFileCount;
+    uint maximumFileCount;
     QAction *noEntriesAction;
     QAction *clearSeparator;
     QAction *clearAction;
@@ -86,7 +86,7 @@ void QRecentFileActionPrivate::initialize()
     delete q->menu();
     QMenu *menu = new QMenu();
     q->setMenu(menu);
-    q->connect(menu,SIGNAL(aboutToShow()),q,SLOT(initializeMenu()));
+    q->connect(menu, SIGNAL(aboutToShow()), q, SLOT(initializeMenu()));
 }
 
 void QRecentFileActionPrivate::addAction(const QString &file)
@@ -126,10 +126,10 @@ void QRecentFileActionPrivate::updateActionsState()
 void QRecentFileActionPrivate::removeAction(const QString &file)
 {
     Q_FOREACH (QAction *action, q->menu()->actions()) {
-      if ( action->data().toString() == file ) {
-          removeAction(action);
-          break;
-      }
+        if ( action->data().toString() == file ) {
+            removeAction(action);
+            break;
+        }
     }
 }
 
@@ -216,7 +216,7 @@ void QRecentFileAction::setListOfRecentFile(const QStringList& lst)
 
 QStringList QRecentFileAction::listOfRecentFile() const
 {
-  return d->recentFiles;
+    return d->recentFiles;
 }
 
 
