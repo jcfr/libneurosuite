@@ -26,38 +26,13 @@ public:
 
     void setListOfRecentFile(const QStringList& lst);
     QStringList listOfRecentFile() const;
-
-    /**
-     * @brief addRecentFile
-     * @param file
-     */
     void addRecentFile(const QString &file);
-    /**
-     * @brief removeRecentFile
-     * @param file
-     */
     void removeRecentFile(const QString &file);
-
-    /**
-     * @brief save Save list of recent file in settings.
-     */
     void save();
-
-    /**
-     * @brief maximumFileCount
-     * @return the number of maximum file stored.
-     */
     int maximumFileCount() const;
-
-    /**
-     * @brief setMaximumFileCount
-     */
     void setMaximumFileCount(int);
 
 public Q_SLOTS:
-    /**
-     * @brief clear clear recent menu.
-     */
     void clear();
 
 Q_SIGNALS:

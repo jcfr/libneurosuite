@@ -22,13 +22,12 @@ public:
     {
         createRecentMenu();
     }
-    void createRecentMenu();
 
+    void createRecentMenu();
     void addAction(const QString &file);
     void removeAction(QAction *act);
     void removeAction(const QString &file);
     void updateActionsState();
-
     void initializeRecentMenu();
     void fileSelected(QAction *action);
 
@@ -133,13 +132,22 @@ void QRecentFileActionPrivate::removeAction(const QString &file)
     }
 }
 
+/*!
+    Constructs a recent file menu with a \a parent.
 
+    Although a popup menu is always a top-level widget, if a parent is
+    passed the popup menu will be deleted when that parent is
+    destroyed (as with any other QObject).
+*/
 QRecentFileAction::QRecentFileAction(QObject *parent)
     : QAction(parent), d(new QRecentFileActionPrivate(this))
 {
     setText(tr("Recent Files..."));
 }
 
+/*!
+    Destroys the recent file menu.
+*/
 QRecentFileAction::~QRecentFileAction()
 {
     if (d->initialized) {
@@ -148,6 +156,9 @@ QRecentFileAction::~QRecentFileAction()
     delete d;
 }
 
+/*!
+    Clear the recent menu and displays "No entry" and emit recentFileCleared signal.
+*/
 void QRecentFileAction::clear()
 {
     Q_FOREACH (QAction *action, menu()->actions()) {
@@ -158,6 +169,9 @@ void QRecentFileAction::clear()
     Q_EMIT recentFileCleared();
 }
 
+/*!
+    Append a new file with \a file to recent file list.
+*/
 void QRecentFileAction::addRecentFile(const QString &file)
 {
     if (file.isEmpty())
@@ -175,6 +189,9 @@ void QRecentFileAction::addRecentFile(const QString &file)
     save();
 }
 
+/*!
+    Remove recent file \a file from recent file list.
+*/
 void QRecentFileAction::removeRecentFile(const QString &file)
 {
     d->recentFiles.removeAll(file);
@@ -182,17 +199,26 @@ void QRecentFileAction::removeRecentFile(const QString &file)
     save();
 }
 
+/*!
+    Emit recentFileListChanged signal when we must save recent file list.
+*/
 void QRecentFileAction::save()
 {
     d->updateActionsState();
     Q_EMIT recentFileListChanged();
 }
 
+/*!
+    Return the number of maximum file stored.
+*/
 int QRecentFileAction::maximumFileCount() const
 {
     return d->maximumFileCount;
 }
 
+/*!
+    This function will set the maximum file stored
+*/
 void QRecentFileAction::setMaximumFileCount(int maximumRecentFile )
 {
     if (d->maximumFileCount != maximumRecentFile) {
@@ -205,6 +231,9 @@ void QRecentFileAction::setMaximumFileCount(int maximumRecentFile )
     }
 }
 
+/*!
+    This function will set the list of recent file which will displaying in recent file menu
+*/
 void QRecentFileAction::setListOfRecentFile(const QStringList& lst)
 {
     d->recentFiles = lst;
@@ -213,14 +242,34 @@ void QRecentFileAction::setListOfRecentFile(const QStringList& lst)
 }
 
 /*!
-    Clears the icon database.
+    Return the list of recent file list.
 */
-
 QStringList QRecentFileAction::listOfRecentFile() const
 {
     return d->recentFiles;
 }
 
+/*!
+    \fn void QRecentFileAction::recentFileListChanged();
+
+    This signal is emitted when recent list file was changed.
+*/
+
+
+
+/*!
+    \fn void QRecentFileAction::recentFileCleared();
+
+    This signal is emitted when user clicks on "Clear" menu entry.
+*/
+
+/*!
+    \fn void QRecentFileAction::recentFileSelected(const QString &file);
+
+    This signal is emitted when a recent file is selected.
+
+    \a file is the file selected.
+*/
 
 
 QT_END_NAMESPACE
