@@ -20,16 +20,16 @@ public:
           initialized(false)
 
     {
-        initialize();
+        createRecentMenu();
     }
-    void initialize();
+    void createRecentMenu();
 
     void addAction(const QString &file);
     void removeAction(QAction *act);
     void removeAction(const QString &file);
     void updateActionsState();
 
-    void initializeMenu();
+    void initializeRecentMenu();
     void fileSelected(QAction *action);
 
     QStringList recentFiles;
@@ -49,7 +49,7 @@ void QRecentFileActionPrivate::fileSelected(QAction *action)
 }
 
 
-void QRecentFileActionPrivate::initializeMenu()
+void QRecentFileActionPrivate::initializeRecentMenu()
 {
     if (initialized) {
         return;
@@ -77,7 +77,7 @@ void QRecentFileActionPrivate::initializeMenu()
 
 }
 
-void QRecentFileActionPrivate::initialize()
+void QRecentFileActionPrivate::createRecentMenu()
 {
     if (initialized) {
         return;
@@ -86,7 +86,7 @@ void QRecentFileActionPrivate::initialize()
     delete q->menu();
     QMenu *menu = new QMenu();
     q->setMenu(menu);
-    q->connect(menu, SIGNAL(aboutToShow()), q, SLOT(initializeMenu()));
+    q->connect(menu, SIGNAL(aboutToShow()), q, SLOT(initializeRecentMenu()));
 }
 
 void QRecentFileActionPrivate::addAction(const QString &file)
@@ -135,7 +135,7 @@ void QRecentFileActionPrivate::removeAction(const QString &file)
 
 
 QRecentFileAction::QRecentFileAction(QObject *parent)
-    :QAction(parent), d(new QRecentFileActionPrivate(this))
+    : QAction(parent), d(new QRecentFileActionPrivate(this))
 {
     setText(tr("Recent Files..."));
 }
@@ -154,7 +154,6 @@ void QRecentFileAction::clear()
         if ((action != d->clearAction) && (action != d->noEntriesAction) && (action != d->clearSeparator))
             d->removeAction(action);
     }
-    d->updateActionsState();
     save();
     Q_EMIT recentFileCleared();
 }
@@ -173,7 +172,6 @@ void QRecentFileAction::addRecentFile(const QString &file)
 
     d->recentFiles.append(file);
     d->addAction(file);
-    d->updateActionsState();
     save();
 }
 
@@ -181,12 +179,12 @@ void QRecentFileAction::removeRecentFile(const QString &file)
 {
     d->recentFiles.removeAll(file);
     d->removeAction(file);
-    d->updateActionsState();
     save();
 }
 
 void QRecentFileAction::save()
 {
+    d->updateActionsState();
     Q_EMIT recentFileListChanged();
 }
 
@@ -211,8 +209,12 @@ void QRecentFileAction::setListOfRecentFile(const QStringList& lst)
 {
     d->recentFiles = lst;
     d->initialized = false;
-    d->initialize();
+    d->createRecentMenu();
 }
+
+/*!
+    Clears the icon database.
+*/
 
 QStringList QRecentFileAction::listOfRecentFile() const
 {

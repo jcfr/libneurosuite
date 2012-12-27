@@ -69,7 +69,7 @@ private:
     QRecentFileActionPrivate * const d;
     friend class QRecentFileActionPrivate;
     Q_DISABLE_COPY(QRecentFileAction)
-    Q_PRIVATE_SLOT(d, void initializeMenu())
+    Q_PRIVATE_SLOT(d, void initializeRecentMenu())
     Q_PRIVATE_SLOT(d, void fileSelected(QAction *))
 };
 
