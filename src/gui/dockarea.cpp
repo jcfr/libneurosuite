@@ -91,8 +91,8 @@ void DockArea::addDockWidget ( Qt::DockWidgetArea pArea, QDockWidget * pDockwidg
 
 void DockArea::setupConnection ( QWidget * pWidget ) {
 
-    connect ( this, SIGNAL ( contentToUpdate ( ) ),pWidget, SLOT ( updateContent () ) );
-    connect ( this, SIGNAL ( sig_backgroundColorChanged ( QColor ) ),pWidget, SLOT ( slotChangeBackgroundColor ( QColor ) ) );
+    //connect ( this, SIGNAL ( contentToUpdate ( ) ),pWidget, SLOT ( updateContent () ) );
+    //connect ( this, SIGNAL ( sig_backgroundColorChanged ( QColor ) ),pWidget, SLOT ( slotChangeBackgroundColor ( QColor ) ) );
 }
 
 void DockArea::showDockWidget ( const QString& pWidgetName, bool pShow ) {
