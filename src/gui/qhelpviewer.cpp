@@ -25,7 +25,7 @@ QHelpViewer::~QHelpViewer()
 {
 }
 
-void QHelpViewer::setHtml(const QString& filename)
+void QHelpViewer::setHtml(const QString& filename, const QString& anchor)
 {
     mView->load(QUrl(filename));
 }

@@ -14,7 +14,7 @@ class KLUSTERSSHARED_EXPORT QHelpViewer : public QDialog
 public:
     explicit QHelpViewer(QWidget *parent);
     ~QHelpViewer();
-    void setHtml(const QString& filename);
+    void setHtml(const QString& filename, const QString &anchor = QString());
 private:
     QWebView *mView;
 };
