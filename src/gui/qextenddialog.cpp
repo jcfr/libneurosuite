@@ -169,6 +169,9 @@ void QExtendDialogPrivate::appendButton(QExtendDialog::ButtonCode key, const QSt
   case QExtendDialog::Close:
       button->setIcon(QPixmap(":/shared-icons/dialog-close"));
       break;
+  case QExtendDialog::Help:
+      button->setIcon(QPixmap(":/shared-icons/help-contents"));
+      break;
   default:
       break;
   }
