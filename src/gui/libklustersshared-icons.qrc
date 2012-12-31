@@ -17,5 +17,6 @@
         <file alias="window-close">icons/window-close.png</file>
         <file alias="folder-open">icons/folder-open.png</file>
         <file alias="configure">icons/configure.png</file>
+        <file alias="help-contents">icons/help-contents.png</file>
     </qresource>
 </RCC>
