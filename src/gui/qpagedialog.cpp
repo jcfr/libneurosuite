@@ -138,4 +138,4 @@ const QPageWidget* QPageDialog::pageWidget() const
     return d_func()->mPageWidget;
 }
 
-#include "qpagedialog.moc"
+#include "moc_qpagedialog.cpp"

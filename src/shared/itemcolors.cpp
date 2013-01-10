@@ -36,7 +36,7 @@ ItemColors::~ItemColors(){
 
 ItemColors::ItemColors(const ItemColors& origin):colorChanged(origin.colorChanged){
     //Insert into itemList a deep copy of all the elements of origin.itemList
-    ItemColor* itemColor;
+    //ItemColor* itemColor;
     QList<ItemColor*> originItemList =  origin.itemList;
 
     for (int i = 0; i < originItemList.size(); ++i) {

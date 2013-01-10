@@ -252,7 +252,7 @@ void QPageViewPrivate::_k_pageSelected(const QItemSelection &index, const QItemS
 
 void QPageViewPrivate::updateTitleWidget(const QModelIndex& index)
 {
-    Q_Q(QPageView);
+    //Q_Q(QPageView);
 /*
     QString header = model->data( index, QPageModel::HeaderRole ).toString();
     if ( header.isNull() ) { //TODO KDE5 remove that ugly logic, see also doxy-comments in QPageWidgetItem::setHeader()

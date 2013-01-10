@@ -47,4 +47,4 @@ QPageModel::~QPageModel()
     delete d_ptr;
 }
 
-#include "qpagemodel.moc"
+#include "moc_qpagemodel.cpp"

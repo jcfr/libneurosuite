@@ -34,7 +34,7 @@ public:
     void fileSelected(QAction *action);
 
     QStringList recentFiles;
-    uint maximumFileCount;
+    int maximumFileCount;
     QAction *noEntriesAction;
     QAction *clearSeparator;
     QAction *clearAction;
