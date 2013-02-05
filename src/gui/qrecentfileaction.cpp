@@ -42,7 +42,7 @@ public:
 
 void QRecentFileActionPrivate::fileSelected(QAction *action)
 {
-    if (action && (action != clearAction) && (action != noEntriesAction) && (action != clearSeparator)) {
+    if (action && (action!=clearAction) && (action!=noEntriesAction) && (action!=clearSeparator)) {
         emit q->recentFileSelected(action->data().toString());
     }
 }
@@ -77,9 +77,8 @@ void QRecentFileActionPrivate::initializeRecentMenu()
 
 void QRecentFileActionPrivate::createRecentMenu()
 {
-    if (initialized) {
+    if (initialized)
         return;
-    }
 
     delete q->menu();
     QMenu *menu = new QMenu();
@@ -89,14 +88,12 @@ void QRecentFileActionPrivate::createRecentMenu()
 
 void QRecentFileActionPrivate::addAction(const QString &file)
 {
-    if (file.isEmpty()) {
+    if (file.isEmpty())
         return;
-    }
 
     QString truncateFileName = file;
-    if (file.length() > 30) {
+    if (file.length() > 30)
         truncateFileName = file.left(15) + QLatin1String("...") + file.right(15);
-    }
 
     const QString actionText = QString::fromLatin1("%1 [%2]").arg(QFileInfo(file).fileName()).arg(truncateFileName);
     QAction* action = new QAction(actionText,q);
@@ -115,6 +112,7 @@ void QRecentFileActionPrivate::updateActionsState()
 {
     if (!initialized)
         return;
+
     //We have noEntriesAction/clearSeparator/clearAction action by default
     //=>an empty menu has less than 4 actions
     const bool isMenuEmpty = (q->menu()->actions().count() < 4);
@@ -147,9 +145,9 @@ QRecentFileAction::QRecentFileAction(QObject *parent)
 */
 QRecentFileAction::~QRecentFileAction()
 {
-    if (d->initialized) {
+    if (d->initialized)
         save();
-    }
+
     delete d;
 }
 
@@ -180,6 +178,7 @@ void QRecentFileAction::addRecentFile(const QString &file)
         QAction *act = menu()->actions().first();
         d->removeAction(act);
     }
+
     d->recentFiles.append(file);
     d->addAction(file);
     save();
@@ -220,7 +219,7 @@ void QRecentFileAction::setMaximumFileCount(int maximumRecentFile )
     if (d->maximumFileCount!=maximumRecentFile) {
         d->maximumFileCount=maximumRecentFile;
         // remove all excess items
-        while (menu()->actions().count()>d->maximumFileCount ) {
+        while (menu()->actions().count()>d->maximumFileCount) {
             QAction *act = menu()->actions().last();
             d->removeAction(act);
         }
