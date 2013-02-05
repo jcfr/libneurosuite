@@ -6,9 +6,7 @@ Copyright (C) 2012 Klarälvdalens Datakonsult AB, a KDAB Group company, info@kda
 #define QRECENTFILEACTION_H
 
 #include "libklustersshared_export.h"
-#include <QAction>
-
-QT_BEGIN_HEADER
+#include <qaction.h>
 
 QT_BEGIN_NAMESPACE
 
@@ -50,7 +48,5 @@ private:
 };
 
 QT_END_NAMESPACE
-
-QT_END_HEADER
 
 #endif // QRECENTFILEACTION_H
