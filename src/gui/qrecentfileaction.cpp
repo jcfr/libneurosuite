@@ -229,7 +229,7 @@ void QRecentFileAction::setMaximumFileCount(int maximumRecentFile )
 /*!
     Sets the list of recent files to display in the menu
 */
-void QRecentFileAction::setListOfRecentFile(const QStringList& lst)
+void QRecentFileAction::setRecentFile(const QStringList& lst)
 {
     d->recentFiles = lst;
     d->initialized = false;
@@ -239,7 +239,7 @@ void QRecentFileAction::setListOfRecentFile(const QStringList& lst)
 /*!
     Returns the list of recent files
 */
-QStringList QRecentFileAction::listOfRecentFile() const
+QStringList QRecentFileAction::recentFile() const
 {
     return d->recentFiles;
 }
