@@ -18,13 +18,13 @@ class KLUSTERSSHARED_EXPORT QRecentFileAction : public QAction
 {
     Q_OBJECT
     Q_PROPERTY(int maximumFileCount READ maximumFileCount WRITE setMaximumFileCount)
-    Q_PROPERTY(QStringList recentFile READ recentFile WRITE setRecentFile)
+    Q_PROPERTY(QStringList recentFiles READ recentFiles WRITE setRecentFiles)
 public:
     explicit QRecentFileAction(QObject *parent = 0);
     ~QRecentFileAction();
 
-    void setRecentFile(const QStringList& lst);
-    QStringList recentFile() const;
+    void setRecentFiles(const QStringList& lst);
+    QStringList recentFiles() const;
     void addRecentFile(const QString &file);
     void removeRecentFile(const QString &file);
     void save();
