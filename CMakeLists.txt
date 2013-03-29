@@ -164,3 +164,26 @@ install(FILES
   	DESTINATION ${LIB_INSTALL_DIR}/cmake/LibKlustersShared)
 
 
+if(WIN32)
+  set(CPACK_GENERATOR "NSIS")
+  set(CPACK_PACKAGE_EXECUTABLES "libklustersshared" "Lib for klusters")
+endif()
+if(UNIX)
+  if(APPLE)
+    set( CMAKE_INSTALL_PREFIX "/Applications" )
+    set( CPACK_GENERATOR "DragNDrop" )
+    set( CPACK_DMG_FORMAT "UDBZ" )
+    set( CPACK_DMG_VOLUME_NAME "libklustersshared" )
+    set( CPACK_SYSTEM_NAME "OSX" )
+  else()
+    set(CPACK_GENERATOR "TGZ") # for testing mostly, we probably want STGZ or RPM/DEB
+    set(CPACK_SYSTEM_NAME "${CMAKE_SYSTEM_NAME}-${CMAKE_SYSTEM_PROCESSOR}")
+  endif()
+endif()
+set(CPACK_PACKAGE_DESCRIPTION_SUMMARY "libklustersshared")
+set(CPACK_PACKAGE_NAME "libklustersshared" )
+set(CPACK_PACKAGE_VERSION_MAJOR ${LIBKLUSTERSSHARED_VERSION_MAJOR})
+set(CPACK_PACKAGE_VERSION_MINOR ${LIBKLUSTERSSHARED_VERSION_MINOR})
+set(CPACK_PACKAGE_INSTALL_DIRECTORY "libklustersshared")
+include(CPack)
+
