@@ -198,7 +198,18 @@ ENDIF()
 SET(CPACK_TOPLEVEL_TAG "${CPACK_SYSTEM_NAME}")
 FILE(TO_CMAKE_PATH "${CPACK_INSTALL_DIRECTORY}" XPLATFORM_INSTALL_DIR) # to get forward slashes on Windows
 
-SET(CPACK_IGNORE_FILES '.git'  "/[._]obj/" "/moc_" "/[._]o/" "/CMakeFiles/" "/[._]cpp" "/[._]depends" "CMakeCache.txt" "Makefile")
+SET(CPACK_IGNORE_FILES '.git'  "/[._]obj/" "/moc_" "/[._]o/" "/CMakeFiles/" "/[._]cpp" "/[._]depends" "CMakeCache.txt" "Makefile"
+                       "^${XPLATFORM_INSTALL_DIR}/install_manifest.txt"
+                       "^${XPLATFORM_INSTALL_DIR}/src/qrc_libklustersshared-icons.cxx"
+                       "^${XPLATFORM_INSTALL_DIR}/src/klustersshared_automoc.cpp"
+                       "^${XPLATFORM_INSTALL_DIR}/src/cmake_install.cmake"
+                       "^${XPLATFORM_INSTALL_DIR}/src/gui/libklustersshared-icons.qrc.depends"
+                       "^${XPLATFORM_INSTALL_DIR}/src/qpageview_p.moc"
+                       "^${XPLATFORM_INSTALL_DIR}/src/CPackSourceConfig.cmake"
+                       "^${XPLATFORM_INSTALL_DIR}/CPackSourceConfig.cmake"
+                       "^${XPLATFORM_INSTALL_DIR}/CMakeTmp/check_qt_visibility.cpp"
+                       "^${XPLATFORM_INSTALL_DIR}/CPackConfig.cmake"
+                       "^${XPLATFORM_INSTALL_DIR}/cmake_install.cmake")
 
 
 include(CPack)
