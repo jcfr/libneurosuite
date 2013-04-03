@@ -117,7 +117,7 @@ bool ChannelColors::remove(int identifier){
     const int index = channelColorIndex(identifier);
     if(index == -1)
         return false;
-    channelList.removeAt(index);
+    delete channelList.takeAt(index);
     return true;
 }
 
