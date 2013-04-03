@@ -140,7 +140,7 @@ void ItemColors::insert(int itemId, const QString &label, const QColor& color, i
 bool ItemColors::remove(int identifier, SelectionMode mode){
   if(mode == BY_INDEX) {
       if(identifier>=0 && identifier<itemList.count()) {
-        itemList.removeAt(identifier);
+        delete itemList.takeAt(identifier);
         return true;
         } else {
           return false;
@@ -149,7 +149,7 @@ bool ItemColors::remove(int identifier, SelectionMode mode){
         const int index = itemColorIndex(identifier);
         if(index == -1)
           return false;
-        itemList.removeAt(index);
+        delete itemList.takeAt(index);
         return true;
     }
     else return false;//unknow mode
