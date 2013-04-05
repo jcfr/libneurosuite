@@ -10,7 +10,7 @@ set(libklustersshared_SRCS
 	gui/page/qpagewidget.cpp
 	gui/page/qpagewidgetmodel.cpp
 	gui/page/qextenddialog.cpp
-	gui/kseparator.cpp
+	gui/page/kseparator.cpp
         gui/dockarea.cpp
 	gui/page/qextendtabwidget.cpp
 	gui/qhelpviewer.cpp
