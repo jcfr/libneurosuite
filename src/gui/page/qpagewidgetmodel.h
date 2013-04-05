@@ -55,12 +55,12 @@ class QIcon;
  */
 class KLUSTERSSHARED_EXPORT QPageWidgetItem : public QObject
 {
-  Q_OBJECT
-  Q_PROPERTY( QString name READ name WRITE setName )
-  Q_PROPERTY( QString header READ header WRITE setHeader )
-  Q_PROPERTY( QIcon icon READ icon WRITE setIcon )
-  Q_PROPERTY( bool checkable READ isCheckable WRITE setCheckable )
-  Q_PROPERTY( bool checked READ isChecked WRITE setChecked )
+    Q_OBJECT
+    Q_PROPERTY( QString name READ name WRITE setName )
+    Q_PROPERTY( QString header READ header WRITE setHeader )
+    Q_PROPERTY( QIcon icon READ icon WRITE setIcon )
+    Q_PROPERTY( bool checkable READ isCheckable WRITE setCheckable )
+    Q_PROPERTY( bool checked READ isChecked WRITE setChecked )
     /**
      * This property holds whether the item is enabled.
      *
@@ -68,7 +68,7 @@ class KLUSTERSSHARED_EXPORT QPageWidgetItem : public QObject
      */
     Q_PROPERTY(bool enabled READ isEnabled WRITE setEnabled)
 
-  public:
+public:
     /**
      * Creates a new page widget item.
      *
@@ -156,18 +156,18 @@ class KLUSTERSSHARED_EXPORT QPageWidgetItem : public QObject
      */
     bool isEnabled() const;
 
-    public Q_SLOTS:
-        /**
+public Q_SLOTS:
+    /**
          * Sets whether the page widget item is enabled.
          */
-        void setEnabled(bool);
+    void setEnabled(bool);
 
-        /**
+    /**
          * Sets whether the page widget item is checked.
          */
-        void setChecked( bool checked );
+    void setChecked( bool checked );
 
-  Q_SIGNALS:
+Q_SIGNALS:
     /**
      * This signal is emitted whenever the icon or header
      * is changed.
@@ -180,7 +180,7 @@ class KLUSTERSSHARED_EXPORT QPageWidgetItem : public QObject
      */
     void toggled( bool checked );
 
-  private:
+private:
     class Private;
     Private* const d;
 };
@@ -193,10 +193,10 @@ class QPageWidgetModelPrivate;
  */
 class KLUSTERSSHARED_EXPORT QPageWidgetModel : public QPageModel
 {
-  Q_OBJECT
+    Q_OBJECT
     Q_DECLARE_PRIVATE(QPageWidgetModel)
 
-  public:
+public:
     /**
      * Creates a new page widget model.
      *
@@ -295,16 +295,16 @@ class KLUSTERSSHARED_EXPORT QPageWidgetModel : public QPageModel
      */
     QModelIndex index( const QPageWidgetItem *item ) const;
 
-  Q_SIGNALS:
+Q_SIGNALS:
     /**
      * This signal is emitted whenever a checkable page changes its state. @param checked is true
      * when the @param page is checked, or false if the @param page is unchecked.
      */
     void toggled( QPageWidgetItem *page, bool checked );
 
-  private:
-        Q_PRIVATE_SLOT(d_func(), void _k_itemChanged())
-        Q_PRIVATE_SLOT(d_func(), void _k_itemToggled(bool))
+private:
+    Q_PRIVATE_SLOT(d_func(), void _k_itemChanged())
+    Q_PRIVATE_SLOT(d_func(), void _k_itemToggled(bool))
 };
 
 #endif
