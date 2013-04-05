@@ -33,6 +33,7 @@ Port to Qt4
 #include <QtGui/QPainter>
 #include <QtGui/QTextLayout>
 #include <QtGui/QVBoxLayout>
+#include <QDebug>
 
 //#include <kdialog.h>
 //#include <kiconloader.h>
@@ -214,7 +215,6 @@ QPageTabbedView::QPageTabbedView( QWidget *parent )
   const QList<QWidget*> list = findChildren<QWidget*>();
   for ( int i = 0; i < list.count(); ++i )
     list[ i ]->hide();
-
   setFrameShape( NoFrame );
 
   QVBoxLayout *layout = new QVBoxLayout( this );
@@ -292,6 +292,7 @@ int QPageTabbedView::verticalOffset() const
 
 bool QPageTabbedView::isIndexHidden( const QModelIndex &index ) const
 {
+    qDebug()<<" ssssssssssssssssssssssssssssssssssssss555555555555555";
   return ( mTabWidget->currentIndex() != index.row() );
 }
 
@@ -306,6 +307,7 @@ QRegion QPageTabbedView::visualRegionForSelection( const QItemSelection& ) const
 
 void QPageTabbedView::currentPageChanged( int index )
 {
+    qDebug()<<" sssssssssssssssssssssssssssssss"<<index;
   if ( !model() )
     return;
 

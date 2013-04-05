@@ -1,17 +1,18 @@
 project(libklustersshared-src)
+include_directories(${CMAKE_SOURCE_DIR}/src/gui/page)
 set(libklustersshared_SRCS 
 	gui/qrecentfileaction.cpp 
 	gui/qcolorbutton.cpp 
-	gui/qpagedialog.cpp
-	gui/qpagemodel.cpp
-	gui/qpageview.cpp
-	gui/qpageview_p.cpp
-	gui/qpagewidget.cpp
-	gui/qpagewidgetmodel.cpp
-	gui/qextenddialog.cpp
+	gui/page/qpagedialog.cpp
+	gui/page/qpagemodel.cpp
+	gui/page/qpageview.cpp
+	gui/page/qpageview_p.cpp
+	gui/page/qpagewidget.cpp
+	gui/page/qpagewidgetmodel.cpp
+	gui/page/qextenddialog.cpp
 	gui/kseparator.cpp
         gui/dockarea.cpp
-	gui/qextendtabwidget.cpp
+	gui/page/qextendtabwidget.cpp
 	gui/qhelpviewer.cpp
 	shared/channelcolors.cpp
 	shared/itemcolors.cpp
@@ -36,14 +37,14 @@ set (libklustersshared_HEADERS
 	libklustersshared_export.h 
 	gui/qrecentfileaction.h 
 	gui/qcolorbutton.h 
-	gui/qpagedialog.h
-       gui/qextenddialog.h
-       gui/qpagewidget.h
-       gui/qpagemodel.h
-       gui/qpageview.h
-       gui/qpagewidgetmodel.h
+	gui/page/qpagedialog.h
+       gui/page/qextenddialog.h
+       gui/page/qpagewidget.h
+       gui/page/qpagemodel.h
+       gui/page/qpageview.h
+       gui/page/qpagewidgetmodel.h
        gui/dockarea.h
-       gui/qextendtabwidget.h
+       gui/page/qextendtabwidget.h
        gui/qhelpviewer.h
        shared/channelcolors.h
        shared/itemcolors.h
@@ -79,10 +80,10 @@ set_target_properties(klustersshared PROPERTIES
 
 target_link_libraries( klustersshared ${QT_LIBRARIES})
 
-install( TARGETS klustersshared EXPORT LibKlustersSharedLibraryTargets 
+install( TARGETS klustersshared EXPORT LibKlustersSharedLibraryTargets ARCHIVE 
     RUNTIME DESTINATION ${BIN_INSTALL_DIR} 
     LIBRARY DESTINATION ${LIB_INSTALL_DIR} 
-    ARCHIVE DESTINATION ${LIB_INSTALL_DIR} 
+    ARCHIVE DESTINATION ${LIB_INSTALL_DIR} COMPONENT Devel 
 )
 
 install( FILES ${libklustersshared_HEADERS} DESTINATION ${INCLUDE_INSTALL_DIR} COMPONENT Devel )
