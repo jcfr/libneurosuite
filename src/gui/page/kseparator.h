@@ -32,41 +32,41 @@
  */
 class KSeparator : public QFrame
 {
-  Q_OBJECT
-  Q_PROPERTY( Qt::Orientation orientation READ orientation WRITE setOrientation )
+    Q_OBJECT
+    Q_PROPERTY( Qt::Orientation orientation READ orientation WRITE setOrientation )
 
- public:
-  /**
+public:
+    /**
    * Constructor.
    * @param parent parent object.
    * @param f extra QWidget flags.
    **/
-  explicit KSeparator(QWidget* parent=0, Qt::WFlags f=0);
+    explicit KSeparator(QWidget* parent=0, Qt::WFlags f=0);
 
-  /**
+    /**
    * Constructor.
    * @param orientation Set the orientation of the separator.
    * Possible values are Horizontal or Vertical.
    * @param parent parent object.
    * @param f extra QWidget flags.
    **/
-  explicit KSeparator(Qt::Orientation orientation, QWidget* parent=0, Qt::WFlags f=0);
+    explicit KSeparator(Qt::Orientation orientation, QWidget* parent=0, Qt::WFlags f=0);
 
-  /**
+    /**
    * Returns the orientation of the separator.
    * @return int Possible values Horizontal or Vertical.
    **/
-  Qt::Orientation orientation() const;
+    Qt::Orientation orientation() const;
 
-  /**
+    /**
    * Set the orientation of the separator to @p orientation
    *
    * @param orientation Possible values are Vertical and Horizontal.
    */
-  void setOrientation(Qt::Orientation orientation);
+    void setOrientation(Qt::Orientation orientation);
 
 private:
-  class KSeparatorPrivate* d;
+    class KSeparatorPrivate* d;
 };
 
 
