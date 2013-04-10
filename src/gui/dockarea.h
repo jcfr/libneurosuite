@@ -71,7 +71,8 @@ class KLUSTERSSHARED_EXPORT DockArea : public QScrollArea {
      * @param pDockwidget dockwidget to be added.
     */
     void addDockWidget ( Qt::DockWidgetArea pArea, QDockWidget * pDockwidget );
-    
+   
+    void removeDockWidget ( QDockWidget * dockwidget );
 
   public slots:
 

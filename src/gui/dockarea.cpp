@@ -102,6 +102,10 @@ void DockArea::showDockWidget ( const QString& pWidgetName, bool pShow ) {
     }
 }
 
+void DockArea::removeDockWidget ( QDockWidget * dockwidget ) {
+    mMainWindow.removeDockWidget ( dockwidget );
+}
+
 void DockArea::deleteWidgets ( const QString& pName ){
     QList< QPointer<QDockWidget> > vDockWidgetList = mDockWidgetByNameMap.take ( pName );
 

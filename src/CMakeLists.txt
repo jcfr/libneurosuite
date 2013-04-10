@@ -65,8 +65,7 @@ if(UPDATE_TRANSLATION)
 QT4_CREATE_TRANSLATION(translateSrcs ../translate ${libklustersshared_SRCS} ${translate_files})
 endif()
 
-qt4_add_resources(libklustersshared_SRCS gui/libklustersshared-icons.qrc)
-qt4_add_resources(libklustersshared_SRCS gui/libklustersshared-cursors.qrc)
+qt4_add_resources(libklustersshared_SRCS gui/libklustersshared-icons.qrc gui/libklustersshared-cursors.qrc)
 
 add_library (klustersshared SHARED ${libklustersshared_SRCS} ${translateSrcs})
 if(QT_QTWEBKIT_FOUND)
