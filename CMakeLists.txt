@@ -32,6 +32,7 @@ else()
   MESSAGE(STATUS "use qt4 version")
   find_package(Qt4 ${QT_MIN_VERSION} REQUIRED QtCore QtGui)
 
+  include(${QT_USE_FILE})
   include_directories(${QT_INCLUDES})
 endif()
 
@@ -44,7 +45,7 @@ include(MacroWriteBasicCMakeVersionFile)
 
 set(LIBKLUSTERSSHARED_VERSION_MAJOR 1)
 set(LIBKLUSTERSSHARED_VERSION_MINOR 0)
-set(LIBKLUSTERSSHARED_VERSION_PATCH 3)
+set(LIBKLUSTERSSHARED_VERSION_PATCH 4)
 set(LIBKLUSTERSSHARED_VERSION ${LIBKLUSTERSSHARED_VERSION_MAJOR}.${LIBKLUSTERSSHARED_VERSION_MINOR}.${LIBKLUSTERSSHARED_VERSION_PATCH})
 
 # this file will be installed too and will be used by cmake when searching for the Config.cmake file to check the version of kdepimlibs, Alex
