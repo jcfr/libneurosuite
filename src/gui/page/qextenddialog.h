@@ -32,7 +32,7 @@ class QExtendDialogPrivate;
 //#include <kconfiggroup.h>
 //#include <kguiitem.h>
 
-#include <QtGui/QDialog>
+#include <QDialog>
 
 /**
  * @short A dialog base class with standard buttons and predefined layouts.
@@ -169,7 +169,7 @@ class KLUSTERSSHARED_EXPORT QExtendDialog : public QDialog
      * @param parent The parent of the dialog.
      * @param flags  The widget flags passed to the QDialog constructor
      */
-    explicit QExtendDialog( QWidget *parent = 0, Qt::WFlags flags = 0 );
+    explicit QExtendDialog( QWidget *parent = 0, Qt::WindowFlags flags = 0 );
 
     /**
      * Destroys the dialog.
@@ -851,7 +851,7 @@ class KLUSTERSSHARED_EXPORT QExtendDialog : public QDialog
     void updateGeometry();
 
     protected:
-        QExtendDialog(QExtendDialogPrivate &dd, QWidget *parent, Qt::WFlags flags = 0);
+        QExtendDialog(QExtendDialogPrivate &dd, QWidget *parent, Qt::WindowFlags flags = 0);
         QExtendDialogPrivate *const d_ptr;
 
     private:

@@ -28,11 +28,11 @@ Port to Qt4
 
 #include "qpageview_p.h"
 
-#include <QtGui/QApplication>
-#include <QtGui/QHeaderView>
-#include <QtGui/QPainter>
-#include <QtGui/QTextLayout>
-#include <QtGui/QVBoxLayout>
+#include <QApplication>
+#include <QHeaderView>
+#include <QPainter>
+#include <QTextLayout>
+#include <QVBoxLayout>
 #include <QDebug>
 
 //#include <kdialog.h>

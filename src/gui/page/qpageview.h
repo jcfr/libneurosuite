@@ -30,7 +30,7 @@ Port to Qt4
 
 #include "libklustersshared_export.h"
 
-#include <QtGui/QWidget>
+#include <QWidget>
 
 class QPageModel;
 

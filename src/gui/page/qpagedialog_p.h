@@ -28,7 +28,7 @@ Port to Qt4
 
 #include "qpagedialog.h"
 #include "qextenddialog_p.h"
-#include <QtGui/QLayout>
+#include <QLayout>
 
 class KLUSTERSSHARED_EXPORT QPageDialogPrivate : public QExtendDialogPrivate
 {

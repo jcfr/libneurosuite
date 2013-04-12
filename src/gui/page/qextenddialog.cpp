@@ -207,13 +207,13 @@ void QExtendDialogPrivate::helpLinkClicked()
     q_ptr->slotButtonClicked(QExtendDialog::Help);
 }
 
-QExtendDialog::QExtendDialog( QWidget *parent, Qt::WFlags flags )
+QExtendDialog::QExtendDialog( QWidget *parent, Qt::WindowFlags flags )
   : QDialog(parent, sAllowEmbeddingInGraphicsView ? flags : flags | Qt::BypassGraphicsProxyWidget ), d_ptr(new QExtendDialogPrivate)
 {
     d_ptr->init(this);
 }
 
-QExtendDialog::QExtendDialog(QExtendDialogPrivate &dd, QWidget *parent, Qt::WFlags flags)
+QExtendDialog::QExtendDialog(QExtendDialogPrivate &dd, QWidget *parent, Qt::WindowFlags flags)
     : QDialog(parent, sAllowEmbeddingInGraphicsView ? flags : flags | Qt::BypassGraphicsProxyWidget), d_ptr(&dd)
 {
     d_ptr->init(this);

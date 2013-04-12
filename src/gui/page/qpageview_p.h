@@ -32,8 +32,8 @@ Port to Qt4
 #include "qpageview.h"
 
 #include <QAbstractItemDelegate>
-#include <QtGui/QGridLayout>
-#include <QtGui/QStackedWidget>
+#include <QGridLayout>
+#include <QStackedWidget>
 #include <QAbstractProxyModel>
 #include <QListView>
 #include <QTabBar>

@@ -34,7 +34,7 @@ Port to Qt4
 #include <QTimer>
 #include <QLayout>
 
-QPageDialog::QPageDialog( QWidget *parent, Qt::WFlags flags )
+QPageDialog::QPageDialog( QWidget *parent, Qt::WindowFlags flags )
     : QExtendDialog(*new QPageDialogPrivate, parent, flags)
 {
     Q_D(QPageDialog);
@@ -43,7 +43,7 @@ QPageDialog::QPageDialog( QWidget *parent, Qt::WFlags flags )
   d->init();
 }
 
-QPageDialog::QPageDialog( QPageWidget *widget, QWidget *parent, Qt::WFlags flags )
+QPageDialog::QPageDialog( QPageWidget *widget, QWidget *parent, Qt::WindowFlags flags )
     : QExtendDialog(*new QPageDialogPrivate, parent, flags)
 {
     Q_D(QPageDialog);
@@ -54,7 +54,7 @@ QPageDialog::QPageDialog( QPageWidget *widget, QWidget *parent, Qt::WFlags flags
   d->init();
 }
 
-QPageDialog::QPageDialog(QPageDialogPrivate &dd, QPageWidget *widget, QWidget *parent, Qt::WFlags flags)
+QPageDialog::QPageDialog(QPageDialogPrivate &dd, QPageWidget *widget, QWidget *parent, Qt::WindowFlags flags)
     : QExtendDialog(dd, parent, flags)
 {
     Q_D(QPageDialog);

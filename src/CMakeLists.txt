@@ -18,9 +18,9 @@ set(libklustersshared_SRCS
 	shared/itemcolors.cpp
 	shared/zoomwindow.cpp
 	shared/utilities.cpp
-	#remove it in qt5
-	libinqt5/qstandardpaths.cpp
 	)
+if ( NOT Qt5Core_FOUND )
+set(libklustersshared_SRCS ${libklustersshared_SRCS} libinqt5/qstandardpaths.cpp )
 
 #remove it in qt5
 if (UNIX)
@@ -31,6 +31,8 @@ if (WIN32)
 endif()
 if (APPLE)
   set(libklustersshared_SRCS ${libklustersshared_SRCS} libinqt5/qstandardpaths_mac.cpp )
+endif()
+
 endif()
 
 set (libklustersshared_HEADERS 
@@ -78,7 +80,11 @@ set_target_properties(klustersshared PROPERTIES
 		SOVERSION ${LIBKLUSTERSSHARED_VERSION_MAJOR}
 		)
 
-target_link_libraries( klustersshared ${QT_LIBRARIES})
+if(Qt5Core_FOUND)
+  target_link_libraries( klustersshared Qt5::Widgets ${Qt5WebKitWidgets_LIBRARIES})
+else(Qt5Core_FOUND)
+  target_link_libraries( klustersshared ${QT_LIBRARIES})
+endif()
 
 install( TARGETS klustersshared EXPORT LibKlustersSharedLibraryTargets ARCHIVE 
     RUNTIME DESTINATION ${BIN_INSTALL_DIR} 

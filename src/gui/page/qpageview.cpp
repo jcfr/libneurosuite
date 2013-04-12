@@ -244,6 +244,7 @@ void QPageViewPrivate::_k_pageSelected(const QItemSelection &index, const QItemS
     qDebug()<<"stack->indexOf( widget ) "<<stack->indexOf( widget );
     stack->setCurrentWidget( widget );
   } else {
+qDebug()<<" XXXXXXXXXXXXXXXXXXXXXXXXXXXX";
     stack->setCurrentWidget( defaultWidget );
   }
 

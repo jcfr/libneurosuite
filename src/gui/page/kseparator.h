@@ -20,7 +20,7 @@
 #ifndef KSEPARATOR_H
 #define KSEPARATOR_H
 
-#include <QtGui/QFrame>
+#include <QFrame>
 
 /**
  * Standard horizontal or vertical separator.
@@ -41,7 +41,7 @@ public:
    * @param parent parent object.
    * @param f extra QWidget flags.
    **/
-    explicit KSeparator(QWidget* parent=0, Qt::WFlags f=0);
+    explicit KSeparator(QWidget* parent=0, Qt::WindowFlags f=0);
 
     /**
    * Constructor.
@@ -50,7 +50,7 @@ public:
    * @param parent parent object.
    * @param f extra QWidget flags.
    **/
-    explicit KSeparator(Qt::Orientation orientation, QWidget* parent=0, Qt::WFlags f=0);
+    explicit KSeparator(Qt::Orientation orientation, QWidget* parent=0, Qt::WindowFlags f=0);
 
     /**
    * Returns the orientation of the separator.
