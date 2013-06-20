@@ -20,18 +20,20 @@ set(libklustersshared_SRCS
 	shared/utilities.cpp
 	)
 if ( NOT Qt5Core_FOUND )
-set(libklustersshared_SRCS ${libklustersshared_SRCS} libinqt5/qstandardpaths.cpp )
+  # Add qstandardpaths and it os specific interface if qt5 is not available
+  set(libklustersshared_SRCS ${libklustersshared_SRCS} libinqt5/qstandardpaths.cpp )
 
-#remove it in qt5
-if (UNIX)
-  set(libklustersshared_SRCS ${libklustersshared_SRCS} libinqt5/qstandardpaths_unix.cpp )
-endif()
-if (WIN32)
-  set(libklustersshared_SRCS ${libklustersshared_SRCS} libinqt5/qstandardpaths_win.cpp )
-endif()
-if (APPLE)
-  set(libklustersshared_SRCS ${libklustersshared_SRCS} libinqt5/qstandardpaths_mac.cpp )
-endif()
+  if (UNIX)
+    if(APPLE)
+      set(libklustersshared_SRCS ${libklustersshared_SRCS} libinqt5/qstandardpaths_mac.cpp )
+    else(APPLE)
+      set(libklustersshared_SRCS ${libklustersshared_SRCS} libinqt5/qstandardpaths_unix.cpp )
+    endif()
+  endif()
+
+  if (WIN32)
+    set(libklustersshared_SRCS ${libklustersshared_SRCS} libinqt5/qstandardpaths_win.cpp )
+  endif()
 
 endif()
 
@@ -83,6 +85,13 @@ set_target_properties(klustersshared PROPERTIES
 if(Qt5Core_FOUND)
   target_link_libraries( klustersshared Qt5::Widgets ${Qt5WebKitWidgets_LIBRARIES})
 else(Qt5Core_FOUND)
+
+  if(APPLE)
+    find_library(CF_LIBRARIES NAMES CoreFoundation)
+    find_library(CS_LIBRARIES NAMES CoreServices)
+    target_link_libraries(klustersshared ${CF_LIBRARIES} ${CS_LIBRARIES})
+  endif()
+
   target_link_libraries( klustersshared ${QT_LIBRARIES})
 endif()
 

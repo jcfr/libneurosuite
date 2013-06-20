@@ -43,7 +43,6 @@
 
 #include "qstandardpaths.h"
 #include <qdir.h>
-#include <private/qcore_mac_p.h>
 #include <qcoreapplication.h>
 
 #include <ApplicationServices/ApplicationServices.h>
@@ -102,7 +101,7 @@ static QString getFullPath(const FSRef &ref)
     return QString();
 }
 
-static QString macLocation(StandardLocation type, short domain)
+static QString macLocation(QStandardPaths::StandardLocation type, short domain)
 {
     // http://developer.apple.com/documentation/Carbon/Reference/Folder_Manager/Reference/reference.html
     FSRef ref;
@@ -112,7 +111,7 @@ static QString macLocation(StandardLocation type, short domain)
 
    QString path = getFullPath(ref);
 
-   if (type == DataLocation || type == CacheLocation) {
+   if (type == QStandardPaths::DataLocation || type == QStandardPaths::CacheLocation) {
        if (!QCoreApplication::organizationName().isEmpty())
            path += QLatin1Char('/') + QCoreApplication::organizationName();
        if (!QCoreApplication::applicationName().isEmpty())
@@ -121,7 +120,7 @@ static QString macLocation(StandardLocation type, short domain)
    return path;
 }
 
-QString QStandardPaths::writableLocation(StandardLocation type)
+QString QStandardPaths::writableLocation(QStandardPaths::StandardLocation type)
 {
     switch(type) {
     case HomeLocation:
@@ -139,7 +138,7 @@ QString QStandardPaths::writableLocation(StandardLocation type)
     }
 }
 
-QStringList QStandardPaths::standardLocations(StandardLocation type)
+QStringList QStandardPaths::standardLocations(QStandardPaths::StandardLocation type)
 {
     QStringList dirs;
 
@@ -154,7 +153,7 @@ QStringList QStandardPaths::standardLocations(StandardLocation type)
     return dirs;
 }
 
-QString QStandardPaths::displayName(StandardLocation type)
+QString QStandardPaths::displayName(QStandardPaths::StandardLocation type)
 {
     if (QStandardPaths::HomeLocation == type)
         return QCoreApplication::translate("QStandardPaths", "Home");
@@ -164,12 +163,18 @@ QString QStandardPaths::displayName(StandardLocation type)
     if (err)
         return QString();
 
-    QCFString displayName;
+    CFStringRef displayName;
     err = LSCopyDisplayNameForRef(&ref, &displayName);
     if (err)
         return QString();
 
-    return static_cast<QString>(displayName);
+    CFIndex length = CFStringGetLength(displayName);
+    if (length == 0)
+        return QString();
+
+    QString string(length, Qt::Uninitialized);
+    CFStringGetCharacters(displayName, CFRangeMake(0, length), reinterpret_cast<UniChar *> (const_cast<QChar *>(string.unicode())));
+    return string;
 }
 
 QT_END_NAMESPACE
