@@ -17,12 +17,12 @@
  *
  */
 
-#include "kseparator.h"
+#include "klusterseparator.h"
 #include <QStyle>
 #include <QStyleOption>
 #include <QPainter>
 
-KSeparator::KSeparator(QWidget* parent, Qt::WindowFlags f) : QFrame(parent, f)
+KLusterSeparator::KLusterSeparator(QWidget* parent, Qt::WindowFlags f) : QFrame(parent, f)
 {
     setLineWidth(1);
     setMidLineWidth(0);
@@ -30,7 +30,7 @@ KSeparator::KSeparator(QWidget* parent, Qt::WindowFlags f) : QFrame(parent, f)
 }
 
 
-KSeparator::KSeparator(Qt::Orientation orientation, QWidget* parent, Qt::WindowFlags f)
+KLusterSeparator::KLusterSeparator(Qt::Orientation orientation, QWidget* parent, Qt::WindowFlags f)
     : QFrame(parent, f)
 {
     setLineWidth(1);
@@ -39,7 +39,7 @@ KSeparator::KSeparator(Qt::Orientation orientation, QWidget* parent, Qt::WindowF
 }
 
 
-void KSeparator::setOrientation(Qt::Orientation orientation)
+void KLusterSeparator::setOrientation(Qt::Orientation orientation)
 {
     if (orientation == Qt::Vertical) {
         setFrameShape ( QFrame::VLine );
@@ -54,7 +54,7 @@ void KSeparator::setOrientation(Qt::Orientation orientation)
     updateGeometry();
 }
 
-Qt::Orientation KSeparator::orientation() const
+Qt::Orientation KLusterSeparator::orientation() const
 {
     return ((frameStyle() & VLine) == VLine) ? Qt::Vertical : Qt::Horizontal;
 }

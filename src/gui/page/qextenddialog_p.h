@@ -29,7 +29,7 @@
 class QBoxLayout;
 class QPushButton;
 //class KUrlLabel;
-class KSeparator;
+class KLusterSeparator;
 class QDialogButtonBox;
 
 class QExtendDialogPrivate
@@ -68,7 +68,7 @@ class QExtendDialogPrivate
         QBoxLayout *mTopLayout;
         QPointer<QWidget> mMainWidget;
         //KUrlLabel *mUrlHelp;
-        KSeparator *mActionSeparator;
+        KLusterSeparator *mActionSeparator;
 
         QString mAnchor;
         QString mHelpApp;

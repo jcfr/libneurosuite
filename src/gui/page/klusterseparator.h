@@ -17,8 +17,8 @@
  *
  */
 
-#ifndef KSEPARATOR_H
-#define KSEPARATOR_H
+#ifndef KLUSTERSEPARATOR_H
+#define KLUSTERSEPARATOR_H
 
 #include <QFrame>
 
@@ -30,7 +30,7 @@
  *
  * @author Michael Roth <mroth@wirlweb.de>
  */
-class KSeparator : public QFrame
+class KLusterSeparator : public QFrame
 {
     Q_OBJECT
     Q_PROPERTY( Qt::Orientation orientation READ orientation WRITE setOrientation )
@@ -41,7 +41,7 @@ public:
    * @param parent parent object.
    * @param f extra QWidget flags.
    **/
-    explicit KSeparator(QWidget* parent=0, Qt::WindowFlags f=0);
+    explicit KLusterSeparator(QWidget* parent=0, Qt::WindowFlags f=0);
 
     /**
    * Constructor.
@@ -50,7 +50,7 @@ public:
    * @param parent parent object.
    * @param f extra QWidget flags.
    **/
-    explicit KSeparator(Qt::Orientation orientation, QWidget* parent=0, Qt::WindowFlags f=0);
+    explicit KLusterSeparator(Qt::Orientation orientation, QWidget* parent=0, Qt::WindowFlags f=0);
 
     /**
    * Returns the orientation of the separator.
@@ -66,7 +66,7 @@ public:
     void setOrientation(Qt::Orientation orientation);
 
 private:
-    class KSeparatorPrivate* d;
+    class KLusterSeparatorPrivate* d;
 };
 
 

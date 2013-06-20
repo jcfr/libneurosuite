@@ -49,7 +49,7 @@
 #include <kurllabel.h>
 #endif
 
-#include <kseparator.h>
+#include <klusterseparator.h>
 
 
 static bool sAllowEmbeddingInGraphicsView = false;
@@ -657,7 +657,7 @@ void QExtendDialog::showButtonSeparator( bool state )
     if ( d->mActionSeparator )
       return;
 
-     d->mActionSeparator = new KSeparator( this );
+     d->mActionSeparator = new KLusterSeparator( this );
      d->mActionSeparator->setOrientation( d->mButtonOrientation );
   } else {
     delete d->mActionSeparator;
