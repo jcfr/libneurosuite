@@ -153,6 +153,9 @@ endif()
 
 if (MSVC)
    set (KDE4_ENABLE_EXCEPTIONS -EHsc)
+   # Qt disables the native wchar_t type, do it too to avoid linking issues
+   set( CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Zc:wchar_t-" )
+
 endif()   
 
 # tell cmake where to search for Qt headers:
