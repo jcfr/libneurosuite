@@ -51,6 +51,7 @@
 #include <stdlib.h>
 #include <unistd.h> // geteuid
 #include <qstandardpaths.h>
+#include <QHash>
 
 #ifndef QT_NO_STANDARDPATHS
 
