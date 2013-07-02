@@ -92,8 +92,8 @@ void QRecentFileActionPrivate::addAction(const QString &file)
         return;
 
     QString truncateFileName = file;
-    if (file.length() > 30)
-        truncateFileName = file.left(15) + QLatin1String("...") + file.right(15);
+    //if (file.length() > 30)
+        //truncateFileName = file.left(15) + QLatin1String("...") + file.right(15);
 
     const QString actionText = QString::fromLatin1("%1 [%2]").arg(QFileInfo(file).fileName()).arg(truncateFileName);
     QAction* action = new QAction(actionText,q);
