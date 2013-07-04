@@ -14,6 +14,7 @@ set(libklustersshared_SRCS
         gui/dockarea.cpp
 	gui/qextendtabwidget.cpp
 	gui/qhelpviewer.cpp
+        gui/klusterrubberband.cpp
 	shared/channelcolors.cpp
 	shared/itemcolors.cpp
 	shared/zoomwindow.cpp
@@ -50,6 +51,7 @@ set (libklustersshared_HEADERS
        gui/dockarea.h
        gui/qextendtabwidget.h
        gui/qhelpviewer.h
+       gui/klusterrubberband.h
        shared/channelcolors.h
        shared/itemcolors.h
        shared/types.h
