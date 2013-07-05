@@ -53,7 +53,7 @@ include(MacroWriteBasicCMakeVersionFile)
 
 set(LIBKLUSTERSSHARED_VERSION_MAJOR 1)
 set(LIBKLUSTERSSHARED_VERSION_MINOR 0)
-set(LIBKLUSTERSSHARED_VERSION_PATCH 8)
+set(LIBKLUSTERSSHARED_VERSION_PATCH 9)
 set(LIBKLUSTERSSHARED_VERSION ${LIBKLUSTERSSHARED_VERSION_MAJOR}.${LIBKLUSTERSSHARED_VERSION_MINOR}.${LIBKLUSTERSSHARED_VERSION_PATCH})
 
 # this file will be installed too and will be used by cmake when searching for the Config.cmake file to check the version of kdepimlibs, Alex

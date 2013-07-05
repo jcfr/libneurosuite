@@ -21,10 +21,8 @@
 
 int Utilities::getNbLines(const QString& path){
     // ' are added around the path to take care of directory names with blank.
-    QString newpath = "'" + path + "'";
-
     int numLines = 0;
-    QFile file(newpath);
+    QFile file(path);
     if(file.open(QIODevice::ReadOnly | QIODevice::Text)) {
         while (!file.atEnd()) {
             file.readLine();
