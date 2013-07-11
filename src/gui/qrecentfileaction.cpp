@@ -123,7 +123,11 @@ void QRecentFileActionPrivate::updateActionsState()
 
 void QRecentFileActionPrivate::removeAction(const QString &file)
 {
+    if (q->menu()->actions().isEmpty()) {
+        recentFiles.removeAll(file);
+    }
     Q_FOREACH (QAction *action, q->menu()->actions()) {
+        qDebug()<<" action->data().toString()"<<action->data().toString()<<" file"<<file;
         if (action->data().toString()==file) {
             removeAction(action);
             break;
@@ -172,6 +176,7 @@ void QRecentFileAction::addRecentFile(const QString &file)
 {
     if (file.isEmpty())
         return;
+    d->initializeRecentMenu();
 
     // remove file if already in list
     d->removeAction(file);
