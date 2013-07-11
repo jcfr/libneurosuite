@@ -104,8 +104,8 @@ void QRecentFileActionPrivate::addAction(const QString &file)
 
 void QRecentFileActionPrivate::removeAction(QAction *act)
 {
-    q->menu()->removeAction(act);
     recentFiles.removeAll(act->data().toString());
+    q->menu()->removeAction(act);
 }
 
 void QRecentFileActionPrivate::updateActionsState()
