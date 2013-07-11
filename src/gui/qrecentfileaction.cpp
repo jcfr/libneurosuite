@@ -160,6 +160,7 @@ void QRecentFileAction::clear()
         if ((action != d->clearAction) && (action != d->noEntriesAction) && (action != d->clearSeparator))
             d->removeAction(action);
     }
+    d->recentFiles.clear();
     save();
     emit recentFileCleared();
 }
