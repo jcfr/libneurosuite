@@ -11,7 +11,7 @@ ListWidget::ListWidget(QWidget *parent)
     setFrameStyle(QFrame::NoFrame);
     setResizeMode(QListWidget::Adjust);
     setViewMode(QListView::IconMode);
-    setGridSize(QSize(10,10));
+    setGridSize(QSize(50,50));
     setWordWrap(false);
     setAutoFillBackground(true);
     viewport()->setAutoFillBackground(false);
