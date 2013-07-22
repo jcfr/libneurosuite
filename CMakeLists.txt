@@ -186,7 +186,7 @@ set( QT_USE_QTWEBKIT TRUE)
 if(QT_QTWEBKIT_FOUND)
    include_directories(${QT_QTWEBKIT_INCLUDE_DIR})
 else(QT_QTWEBKIT_FOUND)
-   MESSAGE(FATAL_ERROR "qtwebkit not found. Please install them")
+   MESSAGE(STATUS "qtwebkit not found. Please install them")
 endif()
 
 configure_file(LibKlustersSharedConfig.cmake.in ${CMAKE_CURRENT_BINARY_DIR}/LibKlustersSharedConfig.cmake @ONLY)
