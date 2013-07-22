@@ -256,3 +256,4 @@ SET(CPACK_IGNORE_FILES '.git'  "/[._]obj/" "/moc_" "/[._]o/" "/CMakeFiles/" "/[.
 
 
 include(CPack)
+add_subdirectory(test)
