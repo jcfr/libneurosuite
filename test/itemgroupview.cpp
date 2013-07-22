@@ -64,16 +64,20 @@ void ItemGroupView::setIconView(QListWidget* view){
 }
 
 void ItemGroupView::reAdjustSize(int parentWidth,int labelSize){
+    qDebug()<<" void ItemGroupView::reAdjustSize(int parentWidth,int labelSize){ parentWidth" <<parentWidth<<" labelSize" <<labelSize;
     if((iconView->size().width() != 1 && width() != parentWidth) || init){
         init = false;
         int futurWidth = parentWidth ;
 
+        qDebug()<<" futurWidth"<<futurWidth;
         setFixedWidth(futurWidth);
         int viewfuturWidth = width() - labelSize - 6;//give so space on the right
         iconView->setFixedWidth(viewfuturWidth);
 
-        if(iconView->size().height() != 1 && height() != iconView->size().height())
+
+        if(iconView->size().height() != 1 && height() != iconView->size().height()) {
             setFixedHeight(iconView->size().height());
+        }
     }
     //If items have been moved in or out of the iconview, its sized has changed and the ItemGroupView has to compensate
     if(iconView->size().height() != 1 && height() != iconView->size().height())

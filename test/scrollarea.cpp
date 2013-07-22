@@ -48,6 +48,7 @@ void ScrollArea::resizeEvent(QResizeEvent* event){
     //Make the viewport to have the visible size (size of the scrollview)
     viewport()->resize(event->size());
     QScrollArea::resizeEvent(event);
+    emit paletteResized(viewport()->width(),labelSize);
 }
 
 void ScrollArea::createItemList(const QString &groupName)
@@ -56,6 +57,7 @@ void ScrollArea::createItemList(const QString &groupName)
 
     createGroup(groupName);
     updateItemList(groupName);
+    emit paletteResized(viewport()->width(),labelSize);
     update();
 }
 
@@ -76,12 +78,15 @@ void ScrollArea::updateItemList(const QString& groupName)
         QListWidgetItem *item  = new QListWidgetItem(icon, QString::number(i), iconView);
     }
 
+
     /*
     if(nbItems == 0)
-        iconView->resize(50,20);
+iconView->resize(50,20);
     else
     */
+
         iconView->adjustSize();
+        //iconView->updateToContentSize();
 }
 
 
@@ -129,9 +134,9 @@ void ScrollArea::createGroup(const QString &id)
     group->adjustSize();
     iconView->show();
     group->show();
-    if (iconView->size().isNull()) {
-        iconView->resize(50,50);
-    }
+    //if (iconView->size().isNull()) {
+    //    iconView->resize(50,50);
+   // }
     qDebug()<<" group"<<group->size();
     qDebug()<<" iconView"<<iconView->size();
 
@@ -139,16 +144,17 @@ void ScrollArea::createGroup(const QString &id)
     //Signal and slot connection
     connect(iconView,SIGNAL(itemSelectionChanged()),this, SLOT(slotClickRedraw()));
     connect(iconView,SIGNAL(mousePressMiddleButton(QString,QListWidgetItem*)),this, SLOT(slotMousePressed(QString,QListWidgetItem*)));
-    connect(this,SIGNAL(paletteResized(int,int)),group,SLOT(reAdjustSize(int,int)));
+
     connect(iconView,SIGNAL(mousePressWoModificators(QString)),this, SLOT(slotMousePressWoModificators(QString)));
     connect(iconView,SIGNAL(mousePressWAltButton(QString,QListWidgetItem*)),this, SLOT(slotMousePressWAltButton(QString,QListWidgetItem*)));
     connect(iconView,SIGNAL(mouseReleased(QString)),this, SLOT(slotMouseReleased(QString)));
 
     connect(label,SIGNAL(leftClickOnLabel(QString,bool,bool)),this, SLOT(slotMousePressed(QString,bool,bool)));
 */
+    connect(this,SIGNAL(paletteResized(int,int)),group,SLOT(reAdjustSize(int,int)));
     //TOODO
     orderTheGroups();
-    //emit paletteResized(viewport()->width(),labelSize);
+    emit paletteResized(viewport()->width(),labelSize);
     update();
 }
 

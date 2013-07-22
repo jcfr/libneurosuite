@@ -1,6 +1,7 @@
 #include "listview.h"
 #include <QFont>
 #include <QPalette>
+#include <QDebug>
 
 ListWidget::ListWidget(QWidget *parent)
     : QListWidget(parent)
@@ -44,3 +45,24 @@ ListWidget::ListWidget(QWidget *parent)
     setSortingEnabled(true);
 
 }
+
+void ListWidget::updateToContentSize()
+{
+    const QSize size = QSize(contentsSize().width() + 5, qMax(contentsSize().height() + 5, 40));
+    qDebug()<<" size "<<size;
+    resize(size);
+}
+
+#if 1
+QSize ListWidget::sizeHint() const
+{
+    const QSize size = QSize(contentsSize().width() + 5, qMax(contentsSize().height() + 5, 40));
+    return size;
+}
+
+void ListWidget::resizeEvent(QResizeEvent *event)
+{
+    QListWidget::resizeEvent(event);
+    resize(sizeHint());
+}
+#endif

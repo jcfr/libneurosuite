@@ -22,6 +22,10 @@ public:
 protected:
     void resizeEvent(QResizeEvent* event);
 
+Q_SIGNALS:
+    void paletteResized(int parentWidth,int labelSize);
+
+
 private:
     /**Dictionnary of the iconviews representing the group of items.*/
     QHash<QString, ListWidget*> iconviewDict;
