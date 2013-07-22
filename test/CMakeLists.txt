@@ -1,4 +1,4 @@
-set( test_scrollview_SRCS main.cpp  listview.cpp mainview.cpp scrollarea.cpp)
+set( test_scrollview_SRCS main.cpp  listview.cpp mainview.cpp scrollarea.cpp itemgroupview.cpp)
 
 add_executable( test_scrollview ${test_scrollview_SRCS} )
 

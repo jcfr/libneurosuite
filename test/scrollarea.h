@@ -11,9 +11,16 @@ class ScrollArea : public QScrollArea
     Q_OBJECT
 public:
     explicit ScrollArea(QWidget *parent=0);
+
+    void createItemList(const QString &groupName);
+    void createGroup(const QString &id);
+
 private:
     QVBoxLayout* verticalContainer;
-
+    /**Dummy widget used to keep the iconviews nicely display in the pannel.*/
+    QWidget* spaceWidget;
+    QColor backgroundColor;
+    int labelSize;
 };
 
 class GroupNameLabel : public QLabel{
