@@ -6,6 +6,7 @@
 #include <QMouseEvent>
 
 class QVBoxLayout;
+class ListWidget;
 class ScrollArea : public QScrollArea
 {
     Q_OBJECT
@@ -14,8 +15,12 @@ public:
 
     void createItemList(const QString &groupName);
     void createGroup(const QString &id);
+    void updateItemList(const QString& groupName);
 
 private:
+    /**Dictionnary of the iconviews representing the group of items.*/
+    QHash<QString, ListWidget*> iconviewDict;
+
     QVBoxLayout* verticalContainer;
     /**Dummy widget used to keep the iconviews nicely display in the pannel.*/
     QWidget* spaceWidget;

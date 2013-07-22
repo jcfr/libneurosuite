@@ -3,7 +3,7 @@
 #include "listview.h"
 #include <QPalette>
 #include <QVBoxLayout>
-#
+#include <QPainter>
 ScrollArea::ScrollArea(QWidget *parent)
     : QScrollArea(parent)
 {
@@ -46,8 +46,35 @@ ScrollArea::ScrollArea(QWidget *parent)
 void ScrollArea::createItemList(const QString &groupName)
 {
     createGroup(groupName);
+    updateItemList(groupName);
     update();
 }
+
+void ScrollArea::updateItemList(const QString& groupName)
+{
+    ListWidget* iconView = iconviewDict[groupName];
+    iconView->clear();
+
+    QPainter painter;
+    for(int i = 0; i<15; ++i){
+        QPixmap pix(12,12);
+        pix.fill(backgroundColor);
+        painter.begin(&pix);
+        painter.fillRect(0,0,12,12, Qt::red);
+        painter.end();
+        QIcon icon;
+        icon.addPixmap(pix);
+        QListWidgetItem *item  = new QListWidgetItem(icon, QString::number(i), iconView);
+    }
+
+    /*
+    if(nbItems == 0)
+        iconView->resize(50,20);
+    else
+    */
+        iconView->adjustSize();
+}
+
 
 void ScrollArea::createGroup(const QString &id)
 {
@@ -68,9 +95,8 @@ void ScrollArea::createGroup(const QString &id)
     ListWidget* iconView = new ListWidget;
     iconView->setSizePolicy(QSizePolicy::Expanding,QSizePolicy::Expanding);
 
-    /*
     if(!iconviewDict.isEmpty()){
-        QHashIterator<QString, ItemIconView*> iterator(iconviewDict);
+        QHashIterator<QString, ListWidget*> iterator(iconviewDict);
         while (iterator.hasNext()) {
             iterator.next();
             iconView->resize((iconviewDict[iterator.key()])->size().width(),2);
@@ -78,7 +104,6 @@ void ScrollArea::createGroup(const QString &id)
     }
     else
         iconView->adjustSize();
-        */
     //group->setStretchFactor(label,0);
     //group->setStretchFactor(iconView,200);
     group->setIconView(iconView);
@@ -89,7 +114,7 @@ void ScrollArea::createGroup(const QString &id)
     spaceWidget->show();
     verticalContainer->setStretchFactor(spaceWidget,2);
 
-    //iconviewDict.insert(id,iconView);
+    iconviewDict.insert(id,iconView);
 
     //itemGroupViewDict.insert(id,group);
     group->adjustSize();
