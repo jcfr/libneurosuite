@@ -5,7 +5,8 @@
 #include <QVBoxLayout>
 #include <QPainter>
 ScrollArea::ScrollArea(QWidget *parent)
-    : QScrollArea(parent)
+    : QScrollArea(parent),
+      spaceWidget(0)
 {
     setWidgetResizable(true);
 
