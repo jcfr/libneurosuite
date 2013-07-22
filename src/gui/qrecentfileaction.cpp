@@ -116,7 +116,6 @@ void QRecentFileActionPrivate::removeAction(const QString &file)
         recentFiles.removeAll(file);
     }
     Q_FOREACH (QAction *action, q->menu()->actions()) {
-        qDebug()<<" action->data().toString()"<<action->data().toString()<<" file"<<file;
         if (action->data().toString()==file) {
             removeAction(action);
             break;
