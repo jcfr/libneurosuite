@@ -21,7 +21,7 @@
 #include <qwidget.h>
 #include <QHBoxLayout>
 #include <QDebug>
-class QListWidget;
+class ListWidget;
 class QLabel;
 
 /**Utilitary class used to build the cluster and event palettes.
@@ -34,7 +34,7 @@ public:
     explicit ItemGroupView(const QColor& backgroundColor,QWidget* parent=0);
     ~ItemGroupView();
 
-    void setIconView(QListWidget *view);
+    void setIconView(ListWidget *view);
 
     void setLabel(QLabel *label);
     QLabel *label() const;
@@ -43,7 +43,7 @@ public Q_SLOTS:
     void reAdjustSize(int parentWidth,int labelSize);
 
 private:
-    QListWidget* iconView;
+    ListWidget* iconView;
     QHBoxLayout *mLayout;
     QLabel *mLabel;
     bool init;

@@ -46,7 +46,7 @@ ScrollArea::ScrollArea(QWidget *parent)
 
 void ScrollArea::resizeEvent(QResizeEvent* event){
     //Make the viewport to have the visible size (size of the scrollview)
-    viewport()->resize(event->size());
+    //viewport()->resize(event->size()); // useless, done by layoutchildren
     QScrollArea::resizeEvent(event);
     emit paletteResized(viewport()->width(),labelSize);
 }
@@ -79,14 +79,6 @@ void ScrollArea::updateItemList(const QString& groupName)
     }
 
 
-    /*
-    if(nbItems == 0)
-iconView->resize(50,20);
-    else
-    */
-
-        iconView->adjustSize();
-        //iconView->updateToContentSize();
 }
 
 
@@ -152,7 +144,6 @@ void ScrollArea::createGroup(const QString &id)
     connect(label,SIGNAL(leftClickOnLabel(QString,bool,bool)),this, SLOT(slotMousePressed(QString,bool,bool)));
 */
     connect(this,SIGNAL(paletteResized(int,int)),group,SLOT(reAdjustSize(int,int)));
-    //TOODO
     orderTheGroups();
     emit paletteResized(viewport()->width(),labelSize);
     update();

@@ -43,26 +43,17 @@ ListWidget::ListWidget(QWidget *parent)
     setFrameStyle(QFrame::Box | QFrame::Plain);
     setLineWidth(1);
     setSortingEnabled(true);
-
 }
 
-void ListWidget::updateToContentSize()
+void ListWidget::setNewWidth(int width)
 {
-    const QSize size = QSize(contentsSize().width() + 5, qMax(contentsSize().height() + 5, 40));
-    qDebug()<<" size "<<size;
-    resize(size);
-}
-
-#if 1
-QSize ListWidget::sizeHint() const
-{
-    const QSize size = QSize(contentsSize().width() + 5, qMax(contentsSize().height() + 5, 40));
-    return size;
-}
-
-void ListWidget::resizeEvent(QResizeEvent *event)
-{
-    QListWidget::resizeEvent(event);
+    setFixedWidth(width);
+    doItemsLayout();
     resize(sizeHint());
 }
-#endif
+
+QSize ListWidget::sizeHint() const
+{
+    const int height = rectForIndex(model()->index(model()->rowCount() - 1, 0)).bottom();
+    return QSize(width(), height);
+}
