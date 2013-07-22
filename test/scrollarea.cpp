@@ -44,8 +44,16 @@ ScrollArea::ScrollArea(QWidget *parent)
     adjustSize();
 }
 
+void ScrollArea::resizeEvent(QResizeEvent* event){
+    //Make the viewport to have the visible size (size of the scrollview)
+    viewport()->resize(event->size());
+    QScrollArea::resizeEvent(event);
+}
+
 void ScrollArea::createItemList(const QString &groupName)
 {
+    itemGroupList.append(groupName);
+
     createGroup(groupName);
     updateItemList(groupName);
     update();
@@ -117,7 +125,7 @@ void ScrollArea::createGroup(const QString &id)
 
     iconviewDict.insert(id,iconView);
 
-    //itemGroupViewDict.insert(id,group);
+    itemGroupViewDict.insert(id,group);
     group->adjustSize();
     iconView->show();
     group->show();
@@ -139,7 +147,30 @@ void ScrollArea::createGroup(const QString &id)
     connect(label,SIGNAL(leftClickOnLabel(QString,bool,bool)),this, SLOT(slotMousePressed(QString,bool,bool)));
 */
     //TOODO
-    //orderTheGroups();
+    orderTheGroups();
     //emit paletteResized(viewport()->width(),labelSize);
     update();
+}
+
+void ScrollArea::orderTheGroups(){
+    //Remove all the children of the verticalContainer (spaceWidget and groups)
+    verticalContainer->removeWidget(spaceWidget);
+
+    QHashIterator<QString, ItemGroupView*> iterator(itemGroupViewDict);
+    while (iterator.hasNext()) {
+        iterator.next();
+        verticalContainer->removeWidget(iterator.value());
+    }
+
+    {
+    qSort(itemGroupList);
+    QStringList::iterator iterator;
+    for(iterator = itemGroupList.begin(); iterator != itemGroupList.end(); ++iterator)
+        verticalContainer->addWidget(itemGroupViewDict[*iterator]);
+    }
+    delete spaceWidget;
+    spaceWidget = new QWidget;
+    verticalContainer->addWidget(spaceWidget);
+    //spaceWidget->show();
+    verticalContainer->setStretchFactor(spaceWidget,2);
 }

@@ -7,6 +7,7 @@
 
 class QVBoxLayout;
 class ListWidget;
+class ItemGroupView;
 class ScrollArea : public QScrollArea
 {
     Q_OBJECT
@@ -17,9 +18,18 @@ public:
     void createGroup(const QString &id);
     void updateItemList(const QString& groupName);
 
+    void orderTheGroups();
+protected:
+    void resizeEvent(QResizeEvent* event);
+
 private:
     /**Dictionnary of the iconviews representing the group of items.*/
     QHash<QString, ListWidget*> iconviewDict;
+    /**Dictionnary of layout containing the iconviews.*/
+    QHash<QString, ItemGroupView*> itemGroupViewDict;
+    /**List used to order the event groups.*/
+    QStringList itemGroupList;
+
 
     QVBoxLayout* verticalContainer;
     /**Dummy widget used to keep the iconviews nicely display in the pannel.*/
