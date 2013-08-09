@@ -48,6 +48,7 @@ DockArea::DockArea (QWidget * parent )
 
     QScrollArea::setWidgetResizable(true);
     QScrollArea::setWidget(&mMainWindow);
+    setFocusPolicy(Qt::NoFocus);
 
 }
 
