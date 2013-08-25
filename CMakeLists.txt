@@ -209,8 +209,7 @@ install(FILES
 
 INCLUDE(InstallRequiredSystemLibraries)
 
-set(CPACK_PACKAGE_DESCRIPTION_SUMMARY "libklustersshared")
-set(CPACK_PACKAGE_DESCRIPTION "Libklustersshared is a library for Klusters and NeuroScope.")
+set(CPACK_PACKAGE_DESCRIPTION_SUMMARY "Library for Klusters and NeuroScope")
 SET(CPACK_PACKAGE_NAME "libklustersshared")
 SET(CPACK_PACKAGE_NAME_SIMPLIFIED "libklustersshared")
 SET(CPACK_PACKAGE_VERSION_MAJOR "${LIBKLUSTERSSHARED_VERSION_MAJOR}")
