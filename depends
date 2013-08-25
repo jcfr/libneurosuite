@@ -1,7 +1,7 @@
 #/bin/bash
 
-source ./version
-binary=../build/src/$name.so
+name=$(basename $(pwd))
+binary=build/src/$name.so
 
 if [ ! -f $binary ]
 then

@@ -209,6 +209,8 @@ install(FILES
 
 INCLUDE(InstallRequiredSystemLibraries)
 
+set(CPACK_PACKAGE_DESCRIPTION_SUMMARY "libklustersshared")
+set(CPACK_PACKAGE_DESCRIPTION "Libklustersshared is a library for Klusters and NeuroScope.")
 SET(CPACK_PACKAGE_NAME "libklustersshared")
 SET(CPACK_PACKAGE_NAME_SIMPLIFIED "libklustersshared")
 SET(CPACK_PACKAGE_VERSION_MAJOR "${LIBKLUSTERSSHARED_VERSION_MAJOR}")
@@ -235,6 +237,7 @@ ELSEIF(APPLE)
         SET(CPACK_SYSTEM_NAME "OSX")
 ELSE()
         SET(CPACK_GENERATOR "TBZ2")
+        
         # Determine distribution and release
         execute_process(COMMAND lsb_release -si OUTPUT_VARIABLE DISTRIBUTION OUTPUT_STRIP_TRAILING_WHITESPACE)
         execute_process(COMMAND lsb_release -sc OUTPUT_VARIABLE RELEASE OUTPUT_STRIP_TRAILING_WHITESPACE)
@@ -251,12 +254,13 @@ ELSE()
           endif()
 	    	set(CPACK_DEBIAN_PACKAGE_MAINTAINER "Michaël Zugaro")
     		set(CPACK_DEBIAN_PACKAGE_SECTION "Science")
-	    	set(CPACK_DEBIAN_PACKAGE_RECOMMENDS "klusters, neuroscope, ndmanager")
+	    	set(CPACK_DEBIAN_PACKAGE_RECOMMENDS "nphys-data, klusters, neuroscope, ndmanager")
+		   set(CPACK_DEBIAN_PACKAGE_DEPENDS "libqt4-network, libqtcore4, libqtgui4, libqtwebkit4")
 	    	set(CPACK_DEBIAN_PACKAGE_HOMEPAGE "http://klusters.sourceforge.net")
     		set(CPACK_GENERATOR "DEB")
 	    	set(CPACK_PACKAGE_FILE_NAME ${CPACK_PACKAGE_NAME}_${CPACK_PACKAGE_VERSION}-${RELEASE}_${CPACK_DEBIAN_PACKAGE_ARCHITECTURE})
 
-    endif()
+		  endif()
 ENDIF()
 
 
