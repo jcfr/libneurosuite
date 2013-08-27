@@ -104,5 +104,5 @@ install( TARGETS klustersshared EXPORT LibKlustersSharedLibraryTargets ARCHIVE
 )
 
 install( FILES ${libklustersshared_HEADERS} DESTINATION ${INCLUDE_INSTALL_DIR} COMPONENT Devel )
-install( DIRECTORY images DESTINATION ${CMAKE_INSTALL_PREFIX}/share/doc/ )
+install( DIRECTORY images DESTINATION ${EXEC_INSTALL_PREFIX}/share/doc/ )
 

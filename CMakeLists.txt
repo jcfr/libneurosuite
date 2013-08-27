@@ -171,7 +171,7 @@ endif()
 include_directories(${QT_INCLUDE_DIR} ${CMAKE_CURRENT_BINARY_DIR} src/gui/ ${CMAKE_CURRENT_BINARY_DIR}/src/gui/ src/libinqt5)
 
 set(LIB_SUFFIX "" CACHE STRING "Define suffix of directory name (32/64)" )
-set(EXEC_INSTALL_PREFIX  ${CMAKE_INSTALL_PREFIX}       CACHE PATH  "Base directory for executables and libraries")
+set(EXEC_INSTALL_PREFIX  .       CACHE PATH  "Base directory for executables and libraries")
 #
 ## the following are directories where stuff will be installed to
 set(BIN_INSTALL_DIR          "${EXEC_INSTALL_PREFIX}/bin" CACHE PATH "The binary install dir (default prefix/bin)")
@@ -202,7 +202,6 @@ install(EXPORT LibKlustersSharedLibraryTargets
         FILE LibKlustersSharedTargetsWithPrefix.cmake
         )
 
-
 install(FILES
 	${CMAKE_CURRENT_BINARY_DIR}/LibKlustersSharedConfig.cmake ${CMAKE_CURRENT_BINARY_DIR}/LibKlustersSharedConfigVersion.cmake
   	DESTINATION ${LIB_INSTALL_DIR}/cmake/LibKlustersShared  COMPONENT Devel)
@@ -230,7 +229,7 @@ IF(WIN32)
         SET(CPACK_NSIS_DISPLAY_NAME "${CPACK_PACKAGE_NAME_AND_VERSION}")
         SET(CPACK_NSIS_PACKAGE_NAME "${CPACK_PACKAGE_NAME_AND_VERSION}")
         SET(CPACK_PACKAGE_INSTALL_REGISTRY_KEY "${CPACK_PACKAGE_NAME_AND_VERSION}")
-        SET(CPACK_NSIS_INSTALL_ROOT "C:\\libklustersshared") # use "$PROGRAMFILES" to get "C:\Program Files" or similar
+        SET(CPACK_NSIS_INSTALL_ROOT "libklustersshared") # use "$PROGRAMFILES" to get "C:\Program Files" or similar
         SET(CPACK_PACKAGE_INSTALL_DIRECTORY "${CPACK_PACKAGE_NAME_AND_VERSION}")
 ELSEIF(APPLE)
         SET(CPACK_GENERATOR "ZIP")
