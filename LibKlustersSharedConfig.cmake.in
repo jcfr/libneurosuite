@@ -20,6 +20,7 @@ set(LIBKLUSTERSSHARED_INCLUDE_DIR "@INCLUDE_INSTALL_DIR@")
 
 # Library directory
 set(LIBKLUSTERSSHARED_LIB_DIR "@LIB_INSTALL_DIR@")
+set(LIBKLUSTERSSHARED_DLL_DIR "@BIN_INSTALL_DIR@")
 
 # Import the exported targets
 include(${_currentDir}/LibKlustersSharedTargetsWithPrefix.cmake)
