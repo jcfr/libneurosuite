@@ -171,7 +171,7 @@ endif()
 include_directories(${QT_INCLUDE_DIR} ${CMAKE_CURRENT_BINARY_DIR} src/gui/ ${CMAKE_CURRENT_BINARY_DIR}/src/gui/ src/libinqt5)
 
 set(LIB_SUFFIX "" CACHE STRING "Define suffix of directory name (32/64)" )
-set(EXEC_INSTALL_PREFIX  .       CACHE PATH  "Base directory for executables and libraries")
+set(EXEC_INSTALL_PREFIX  ${CMAKE_INSTALL_PREFIX}       CACHE PATH  "Base directory for executables and libraries")
 #
 ## the following are directories where stuff will be installed to
 set(BIN_INSTALL_DIR          "${EXEC_INSTALL_PREFIX}/bin" CACHE PATH "The binary install dir (default prefix/bin)")
