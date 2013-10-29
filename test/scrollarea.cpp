@@ -39,8 +39,6 @@ ScrollArea::ScrollArea(QWidget *parent)
     setWidget(w);
     verticalContainer->setSpacing(5);
 
-    //Set the legend in the good language
-    languageChange();
     adjustSize();
 }
 
