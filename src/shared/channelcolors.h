@@ -20,8 +20,8 @@
 
 #include "libklustersshared_export.h"
 // include files for Qt
-#include <qlist.h>
-#include <qcolor.h>
+#include <QList>
+#include <QColor>
 
 /**
   * This class represents the list of the channels with their associated id, colors

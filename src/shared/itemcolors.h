@@ -20,7 +20,7 @@
 
 #include "libklustersshared_export.h"
 // include files for Qt
-#include <qcolor.h>
+#include <QColor>
 #include <QList>
 
 

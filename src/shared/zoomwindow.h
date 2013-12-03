@@ -20,8 +20,8 @@
 #include "libklustersshared_export.h"
 
 
-#include <qrect.h>
-#include <qpoint.h>
+#include <QRect>
+#include <QPoint>
 #include <math.h>
 
 /**
