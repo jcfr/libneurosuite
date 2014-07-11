@@ -20,7 +20,7 @@ if(Qt5Core_FOUND)
   find_package(Qt5Gui REQUIRED)
   find_package(Qt5Widgets REQUIRED)
 
-  find_package(Qt5WebKitWidgets 5.0.2 QUIET) 
+  find_package(Qt5WebKitWidgets 5.0.2 QUIET)
 
   include(ECMQt4To5Porting)
   include_directories(${QT_INCLUDES}) # TODO: Port away from this.
@@ -51,9 +51,9 @@ include(MacroEnsureVersion)
 include(CheckCXXCompilerFlag)
 include(MacroWriteBasicCMakeVersionFile)
 
-set(LIBKLUSTERSSHARED_VERSION_MAJOR 1)
+set(LIBKLUSTERSSHARED_VERSION_MAJOR 2)
 set(LIBKLUSTERSSHARED_VERSION_MINOR 0)
-set(LIBKLUSTERSSHARED_VERSION_PATCH 12)
+set(LIBKLUSTERSSHARED_VERSION_PATCH 0)
 set(LIBKLUSTERSSHARED_VERSION ${LIBKLUSTERSSHARED_VERSION_MAJOR}.${LIBKLUSTERSSHARED_VERSION_MINOR}.${LIBKLUSTERSSHARED_VERSION_PATCH})
 
 # this file will be installed too and will be used by cmake when searching for the Config.cmake file to check the version of kdepimlibs, Alex
@@ -165,7 +165,7 @@ if (MSVC)
    # Qt disables the native wchar_t type, do it too to avoid linking issues
    set( CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Zc:wchar_t-" )
 
-endif()   
+endif()
 
 # tell cmake where to search for Qt headers:
 include_directories(${QT_INCLUDE_DIR} ${CMAKE_CURRENT_BINARY_DIR} src/gui/ ${CMAKE_CURRENT_BINARY_DIR}/src/gui/ src/libinqt5)
@@ -236,12 +236,12 @@ ELSEIF(APPLE)
         SET(CPACK_SYSTEM_NAME "OSX")
 ELSE()
         SET(CPACK_GENERATOR "TBZ2")
-        
+
         # Determine distribution and release
         execute_process(COMMAND lsb_release -si OUTPUT_VARIABLE DISTRIBUTION OUTPUT_STRIP_TRAILING_WHITESPACE)
         execute_process(COMMAND lsb_release -sc OUTPUT_VARIABLE RELEASE OUTPUT_STRIP_TRAILING_WHITESPACE)
         execute_process(COMMAND uname -i OUTPUT_VARIABLE ARCHITECTURE)
- 
+
         # Set package name and type (deb vs rpm)
         if(DISTRIBUTION STREQUAL "Ubuntu")
 
@@ -260,7 +260,7 @@ ELSE()
           set(CPACK_PACKAGE_FILE_NAME ${CPACK_PACKAGE_NAME}_${CPACK_PACKAGE_VERSION}-${RELEASE}_${CPACK_DEBIAN_PACKAGE_ARCHITECTURE})
 
         # >>> TEMPLATE CODE FOR ADDITIONAL DEBIAN-LIKE DISTRIBUTIONS <<<
-        
+
         #elseif(DISTRIBUTION STREQUAL "Ubuntu")
         #
         #  # Set Ubuntu-specific information (see http://www.cmake.org/Wiki/CMake:CPackPackageGenerators)
@@ -287,7 +287,7 @@ ELSE()
           endif()
           set(CPACK_PACKAGE_CONTACT "Michaël Zugaro")
           set(CPACK_RPM_PACKAGE_GROUP "Science")
-          set(CPACK_RPM_PACKAGE_LICENSE "GPL")		
+          set(CPACK_RPM_PACKAGE_LICENSE "GPL")
           set(CPACK_RPM_PACKAGE_SUGGESTS "nphys-data, neuroscope, ndmanager")
           set(CPACK_RPM_PACKAGE_REQUIRES "libqt4, libqt4-x11, libQtWebKit4")
           set(CPACK_RPM_PACKAGE_URL "http://klusters.sourceforge.net")
@@ -305,9 +305,9 @@ ELSE()
           endif()
           set(CPACK_PACKAGE_CONTACT "Michaël Zugaro")
           set(CPACK_RPM_PACKAGE_GROUP "Science")
-          set(CPACK_RPM_PACKAGE_LICENSE "GPL")		
+          set(CPACK_RPM_PACKAGE_LICENSE "GPL")
           set(CPACK_RPM_PACKAGE_SUGGESTS "nphys-data, neuroscope, ndmanager")
-          set(CPACK_RPM_PACKAGE_REQUIRES "qt, qt-mobility, qtwebkit, qt-x11")          
+          set(CPACK_RPM_PACKAGE_REQUIRES "qt, qt-mobility, qtwebkit, qt-x11")
           set(CPACK_RPM_PACKAGE_URL "http://klusters.sourceforge.net")
           set(CPACK_GENERATOR "RPM")
           set(CPACK_PACKAGE_FILE_NAME ${CPACK_PACKAGE_NAME}-${CPACK_PACKAGE_VERSION}.fc${RELEASE}.${CPACK_RPM_PACKAGE_ARCHITECTURE})
@@ -330,7 +330,7 @@ ELSE()
           set(CPACK_PACKAGE_FILE_NAME ${CPACK_PACKAGE_NAME}-${CPACK_PACKAGE_VERSION}-${RELEASE}.${CPACK_RPM_PACKAGE_ARCHITECTURE})
 
         # >>> TEMPLATE CODE FOR ADDITIONAL REDHAT-LIKE DISTRIBUTIONS <<<
-        
+
         #elseif(DISTRIBUTION MATCHES "openSUSE.*")
         #
         #  # Set openSUSE-specific information (see http://www.cmake.org/Wiki/CMake:CPackPackageGenerators)
@@ -341,7 +341,7 @@ ELSE()
         #  endif()
         #  set(CPACK_PACKAGE_CONTACT "Michaël Zugaro")
         #  set(CPACK_RPM_PACKAGE_GROUP "Science")
-        #  set(CPACK_RPM_PACKAGE_LICENSE "GPL")		
+        #  set(CPACK_RPM_PACKAGE_LICENSE "GPL")
         #  set(CPACK_RPM_PACKAGE_SUGGESTS "nphys-data, neuroscope, ndmanager")
         #  set(CPACK_RPM_PACKAGE_REQUIRES "libqt4, libqt4-x11, libQtWebKit4")
         #  set(CPACK_RPM_PACKAGE_URL "http://klusters.sourceforge.net")
