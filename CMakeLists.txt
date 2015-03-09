@@ -19,6 +19,7 @@ endif()
 if(Qt5Core_FOUND)
   find_package(Qt5Gui REQUIRED)
   find_package(Qt5Widgets REQUIRED)
+  find_package(Qt5PrintSupport REQUIRED)
 
   find_package(Qt5WebKitWidgets 5.0.2 QUIET)
 
