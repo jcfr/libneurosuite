@@ -1,8 +1,16 @@
 language: cpp
 
-before_install: sudo apt-get update
+os:
+  - linux
+  - osx
 
-install: sudo apt-get install -y libqt4-dev
+before_install:
+  - if [ "$TRAVIS_OS_NAME" = "linux" ]; then sudo apt-get update; fi
+  - if [ "$TRAVIS_OS_NAME" = "osx" ]; then brew update; fi
+
+install:
+  - if [ "$TRAVIS_OS_NAME" = "linux" ]; then sudo apt-get install -y libqt4-dev; fi
+  - if [ "$TRAVIS_OS_NAME" = "osx" ]; then brew install qt; fi
 
 script: cmake . && cpack
 
@@ -14,3 +22,4 @@ deploy:
   file: libklustersshared_*.deb
   on:
     tags: true
+    condition: "$TRAVIS_OS_NAME" = "linux"
