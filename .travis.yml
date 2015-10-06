@@ -22,4 +22,4 @@ deploy:
   file: libklustersshared_*.deb
   on:
     tags: true
-    condition: "$TRAVIS_OS_NAME" = "linux"
+    condition: $TRAVIS_OS_NAME = linux
