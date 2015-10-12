@@ -15,6 +15,6 @@ environment:
 build_script:
     - set OLD_PATH=%PATH%
     - set PATH=%MINIMAL_PATH%;%QTDIR%\bin;%EXTRA_PATH%
-    - cmake -DENFORCE_QT4_BUILD=OFF -G "%CMAKE_GENERATOR%" .
+    - cmake -G "%CMAKE_GENERATOR%" .
     - cmake --build .
     - set PATH=%OLD_PATH%
