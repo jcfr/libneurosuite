@@ -30,7 +30,7 @@ Port to Qt4
 #include "qextenddialog_p.h"
 #include <QLayout>
 
-class KLUSTERSSHARED_EXPORT QPageDialogPrivate : public QExtendDialogPrivate
+class NEUROSUITE_EXPORT QPageDialogPrivate : public QExtendDialogPrivate
 {
     Q_DECLARE_PUBLIC(QPageDialog)
     protected:

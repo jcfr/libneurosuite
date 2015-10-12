@@ -18,13 +18,13 @@
 #ifndef QEXTENDTABWIDGET_H
 #define QEXTENDTABWIDGET_H
 
-#include "libklustersshared_export.h"
+#include "libneurosuite_export.h"
 
 #include <QTabWidget>
 
 class DockArea;
 
-class KLUSTERSSHARED_EXPORT QExtendTabWidget : public QTabWidget
+class NEUROSUITE_EXPORT QExtendTabWidget : public QTabWidget
 {
 public:
     explicit QExtendTabWidget(QWidget *parent = 0);

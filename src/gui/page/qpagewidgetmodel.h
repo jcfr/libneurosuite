@@ -53,7 +53,7 @@ class QIcon;
  *
  * @author Tobias Koenig (tokoe@kde.org)
  */
-class KLUSTERSSHARED_EXPORT QPageWidgetItem : public QObject
+class NEUROSUITE_EXPORT QPageWidgetItem : public QObject
 {
     Q_OBJECT
     Q_PROPERTY( QString name READ name WRITE setName )
@@ -191,7 +191,7 @@ class QPageWidgetModelPrivate;
  * This page model is used by @see QPageWidget to provide
  * a hierarchical layout of pages.
  */
-class KLUSTERSSHARED_EXPORT QPageWidgetModel : public QPageModel
+class NEUROSUITE_EXPORT QPageWidgetModel : public QPageModel
 {
     Q_OBJECT
     Q_DECLARE_PRIVATE(QPageWidgetModel)

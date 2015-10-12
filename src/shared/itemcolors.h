@@ -18,7 +18,7 @@
 #ifndef ITEMCOLORS_H
 #define ITEMCOLORS_H
 
-#include "libklustersshared_export.h"
+#include "libneurosuite_export.h"
 // include files for Qt
 #include <QColor>
 #include <QList>
@@ -31,7 +31,7 @@
   *@author Lynn Hazan
   */
 
-class KLUSTERSSHARED_EXPORT ItemColors  {
+class NEUROSUITE_EXPORT ItemColors  {
 
 public:
 

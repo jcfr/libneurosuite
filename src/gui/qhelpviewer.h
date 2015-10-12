@@ -7,10 +7,10 @@ Copyright (C) 2012 Klarälvdalens Datakonsult AB, a KDAB Group company, info@kda
 #include <QDialog>
 #include <QUrl>
 
-#include "libklustersshared_export.h"
+#include "libneurosuite_export.h"
 class QWebView;
 
-class KLUSTERSSHARED_EXPORT QHelpViewer : public QDialog
+class NEUROSUITE_EXPORT QHelpViewer : public QDialog
 {
     Q_OBJECT
 public:

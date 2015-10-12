@@ -43,7 +43,7 @@
 #define QSTANDARDPATHS_H
 
 #include <QtCore/qstringlist.h>
-#include "libklustersshared_export.h"
+#include "libneurosuite_export.h"
 
 QT_BEGIN_HEADER
 
@@ -55,7 +55,7 @@ QT_MODULE(Core)
 
 class QStringList;
 
-class KLUSTERSSHARED_EXPORT QStandardPaths
+class NEUROSUITE_EXPORT QStandardPaths
 {
 public:
     // Do not re-order, must match QDesktopServices

@@ -5,7 +5,7 @@ Copyright (C) 2012 Klarälvdalens Datakonsult AB, a KDAB Group company, info@kda
 #ifndef QRECENTFILEACTION_H
 #define QRECENTFILEACTION_H
 
-#include "libklustersshared_export.h"
+#include "libneurosuite_export.h"
 #include <qaction.h>
 
 QT_BEGIN_NAMESPACE
@@ -14,7 +14,7 @@ QT_MODULE(Gui)
 
 class QRecentFileActionPrivate;
 
-class KLUSTERSSHARED_EXPORT QRecentFileAction : public QAction
+class NEUROSUITE_EXPORT QRecentFileAction : public QAction
 {
     Q_OBJECT
     Q_PROPERTY(int maximumFileCount READ maximumFileCount WRITE setMaximumFileCount)

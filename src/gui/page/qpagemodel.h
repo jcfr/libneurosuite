@@ -28,7 +28,7 @@ Port to Qt4
 #ifndef QPAGEMODEL_H
 #define QPAGEMODEL_H
 
-#include "libklustersshared_export.h"
+#include "libneurosuite_export.h"
 
 #include <QtCore/QAbstractItemModel>
 
@@ -59,7 +59,7 @@ class QPageModelPrivate;
  *  @see QPageView
  *  @author Tobias Koenig <tokoe@kde.org>
  */
-class KLUSTERSSHARED_EXPORT QPageModel : public QAbstractItemModel
+class NEUROSUITE_EXPORT QPageModel : public QAbstractItemModel
 {
   Q_OBJECT
     Q_DECLARE_PRIVATE(QPageModel)

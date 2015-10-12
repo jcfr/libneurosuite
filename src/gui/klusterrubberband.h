@@ -2,9 +2,9 @@
 #define KLUSTERRUBBERBAND_H
 
 #include <QRubberBand>
-#include "libklustersshared_export.h"
+#include "libneurosuite_export.h"
 
-class KLUSTERSSHARED_EXPORT KlusterRubberBand : public QRubberBand
+class NEUROSUITE_EXPORT KlusterRubberBand : public QRubberBand
 {
     Q_OBJECT
 public:

@@ -28,7 +28,7 @@ Port to Qt4
 #ifndef QPAGEVIEW_H
 #define QPAGEVIEW_H
 
-#include "libklustersshared_export.h"
+#include "libneurosuite_export.h"
 
 #include <QWidget>
 
@@ -63,7 +63,7 @@ class QAbstractItemModel;
  *
  * @author Tobias Koenig (tokoe@kde.org)
  */
-class KLUSTERSSHARED_EXPORT QPageView : public QWidget
+class NEUROSUITE_EXPORT QPageView : public QWidget
 {
   Q_OBJECT
   Q_ENUMS( FaceType )

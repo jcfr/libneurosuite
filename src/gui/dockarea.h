@@ -33,7 +33,7 @@
 #define DOCKAREA_H
 
 
-#include "libklustersshared_export.h"
+#include "libneurosuite_export.h"
 
 //Qt includes
 #include <QMainWindow>
@@ -48,7 +48,7 @@
 * Dock area where dockwidget can be added. An overall scrollarea is used to allow a scollbar when there are to many widgets in the area.
 * @author Lynn Hazan <lynn.hazan@lsce.ipsl.fr>
 */
-class KLUSTERSSHARED_EXPORT DockArea : public QScrollArea {
+class NEUROSUITE_EXPORT DockArea : public QScrollArea {
     Q_OBJECT
   public:
     DockArea ( QWidget * parent = 0 );

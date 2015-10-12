@@ -39,7 +39,7 @@ class QPageWidgetPrivate;
  *
  * @author Tobias Koenig (tokoe@kde.org)
  */
-class KLUSTERSSHARED_EXPORT QPageWidget : public QPageView
+class NEUROSUITE_EXPORT QPageWidget : public QPageView
 {
   Q_OBJECT
     Q_DECLARE_PRIVATE(QPageWidget)

@@ -27,7 +27,7 @@
 class QPushButton;
 class QMenu;
 class QExtendDialogPrivate;
-#include "libklustersshared_export.h"
+#include "libneurosuite_export.h"
 
 //#include <kconfiggroup.h>
 //#include <kguiitem.h>
@@ -125,7 +125,7 @@ class QExtendDialogPrivate;
  * @author Olivier Goffart <ogoffart at kde.org>
  * @author Tobias Koenig <tokoe@kde.org>
  */
-class KLUSTERSSHARED_EXPORT QExtendDialog : public QDialog
+class NEUROSUITE_EXPORT QExtendDialog : public QDialog
 {
   Q_OBJECT
   Q_ENUMS(ButtonCode)

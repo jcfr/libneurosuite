@@ -68,7 +68,7 @@ class QPageDialogPrivate;
  *
  * @author Tobias Koenig (tokoe@kde.org)
  */
-class KLUSTERSSHARED_EXPORT QPageDialog : public QExtendDialog
+class NEUROSUITE_EXPORT QPageDialog : public QExtendDialog
 {
   Q_OBJECT
     Q_DECLARE_PRIVATE(QPageDialog)

@@ -18,7 +18,7 @@
 #ifndef CHANNELCOLORS_H
 #define CHANNELCOLORS_H
 
-#include "libklustersshared_export.h"
+#include "libneurosuite_export.h"
 // include files for Qt
 #include <QList>
 #include <QColor>
@@ -30,7 +30,7 @@
   *@author Lynn Hazan
   */
 
-class KLUSTERSSHARED_EXPORT ChannelColors  {
+class NEUROSUITE_EXPORT ChannelColors  {
 
 public:
 

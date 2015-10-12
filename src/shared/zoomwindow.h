@@ -17,7 +17,7 @@
 
 #ifndef FLOATRECT_H
 #define FLOATRECT_H
-#include "libklustersshared_export.h"
+#include "libneurosuite_export.h"
 
 
 #include <QRect>
@@ -32,7 +32,7 @@
   * @author Lynn Hazan
   */
 
-class KLUSTERSSHARED_EXPORT ZoomWindow {
+class NEUROSUITE_EXPORT ZoomWindow {
 
 public: 
 

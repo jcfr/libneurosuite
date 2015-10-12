@@ -26,12 +26,12 @@
 #include <QFile>
 #include <QFileInfo>
 
-#include "libklustersshared_export.h"
+#include "libneurosuite_export.h"
 
 /**
 @author Lynn Hazan
 */
-class KLUSTERSSHARED_EXPORT Utilities{
+class NEUROSUITE_EXPORT Utilities{
 public:
     /**
     * Compares the versions

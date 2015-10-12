@@ -6,12 +6,12 @@ Copyright (C) 2012 Klarälvdalens Datakonsult AB, a KDAB Group company, info@kda
 #ifndef QCOLORBUTTON_H
 #define QCOLORBUTTON_H
 
-#include "libklustersshared_export.h"
+#include "libneurosuite_export.h"
 #include <QPushButton>
 
 class QColorButtonPrivate;
 
-class KLUSTERSSHARED_EXPORT QColorButton : public QPushButton
+class NEUROSUITE_EXPORT QColorButton : public QPushButton
 {
     Q_OBJECT
     Q_PROPERTY(QColor color READ color WRITE setColor)
