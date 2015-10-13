@@ -6,4 +6,4 @@ fi
 
 mkdir build
 cd build
-cmake $CMAKE_CONFIG_VARS .. && make
+cmake $CMAKE_CONFIG_VARS .. && make package

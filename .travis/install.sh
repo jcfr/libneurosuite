@@ -9,7 +9,7 @@ if [ "$TRAVIS_OS_NAME" = "linux" ]; then
     sudo apt-get install -y cmake cmake-data
 
     if [ "$QT_VERSION" = "qt4" ]; then
-        sudo apt-get install -y libqtgui4
+        sudo apt-get install -y libqtgui4 libqtwebkit4
     fi
     if [ "$QT_VERSION" = "qt5" ]; then
         sudo apt-get install -y qt55base qt55webkit
