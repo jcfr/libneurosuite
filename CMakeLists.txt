@@ -6,7 +6,7 @@ set(PROJECT_VERSION_MAJOR 2)
 set(PROJECT_VERSION_MINOR 0)
 set(PROJECT_VERSION_PATCH 0)
 set(PROJECT_VERSION
-    ${PROJECT_VERSION_MAJOR}.${PROJECT_VERSION_MINOR}.${PROJECT_VERSION_PATCH}
+    "${PROJECT_VERSION_MAJOR}.${PROJECT_VERSION_MINOR}.${PROJECT_VERSION_PATCH}"
 )
 
 # Options
@@ -36,7 +36,7 @@ endif(APPLE)
 # Configure CMAKE
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
 
-# Find out
+# Detect 64bit build
 set(PROJECT_IS_64BIT CMAKE_SIZEOF_VOID_P EQUAL 8)
 
 #####################
@@ -64,6 +64,9 @@ if (MSVC)
    #set( CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Zc:wchar_t-" )
 endif()
 
+########################
+# Include subdirectory #
+########################
 # Build main library
 add_subdirectory(src)
 
@@ -142,6 +145,8 @@ else()
 
     if(PROJECT_IS_64BIT)
         set(CPACK_DEBIAN_PACKAGE_ARCHITECTURE "amd64")
+    else()
+        set(CPACK_DEBIAN_PACKAGE_ARCHITECTURE "i386")
     endif()
     set(CPACK_SYSTEM_NAME "${CPACK_DEBIAN_PACKAGE_ARCHITECTURE}")
 

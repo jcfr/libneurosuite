@@ -18,6 +18,7 @@ deploy:
   provider: releases
   api_key:
     secure: g7mlT2O4PfBMp5TqPKp1NEuCPrupFEEwdv3AUO0hWPYwAZ+KzV5E7NEPcRZ8tKDEVbxTDZp/+8mdt+LGh31WIEd0zzPlpMsdvKZtln5XGD0B5J8Ghti3jzrdW9fMYWCaosc9w4BCQDF+BS4qHDwv1fMCyq3R4zi3nxB2WgVgMvI=
+  skip_cleanup: true
   file_glob: true
   file: libneurosuite-*.deb
   on:
