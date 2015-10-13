@@ -19,7 +19,7 @@ deploy:
   api_key:
     secure: g7mlT2O4PfBMp5TqPKp1NEuCPrupFEEwdv3AUO0hWPYwAZ+KzV5E7NEPcRZ8tKDEVbxTDZp/+8mdt+LGh31WIEd0zzPlpMsdvKZtln5XGD0B5J8Ghti3jzrdW9fMYWCaosc9w4BCQDF+BS4qHDwv1fMCyq3R4zi3nxB2WgVgMvI=
   file_glob: true
-  file: libneurosuite_*.deb
+  file: libneurosuite-*.deb
   on:
     tags: true
     condition: $TRAVIS_OS_NAME = linux
