@@ -15,6 +15,6 @@ environment:
 build_script:
     - set OLD_PATH=%PATH%
     - set PATH=%MINIMAL_PATH%;%QTDIR%\bin;%EXTRA_PATH%
-    - cmake -G "%CMAKE_GENERATOR%" .
+    - cmake -DWITH_TEST=ON -G "%CMAKE_GENERATOR%" .
     - cmake --build .
     - set PATH=%OLD_PATH%
