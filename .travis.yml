@@ -4,22 +4,20 @@ os:
   - linux
   - osx
 
-before_install:
-  - if [ "$TRAVIS_OS_NAME" = "linux" ]; then sudo apt-get update; fi
-  - if [ "$TRAVIS_OS_NAME" = "osx" ]; then brew update; fi
+env:
+  - QT_VERSION=qt4
+  - QT_VERSION=qt5
 
-install:
-  - if [ "$TRAVIS_OS_NAME" = "linux" ]; then sudo apt-get install -y libqt4-dev; fi
-  - if [ "$TRAVIS_OS_NAME" = "osx" ]; then brew install qt; fi
+install: ./.travis/install.sh
 
-script: cmake -DWITH_QT4=ON . && cpack
+script: ./.travis/script.sh
 
 deploy:
   provider: releases
   api_key:
     secure: g7mlT2O4PfBMp5TqPKp1NEuCPrupFEEwdv3AUO0hWPYwAZ+KzV5E7NEPcRZ8tKDEVbxTDZp/+8mdt+LGh31WIEd0zzPlpMsdvKZtln5XGD0B5J8Ghti3jzrdW9fMYWCaosc9w4BCQDF+BS4qHDwv1fMCyq3R4zi3nxB2WgVgMvI=
   file_glob: true
-  file: libklustersshared_*.deb
+  file: libneurosuite_*.deb
   on:
     tags: true
     condition: $TRAVIS_OS_NAME = linux
