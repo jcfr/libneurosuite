@@ -2,7 +2,7 @@
 CMAKE_CONFIG_VARS="-DWITH_TEST=ON"
 if [ $QT_VERSION = "qt4" ]; then
     CMAKE_CONFIG_VARS="${CMAKE_CONFIG_VARS} -DWITH_QT4=ON"
-else
+fi
 
 mkdir build
 cd build
