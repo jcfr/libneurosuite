@@ -35,7 +35,6 @@ endif(APPLE)
 
 # Configure CMAKE
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
-set(CMAKE_CXX_VISIBILITY_PRESET hidden)
 
 #####################
 # Find dependencies #
@@ -65,13 +64,18 @@ endif()
 # Build main library
 add_subdirectory(src)
 
+# Build test binary
+if(WITH_TEST)
+    add_subdirectory(test)
+endif()
+
 ##############################
 # Create CMake package files #
 ##############################
 set(CMAKE_PACKAGE_BUILD_DIR "${CMAKE_CURRENT_BINARY_DIR}/cmake")
 
 # Create targets file
-export(EXPORT targets
+export(EXPORT LibraryTargets
        FILE "${CMAKE_PACKAGE_BUILD_DIR}/${PROJECT_NAME}Targets.cmake"
 )
 
@@ -104,7 +108,7 @@ install(FILES "${CMAKE_PACKAGE_BUILD_DIR}/${PROJECT_NAME}Config.cmake"
 )
 
 # Install target
-install(EXPORT targets
+install(EXPORT LibraryTargets
         DESTINATION ${CMAKE_PACKAGE_FILE_DESTINATION}
         FILE "${PROJECT_NAME}Targets.cmake")
 
@@ -267,8 +271,3 @@ SET(CPACK_IGNORE_FILES '.git'  "/[._]obj/" "/moc_" "/[._]o/" "/CMakeFiles/" "/[.
 
 
 include(CPack)
-
-# Build test binary
-if(WITH_TEST)
-    add_subdirectory(test)
-endif()

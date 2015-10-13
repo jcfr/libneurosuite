@@ -13,3 +13,7 @@ if(WITH_QT4)
 else()
     target_link_libraries(test_scrollview Qt5::Widgets)
 endif()
+
+install(TARGETS test_scrollview
+        DESTINATION bin
+)
