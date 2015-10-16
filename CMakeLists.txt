@@ -25,9 +25,6 @@ option(WITH_TEST
 # Enable exports for library build
 add_definitions(-DNEUROSUITE_BUILD_NEUROSUITE_LIB)
 
-# Enable fast QT operators
-#add_definitions(-DQT_USE_FAST_CONCATENATION -DQT_USE_FAST_OPERATOR_PLUS)
-
 if(APPLE)
    # Enable RPATH on OS X (default in CMake >= 3.0)
    set(CMAKE_MACOSX_RPATH ON)
@@ -42,13 +39,16 @@ set(PROJECT_IS_64BIT CMAKE_SIZEOF_VOID_P EQUAL 8)
 #####################
 # Find dependencies #
 #####################
-# Find correct Qt library
+# Configure Qt functionality
 set(CMAKE_AUTOMOC ON)
+add_definitions(-DQT_USE_QSTRINGBUILDER)
+
+# Find correct Qt library
 if(WITH_QT4)
     find_package(Qt4 4.8.0 REQUIRED QtGui QtWebKit)
 
     if(APPLE)
-        # Or QStandardPaths port needs these on OS X
+        # The QStandardPaths port needs these on OS X
         find_library(CF_LIBRARIES NAMES CoreFoundation)
         find_library(CS_LIBRARIES NAMES CoreServices)
     endif()
@@ -57,7 +57,6 @@ else()
     find_package(Qt5PrintSupport REQUIRED)
     find_package(Qt5WebKitWidgets REQUIRED)
 endif()
-
 
 if (MSVC)
    # Qt disables the native wchar_t type, do it too to avoid linking issues
@@ -88,7 +87,17 @@ set(CMAKE_PACKAGE_BUILD_DIR "${CMAKE_CURRENT_BINARY_DIR}/cmake")
 # Create config file
 configure_file(cmake/PackageConfig.cmake.in
     "${CMAKE_PACKAGE_BUILD_DIR}/${PROJECT_NAME}Config.cmake"
-    @ONLY)
+    @ONLY
+)
+
+configure_file(cmake/NeurosuiteHelpers.cmake
+    "${CMAKE_PACKAGE_BUILD_DIR}/NeurosuiteHelpers.cmake"
+    COPYONLY
+)
+configure_file(cmake/DeployQt5.cmake
+    "${CMAKE_PACKAGE_BUILD_DIR}/DeployQt5.cmake"
+    COPYONLY
+)
 
 # Create version file
 include(CMakePackageConfigHelpers)
@@ -110,6 +119,8 @@ endif()
 # Install config and version
 install(FILES "${CMAKE_PACKAGE_BUILD_DIR}/${PROJECT_NAME}Config.cmake"
               "${CMAKE_PACKAGE_BUILD_DIR}/${PROJECT_NAME}ConfigVersion.cmake"
+              "${CMAKE_PACKAGE_BUILD_DIR}/NeurosuiteHelpers.cmake"
+              "${CMAKE_PACKAGE_BUILD_DIR}/DeployQt5.cmake"
         DESTINATION ${CMAKE_PACKAGE_FILE_DESTINATION}
 )
 
