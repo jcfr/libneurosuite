@@ -164,12 +164,11 @@ function(neurosuite_unix_system_info _DIST_VAR _REL_VAR _ARCH_VAR)
         find_program(LSB_RELEASE_CMD lsb_release)
         if(LSB_RELEASE_CMD)
             # ... then use it to determine distribution and release
-            execute_process(COMMAND "${LSB_RELEASE_CMD} -si"
+            execute_process(COMMAND ${LSB_RELEASE_CMD} -si
                             OUTPUT_VARIABLE DISTRIBUTION
                             OUTPUT_STRIP_TRAILING_WHITESPACE)
             set(${_DIST_VAR} ${DISTRIBUTION} PARENT_SCOPE)
-
-            execute_process(COMMAND "${LSB_RELEASE_CMD} -sc"
+            execute_process(COMMAND ${LSB_RELEASE_CMD} -sc
                             OUTPUT_VARIABLE RELEASE
                             OUTPUT_STRIP_TRAILING_WHITESPACE)
             set(${_REL_VAR} ${RELEASE} PARENT_SCOPE)
@@ -183,7 +182,7 @@ function(neurosuite_unix_system_info _DIST_VAR _REL_VAR _ARCH_VAR)
         find_program(DPKG_CMD dpkg)
         if(DPKG_CMD)
             # ... then use it to determine architecture string
-            execute_process(COMMAND "${DPKG_CMD} --print-architecture"
+            execute_process(COMMAND ${DPKG_CMD} --print-architecture
                 OUTPUT_VARIABLE ARCHITECTURE
                 OUTPUT_STRIP_TRAILING_WHITESPACE)
             set(${_ARCH_VAR} ${ARCHITECTURE} PARENT_SCOPE)
@@ -244,9 +243,9 @@ function(neurosuite_cpack_deb _DIST_NAME _DEPENDS _EXTRA_DIR _NAME_TEMPL)
         endif()
 
         # Determine package name
-        set(NAME CPACK_PACKAGE_NAME)
-        set(VERSION CPACK_PACKAGE_VERSION)
-        neurosuite_eval(CPACK_PACKAGE_FILE_NAME ${_NAME_TEMPL} PARENT_SCOPE)
+        set(NAME ${CPACK_PACKAGE_NAME})
+        set(VERSION ${CPACK_PACKAGE_VERSION})
+        neurosuite_eval(CPACK_PACKAGE_FILE_NAME "${_NAME_TEMPL}" PARENT_SCOPE)
     endif()
 endfunction()
 
@@ -292,9 +291,9 @@ function(neurosuite_cpack_rpm _DIST_NAME _REQUIRES _SCRIPT_DIR _NAME_TEMPL)
         endif()
 
         # Determine package name
-        set(NAME CPACK_PACKAGE_NAME)
-        set(VERSION CPACK_PACKAGE_VERSION)
-        neurosuite_eval(CPACK_PACKAGE_FILE_NAME ${_NAME_TEMPL} PARENT_SCOPE)
+        set(NAME ${CPACK_PACKAGE_NAME})
+        set(VERSION ${CPACK_PACKAGE_VERSION})
+        neurosuite_eval(CPACK_PACKAGE_FILE_NAME "${_NAME_TEMPL}" PARENT_SCOPE)
     endif()
 endfunction()
 
