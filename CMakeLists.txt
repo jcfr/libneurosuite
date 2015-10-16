@@ -21,7 +21,6 @@ option(WITH_TEST
 ##############################
 # Configure build environment #
 ###############################
-
 # Enable exports for library build
 add_definitions(-DNEUROSUITE_BUILD_NEUROSUITE_LIB)
 
@@ -78,25 +77,17 @@ endif()
 # Create CMake package files #
 ##############################
 set(CMAKE_PACKAGE_BUILD_DIR "${CMAKE_CURRENT_BINARY_DIR}/cmake")
+set(CMAKE_MODULE_BUILD_DIR "${CMAKE_PACKAGE_BUILD_DIR}/modules")
 
-# Create targets file (disabled, does not work in cmake < 3.0.0)
-# export(EXPORT LibraryTargets
-#        FILE "${CMAKE_PACKAGE_BUILD_DIR}/${PROJECT_NAME}Targets.cmake"
-# )
+# Create targets file
+export(TARGETS ${PROJECT_NAME}
+       FILE "${CMAKE_PACKAGE_BUILD_DIR}/${PROJECT_NAME}Targets.cmake"
+)
 
-# Create config file
-configure_file(cmake/PackageConfig.cmake.in
+# Copy config file
+configure_file(cmake/PackageConfig.cmake
     "${CMAKE_PACKAGE_BUILD_DIR}/${PROJECT_NAME}Config.cmake"
     @ONLY
-)
-
-configure_file(cmake/NeurosuiteHelpers.cmake
-    "${CMAKE_PACKAGE_BUILD_DIR}/NeurosuiteHelpers.cmake"
-    COPYONLY
-)
-configure_file(cmake/DeployQt5.cmake
-    "${CMAKE_PACKAGE_BUILD_DIR}/DeployQt5.cmake"
-    COPYONLY
 )
 
 # Create version file
@@ -107,74 +98,74 @@ write_basic_package_version_file(
     COMPATIBILITY SameMajorVersion
 )
 
+# Copy module files
+foreach(CMAKE_FILE  DeployNeurosuite DeployQt5 PackNeurosuite)
+    configure_file(cmake/modules/${CMAKE_FILE}.cmake
+                   "${CMAKE_MODULE_BUILD_DIR}/${CMAKE_FILE}.cmake"
+                   COPYONLY)
+endforeach()
+
 ###############################
 # Install CMake package files #
 ###############################
 if(WIN32)
-    set(CMAKE_PACKAGE_FILE_DESTINATION "CMake")
+    set(CMAKE_PACKAGE_INSTALL_DIR "CMake")
 else()
-    set(CMAKE_PACKAGE_FILE_DESTINATION "lib/cmake/${PROJECT_NAME}")
+    set(CMAKE_PACKAGE_INSTALL_DIR "lib/cmake/${PROJECT_NAME}")
 endif()
+set(CMAKE_MODULE_INSTALL_DIR "${CMAKE_PACKAGE_INSTALL_DIR}/modules")
 
 # Install config and version
 install(FILES "${CMAKE_PACKAGE_BUILD_DIR}/${PROJECT_NAME}Config.cmake"
               "${CMAKE_PACKAGE_BUILD_DIR}/${PROJECT_NAME}ConfigVersion.cmake"
-              "${CMAKE_PACKAGE_BUILD_DIR}/NeurosuiteHelpers.cmake"
-              "${CMAKE_PACKAGE_BUILD_DIR}/DeployQt5.cmake"
-        DESTINATION ${CMAKE_PACKAGE_FILE_DESTINATION}
+        DESTINATION ${CMAKE_PACKAGE_INSTALL_DIR}
 )
 
 # Install target
 install(EXPORT LibraryTargets
-        DESTINATION ${CMAKE_PACKAGE_FILE_DESTINATION}
+        DESTINATION ${CMAKE_PACKAGE_INSTALL_DIR}
         FILE "${PROJECT_NAME}Targets.cmake")
+
+# Install module files
+file(GLOB MODULE_FILES "${CMAKE_MODULE_BUILD_DIR}/*.cmake")
+install(FILES ${MODULE_FILES}
+        DESTINATION ${CMAKE_MODULE_INSTALL_DIR})
 
 ######################
 # CPack Configuriton #
 ######################
-set(CPACK_PACKAGE_NAME "lib${PROJECT_NAME}")
-set(CPACK_PACKAGE_CONTACT "Florian Franzen <FlorianFranzen@gmail.com>")
+list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_BINARY_DIR}/cmake/modules")
+include(PackNeurosuite)
+# Init CPack variables
+neurosuite_cpack_init("lib${PROJECT_NAME}"
+                      ${PROJECT_VERSION}
+                      "Florian Franzen <FlorianFranzen@gmail.com"
+                      "Library for shared functionality of Klusters, Neuroscope and NDManager"
+                      OFF)
 
-set(CPACK_PACKAGE_DESCRIPTION_SUMMARY "Library for shared functionality between Klusters, Neuroscope and NDManager")
-
-set(CPACK_PACKAGE_VERSION_MAJOR ${PROJECT_VERSION_MAJOR})
-set(CPACK_PACKAGE_VERSION_MINOR ${PROJECT_VERSION_MINOR})
-set(CPACK_PACKAGE_VERSION_PATCH ${PROJECT_VERSION_PATCH})
-
-if(WIN32)
-    set(CPACK_GENERATOR "NSIS")
-    if(PROJECT_IS_64BIT)
-        set(CPACK_SYSTEM_NAME "win64")
-    else()
-        set(CPACK_SYSTEM_NAME "win32")
-    endif()
-elseif(APPLE)
-    set(CPACK_GENERATOR "ZIP")
-    set(CPACK_SYSTEM_NAME "osx")
-else()
-    set(CPACK_GENERATOR "DEB")
-
-    if(PROJECT_IS_64BIT)
-        set(CPACK_DEBIAN_PACKAGE_ARCHITECTURE "amd64")
-    else()
-        set(CPACK_DEBIAN_PACKAGE_ARCHITECTURE "i386")
-    endif()
-    set(CPACK_SYSTEM_NAME "${CPACK_DEBIAN_PACKAGE_ARCHITECTURE}")
-
-    if(WITH_QT4)
-        set(CPACK_DEBIAN_PACKAGE_DEPENDS "libqtgui4 (>= 4.8.0), libqtwebkit4 (>= 4.8.0)")
-    else()
-        set(CPACK_DEBIAN_PACKAGE_DEPENDS "libqt5widgets5, libqt5printsupport5, libqt5webkit5")
-    endif()
-
-    set(CPACK_DEBIAN_PACKAGE_SECTION "Science")
-    set(CPACK_DEBIAN_PACKAGE_HOMEPAGE "https://neurosuite.github.io/")
-endif()
-
+# Use deb and rpm on linux
 if(WITH_QT4)
-    set(CPACK_SYSTEM_NAME "${CPACK_SYSTEM_NAME}-qt4")
+    neurosuite_cpack_ubuntu(
+        "libqtgui4, libqt4-webkit4"
+        OFF
+    )
+    neurosuite_cpack_suse(
+        "libqt4, libqt4-x11, libQtWebKit4"
+        OFF
+    )
+    neurosuite_cpack_fedora(
+        "qt, qt-mobility, qtwebkit, qt-x11"
+        OFF
+    )
+    neurosuite_cpack_scientific(
+        "libQtCore, libQtGui, libQtNetwork, libQtWebKit"
+        OFF
+    )
 else()
-    set(CPACK_SYSTEM_NAME "${CPACK_SYSTEM_NAME}-qt5")
+    neurosuite_cpack_ubuntu(
+        "libqt5widgets5, libqt5printsupport5, libqt5webkit5"
+        OFF
+    )
 endif()
 
 include(CPack)

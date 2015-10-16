@@ -1,9 +1,6 @@
-# - Functions to help build and package Neurosuite apps.
+# - Functions to help package Neurosuite apps.
 #
-# The following BundleUtilities-based functions are provided by this module:
-#   install_neurosuite_dependencies
-#
-# The following CPack-based functions are provided by this module:
+# The following functions are provided by this module:
 #   neurosuite_cpack_init
 #   neurosuite_cpack_nsis
 #   neurosuite_cpack_dmg
@@ -15,29 +12,23 @@
 #   neurosuite_cpack_scientific
 #
 # Requires CMake 2.6 or greater because it uses function and
-# PARENT_SCOPE. Also depends on DeployQt4.cmake, DeployQt5.cmake and
-# InstallRequiredSystemLibraries.cmake
+# PARENT_SCOPE.
 #
-#
-# INSTALL_NEUROSUITE_DEPENDENCIES(<executable>)
-#   Installs msvc, qt, neurosuite and cbsdk libs for <executable>.
-#   To determine what to install, the following variables are used:
-#       WITH_QT4      - True if qt4 is used (else qt5)
-#       WITH_CEREBUS  - True if cbsdk is needed/used
-#
-#
-# NEUROSUITE_CPACK_INIT(<version> <maintainer> <summary> <descrip_file>)
+# NEUROSUITE_CPACK_INIT(<name> <version> <maintainer> <summary> <descrip_file>)
 #   Initializes CPack variables with some sensible defaults, should to be run
 #   before all other neurosuite_cpack_* commands.
+#
+#   <name>: name of the package to be created, e.g. "libawesome"
 #
 #   <version>: full version string of package, e.g. "1.2.3"
 #
 #   <maintainer>: name and email address of maintainer,
 #                 e.g. "First Last <First.Last@domain.com>"
 #
-#   <summary>: summary of description, e.g. "NeuroScope is a program for stuff"
+#   <summary>: summary of description, e.g. "LibAwesome is an awesome library."
 #
-#   <descrip_file>: file path to full description file, e.g /path/to/file.txt
+#   <descrip_file>: file path to full description file, e.g /path/to/file.txt,
+#                   set to FALSE to not set a description file
 #
 # NEUROSUITE_CPACK_NSIS(<target> <target_name> <license_file>)
 #   Setup NSIS CPack generator if on Windows.
@@ -74,42 +65,10 @@
 #   fedora or scientific linux. See above for more information on the
 #   parameters.
 
-
-function(install_neurosuite_dependencies _EXECUTABLE)
-    # Install MSVC runtime dlls if needed
-    if(MSVC)
-        include(InstallRequiredSystemLibraries)
-    endif()
-    # Install MINGW runtime if needed
-    if(MINGW)
-        find_path(MINGW_DIR libstdc++-6.dll)
-        install(FILES ${MINGW_DIR}/libgcc_s_dw2-1.dll
-                      ${MINGW_DIR}/libstdc++-6.dll
-                      ${MINGW_DIR}/mingwm10.dll
-                DESTINATION bin)
-    endif()
-
-    # Determine dependencies search path
-    set(DIRS "${neurosuite_DIR}/../lib")
-    if(WITH_CEREBUS)
-        set(DIRS "${DIRS};${cbsdk_DIR}/../lib")
-    endif()
-
-    # Use DeployQt4/5 to install qt and other libraries
-    if(WITH_QT4)
-        include(DeployQt4)
-        install_qt4_executable(${_EXECUTABLE} "" "" ${DIRS})
-    else()
-        include(DeployQt5)
-        install_qt5_executable(${_EXECUTABLE} "qcocoa" "" ${DIRS})
-    endif()
-endfunction()
-
-################
-# CPack Helper #
-################
-
-function(neurosuite_cpack_init _VERSION _MAINTAINER _SUMMARY _DESCRIPTION_FILE)
+##############
+# CPack init #
+##############
+function(neurosuite_cpack_init _NAME _VERSION _MAINTAINER _SUMMARY _DESCR_FILE)
     # Set some good system defaults
     set(CPACK_GENERATOR "ZIP" PARENT_SCOPE)
     set(CPACK_SYSTEM_NAME
@@ -117,13 +76,16 @@ function(neurosuite_cpack_init _VERSION _MAINTAINER _SUMMARY _DESCRIPTION_FILE)
         PARENT_SCOPE)
 
     # Set name, version and vendors
+    set(CPACK_PACKAGE_NAME ${_NAME} PARENT_SCOPE)
     set(CPACK_PACKAGE_VERSION ${_VERSION} PARENT_SCOPE)
     set(CPACK_PACKAGE_VENDOR "Neurosuite" PARENT_SCOPE)
 
     # Use supplied info to all other variables
     set(CPACK_PACKAGE_CONTACT ${_MAINTAINER} PARENT_SCOPE)
     set(CPACK_PACKAGE_DESCRIPTION_SUMMARY ${_SUMMARY} PARENT_SCOPE)
-    set(CPACK_PACKAGE_DESCRIPTION_FILE ${_DESCRIPTION_FILE} PARENT_SCOPE)
+    if(_DESCR_FILE)
+        set(CPACK_PACKAGE_DESCRIPTION_FILE ${_DESCR_FILE} PARENT_SCOPE)
+    endif()
 endfunction()
 
 ############################
@@ -139,7 +101,6 @@ function(neurosuite_cpack_nsis _TARGET _STYLED_NAME _LICENSE_FILE)
         set(CPACK_NSIS_DISPLAY_NAME "${_STYLED_NAME}" PARENT_SCOPE)
 
         # Set install and registry path
-        set(CPACK_NSIS_INSTALL_ROOT "$PROGRAMFILES"  PARENT_SCOPE)
         set(CPACK_PACKAGE_INSTALL_DIRECTORY "${_STYLED_NAME}" PARENT_SCOPE)
 
         set(CPACK_PACKAGE_INSTALL_REGISTRY_KEY ${_TARGET} PARENT_SCOPE)
@@ -167,6 +128,15 @@ function(neurosuite_cpack_nsis _TARGET _STYLED_NAME _LICENSE_FILE)
         set(CPACK_NSIS_HELP_LINK
             "https:////neurosuite.github.io//information.html"
             PARENT_SCOPE)
+
+        # Fix package name and install root depending on architecture
+        if(CMAKE_SYSTEM_PROCESSOR STREQUAL "AMD64")
+            set(CPACK_NSIS_INSTALL_ROOT "$PROGRAMFILES64"  PARENT_SCOPE)
+            set(CPACK_SYSTEM_NAME "win64" PARENT_SCOPE)
+        else()
+            set(CPACK_NSIS_INSTALL_ROOT "$PROGRAMFILES32"  PARENT_SCOPE)
+            set(CPACK_SYSTEM_NAME "win32" PARENT_SCOPE)
+        endif()
     endif()
 endfunction()
 
