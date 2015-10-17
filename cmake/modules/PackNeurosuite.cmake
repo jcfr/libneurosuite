@@ -130,7 +130,7 @@ function(neurosuite_cpack_nsis _TARGET _STYLED_NAME _LICENSE_FILE)
             PARENT_SCOPE)
 
         # Fix package name and install root depending on architecture
-        if(CMAKE_SYSTEM_PROCESSOR STREQUAL "AMD64")
+        if(CMAKE_SIZEOF_VOID_P EQUAL 8)
             set(CPACK_NSIS_INSTALL_ROOT "$PROGRAMFILES64"  PARENT_SCOPE)
             set(CPACK_SYSTEM_NAME "win64" PARENT_SCOPE)
         else()
