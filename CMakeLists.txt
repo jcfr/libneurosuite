@@ -32,9 +32,6 @@ endif(APPLE)
 # Configure CMAKE
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
 
-# Detect 64bit build
-set(PROJECT_IS_64BIT CMAKE_SIZEOF_VOID_P EQUAL 8)
-
 #####################
 # Find dependencies #
 #####################
