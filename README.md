@@ -1,4 +1,5 @@
 [![Build Status](https://travis-ci.org/neurosuite/libneurosuite.svg?branch=master)](https://travis-ci.org/neurosuite/libneurosuite)
+[![Build status](https://ci.appveyor.com/api/projects/status/fggh0drhbaca6k12/branch/master?svg=true)](https://ci.appveyor.com/project/FloFra/libneurosuite/branch/master)
 
 libneurosuite
 =============
