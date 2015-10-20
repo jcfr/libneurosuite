@@ -38,8 +38,13 @@ function(install_neurosuite_dependencies _EXECUTABLE)
     endif()
 
     # Determine plugins
-    if(APPLE AND WITH_QT4)
-        list(APPEND PLUGINS qcocoa)
+    if(NOT WITH_QT4)
+        if(APPLE)
+            list(APPEND PLUGINS qcocoa)
+        endif()
+        if(WIN32)
+            list(APPEND PLUGINS qwindows)
+        endif()
     endif()
 
     # Use DeployQt4/5 to install qt and other libraries
