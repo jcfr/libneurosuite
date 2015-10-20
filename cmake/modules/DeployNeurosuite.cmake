@@ -21,18 +21,6 @@ function(install_neurosuite_dependencies _EXECUTABLE)
         include(InstallRequiredSystemLibraries)
     endif()
 
-    # Fix unset QT_LIBRARY_DIR if possible
-    if(NOT QT_LIBRARY_DIR)
-        if(NOT WITH_QT4)
-            if(TARGET Qt5::Core)
-                get_property(LOCATION TARGET Qt5::Core PROPERTY LOCATION)
-                get_filename_component(QT_LIBRARY_DIR ${LOCATION} PATH)
-            else()
-                message(WARNING "Qt5::Core not defined, will not be able to determine QT_LIBRARY_DIR automatically.")
-            endif()
-        endif()
-    endif()
-
     # Determine dependencies search path
     if(MINGW)
         find_path(MINGW_DIR libstdc++-6.dll)
