@@ -1,5 +1,7 @@
 # - Functions to help deploy Neurosuite apps.
 #
+# Copyright 2015 by Florian Franzen
+#
 # The following functions are provided by this module:
 #   install_neurosuite_dependencies
 #
@@ -13,7 +15,6 @@
 #   To determine what to install, the following variables are used:
 #       WITH_QT4      - True if qt4 is used (else qt5)
 #       WITH_CEREBUS  - True if cbsdk is needed/used
-#
 
 function(install_neurosuite_dependencies _EXECUTABLE)
     # Install MSVC runtime dlls if needed

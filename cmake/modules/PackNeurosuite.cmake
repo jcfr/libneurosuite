@@ -1,5 +1,7 @@
 # - Functions to help package Neurosuite apps.
 #
+# Copyright 2015 by Florian Franzen
+#
 # The following functions are provided by this module:
 #   neurosuite_cpack_init
 #   neurosuite_cpack_nsis
