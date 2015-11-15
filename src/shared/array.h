@@ -21,33 +21,42 @@
 //C include files
 #include <cstring>
 
-//General C++ include files
-
-
-
 /**
   * This Array class is a template class that provides arrays of simple types.
   * Array stores the array elements directly in the array. It can only deal with simple types.
-  * Array provides an easy way to acess the elements through the parenthesis operator. 
+  * Array provides an easy way to acess the elements through the parenthesis operator.
   *@author Lynn Hazan
   */
   
 template <class T>
 class Array {
 public:
-	inline Array(long nbOfRows,long nbOfColumns){
-    nbColumns = nbOfColumns;
-    nbRows = nbOfRows;
-    array = new T[nbRows * nbColumns];
+  inline Array() : nbColumns(0),
+                   nbRows(0),
+                   array(NULL) {}
+
+  inline Array(long nbOfRows, long nbOfColumns) :
+      nbRows(nbOfRows),
+      nbColumns(nbOfColumns),
+      array(new T[nbOfRows * nbOfColumns]) {}
+
+  // Copy constructor
+  inline Array(const Array& source) :
+      nbRows(source.nbRows),
+      nbColumns(source.nbColumns),
+      array(new T[source.nbRows * source.nbColumns]) {
+    memcpy(array, source.array, nbRows * nbColumns * sizeof(T));
   }
-  
-  inline Array():nbColumns(0),nbRows(0),array(0L){}
-  
- 	inline ~Array(){
-    delete []array;
+
+  inline ~Array(){
+    delete[] array;
   }
+
   /**
-  *
+    Resize the Array to different size. All data will be lost.
+
+    @param  nbOfRows     new number of rows
+    @param  nbOfColumns  new number of columns
   */
   inline void setSize(long nbOfRows,long nbOfColumns){
     nbColumns = nbOfColumns;
